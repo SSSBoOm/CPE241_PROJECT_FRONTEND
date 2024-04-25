@@ -10,7 +10,6 @@ const config: Config = {
         'primary-b2' : '#FDF4E8',
         'primary-orange': '#F89200',
         'primary-yellow': '#FFD234',
-        
       },
     },
   },
