@@ -7,7 +7,7 @@ import LoginPage from './pages/Login/LoginPage'
 function App() {
   return (
     <BrowserRouter>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path={BASE_PATH} element={<HomePage />} />
         <Route path={LOGIN_PATH} element={<LoginPage />} />

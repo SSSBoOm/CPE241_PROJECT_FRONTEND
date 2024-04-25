@@ -1,7 +1,6 @@
-import { Button, ConfigProvider } from 'antd'
+import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
-import { Dropdown, Space } from 'antd'
-import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { Button, ConfigProvider, Dropdown } from 'antd'
 
 const items: MenuProps['items'] = [
   {
