@@ -6,13 +6,10 @@ const config: Config = {
     extend: {
       colors: {
         'primary-blue-700': '#042330',
-        'primary-blue-600' : '#0E4459',
-        'primary-b2' : '#FDF4E8',
+        'primary-blue-600': '#0E4459',
+        'primary-b2': '#FDF4E8',
         'primary-orange': '#F89200',
         'primary-yellow': '#FFD234',
-      },
-      width: {
-        '208': '52rem'
       },
     },
   },
