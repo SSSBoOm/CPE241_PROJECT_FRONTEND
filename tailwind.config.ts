@@ -11,6 +11,9 @@ const config: Config = {
         'primary-orange': '#F89200',
         'primary-yellow': '#FFD234',
       },
+      width: {
+        '208': '52rem'
+      },
     },
   },
   plugins: [],
