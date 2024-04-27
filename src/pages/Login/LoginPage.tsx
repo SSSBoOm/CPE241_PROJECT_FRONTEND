@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
             </Button>
           </div>
         </div>
-        <div className="text-center text-cyan-900 text-lg font-normal text-base leading-snug mt-2 mb-3">OR</div>
+        <div className="text-center text-cyan-900 text-lg font-normal leading-snug mt-2 mb-3">OR</div>
         <Button className="w-full h-full">Google</Button>
       </Card>
     </div>
