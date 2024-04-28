@@ -2,26 +2,26 @@ import { ExpandAltOutlined } from '@ant-design/icons'
 import { Checkbox } from 'antd'
 
 type Props = {
-    name?: string
-    content?: string
-    size?: string
-    accommodate?: number
-    food: boolean
-    view: {
-        sea: boolean
-        forest: boolean
-    }
-    image?: string
-    price?: number
-    checkIn : string
-    checkOut : string
+  name?: string
+  content?: string
+  size?: string
+  accommodate?: number
+  food: boolean
+  view: {
+    sea: boolean
+    forest: boolean
+  }
+  image?: string
+  price?: number
+  checkIn: string
+  checkOut: string
 }
 
 const RoomCardList = (props: Props) => {
   return (
     <div className=" container grid grid-cols-3 box-content h-72 w-[40rem] border-4 text-primary-blue-600 content-center ">
       <div className="w-full col-span-1 items-center content-center">
-      <img src={props.image} className=" w-4/6 " alt="" />
+        <img src={props.image} className=" w-4/6 " alt="" />
       </div>
       <div className=" w-full col-span-2 row-span-1 p-3 grid grid-cols-2 grid-rows-8">
         <div className=" w-full col-span-2 ">
@@ -50,15 +50,11 @@ const RoomCardList = (props: Props) => {
           <div>{props.view.forest ? <span className=" text-base ">forest view</span> : null}</div>
         </div>
         <div className=" w-full row-span-1 col-span-1 text-center "></div>
-        <div className=" w-full row-span-1 col-span-1 text-center ">
-            {props.checkIn}
-        </div>
-        <div className=" w-full row-span-1 col-span-1 text-center ">
-            {props.checkOut}
-        </div>
+        <div className=" w-full row-span-1 col-span-1 text-center ">{props.checkIn}</div>
+        <div className=" w-full row-span-1 col-span-1 text-center ">{props.checkOut}</div>
         <div className=" w-full row-span-2 col-span-1 text-right content-end ">
-            <span className=' text-2xl font-bold '>{props.price} Bath </span>
-            <Checkbox className='  ' />
+          <span className=" text-2xl font-bold ">{props.price} Bath </span>
+          <Checkbox className="  " />
         </div>
       </div>
     </div>
