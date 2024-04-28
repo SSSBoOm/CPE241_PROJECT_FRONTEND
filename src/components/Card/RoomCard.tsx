@@ -17,22 +17,22 @@ type Props = {
 
 const RoomCard = (props: Props) => {
   return (
-    <div className=" container grid grid-cols-3 box-content h-72 w-[52rem] border-4 text-primary-blue-600 content-center ">
-      <div className="w-full col-span-1 items-center content-center flex ">
+    <div className=" container box-content grid h-72 w-[52rem] grid-cols-3 content-center border-4 text-primary-blue-600 ">
+      <div className="col-span-1 flex w-full content-center items-center ">
         <img src={props.image} className=" w-4/6 " alt="" />
       </div>
-      <div className=" w-full col-span-2 row-span-1 p-3 grid grid-cols-2 grid-rows-9">
-        <div className=" w-full col-span-2 ">
+      <div className=" col-span-2 row-span-1 grid w-full grid-cols-2 grid-rows-9 p-3">
+        <div className=" col-span-2 w-full ">
           <span className=" text-2xl ">{props.name}</span>
         </div>
-        <div className=" w-full col-span-2 row-span-2 ">
+        <div className=" col-span-2 row-span-2 w-full ">
           <span className=" text-sm ">
             content
             <br />
             {props.content}
           </span>
         </div>
-        <div className="w-full row-span-6 col-span-1 grid grid-rows-6">
+        <div className="col-span-1 row-span-6 grid w-full grid-rows-6">
           <div className=" text-base  ">
             <ExpandAltOutlined className=" pr-1"></ExpandAltOutlined>
             content of room
@@ -47,10 +47,10 @@ const RoomCard = (props: Props) => {
           <div>{props.view.sea ? <span className=" text-base ">sea view</span> : null}</div>
           <div>{props.view.forest ? <span className=" text-base ">forest view</span> : null}</div>
         </div>
-        <div className=" w-full row-span-3 col-span-1 text-center content-end ">
+        <div className=" col-span-1 row-span-3 w-full content-end text-center ">
           <span className=" text-3xl font-bold ">Bath {props.price}</span>
         </div>
-        <div className=" w-full row-span-3 col-span-1 text-center ">
+        <div className=" col-span-1 row-span-3 w-full text-center ">
           <Button className=" mx-1 bg-primary-blue-600 text-white ">Booking</Button>
         </div>
       </div>

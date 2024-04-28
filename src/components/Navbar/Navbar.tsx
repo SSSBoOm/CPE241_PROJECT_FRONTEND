@@ -37,10 +37,10 @@ const Navbar = () => {
           },
         }}
       >
-        <div className=" bg-primary-blue-600 h-16 content-center">
-          <div className=" grid grid-cols-3 gap-x-2 px-5 justify-items-center">
+        <div className=" h-16 content-center bg-primary-blue-600">
+          <div className=" grid grid-cols-3 justify-items-center gap-x-2 px-5">
             <div></div>
-            <div className="grid grid-cols-4 content-center text-lg text-primary-b2 text-center">
+            <div className="grid grid-cols-4 content-center text-center text-lg text-primary-b2">
               <a href="" className=" mx-3 hover:text-primary-orange">
                 Home
               </a>
@@ -54,7 +54,7 @@ const Navbar = () => {
                 Services
               </a>
             </div>
-            <div className="justify-self-end content-center">
+            <div className="content-center justify-self-end">
               <a href="" className=" mx-3">
                 <ShoppingCartOutlined
                   className=" text-primary-b2  hover:text-primary-orange"
@@ -69,7 +69,7 @@ const Navbar = () => {
                   />
                 </a>
               </Dropdown>
-              <a href="" className="mx-3 text-lg text-primary-b2 text-center hover:text-primary-orange ">
+              <a href="" className="mx-3 text-center text-lg text-primary-b2 hover:text-primary-orange ">
                 login
               </a>
               <Button ghost className="mx-3">
