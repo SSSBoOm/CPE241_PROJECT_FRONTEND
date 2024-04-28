@@ -9,11 +9,11 @@ const config: Config = {
         'primary-blue-600': '#0E4459',
         'primary-b2': '#FDF4E8',
         'primary-orange': '#F89200',
-        'primary-yellow': '#FFD234',
-      },
-    },
+        'primary-yellow': '#FFD234'
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 }
 
 export default config

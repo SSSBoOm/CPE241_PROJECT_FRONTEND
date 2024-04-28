@@ -5,19 +5,19 @@ import { Button, ConfigProvider, Dropdown } from 'antd'
 const items: MenuProps['items'] = [
   {
     label: <a href="">Edit Profile</a>,
-    key: '0',
+    key: '0'
   },
   {
     label: <a href="">Booking History</a>,
-    key: '1',
+    key: '1'
   },
   {
-    type: 'divider',
+    type: 'divider'
   },
   {
     label: <a href="">Logout</a>,
-    key: '3',
-  },
+    key: '3'
+  }
 ]
 const Navbar = () => {
   return (
@@ -31,17 +31,17 @@ const Navbar = () => {
 
               defaultHoverBorderColor: '#F89200',
               defaultGhostBorderColor: '#F89200',
-              defaultHoverColor: '#F89200',
+              defaultHoverColor: '#F89200'
               //: '#F89200',
-            },
-          },
+            }
+          }
         }}
       >
-        <div className=" h-16 content-center bg-primary-blue-600">
-          <div className=" grid grid-cols-3 justify-items-center gap-x-2 px-5">
+        <div className="h-16 content-center bg-primary-blue-600">
+          <div className="grid grid-cols-3 justify-items-center gap-x-2 px-5">
             <div></div>
             <div className="grid grid-cols-4 content-center text-center text-lg text-primary-b2">
-              <a href="" className=" mx-3 hover:text-primary-orange">
+              <a href="" className="mx-3 hover:text-primary-orange">
                 Home
               </a>
               <a href="" className="mx-3 hover:text-primary-orange">
@@ -55,9 +55,9 @@ const Navbar = () => {
               </a>
             </div>
             <div className="content-center justify-self-end">
-              <a href="" className=" mx-3">
+              <a href="" className="mx-3">
                 <ShoppingCartOutlined
-                  className=" text-primary-b2  hover:text-primary-orange"
+                  className="text-primary-b2  hover:text-primary-orange"
                   style={{ fontSize: '32px' }}
                 />
               </a>
@@ -69,7 +69,7 @@ const Navbar = () => {
                   />
                 </a>
               </Dropdown>
-              <a href="" className="mx-3 text-center text-lg text-primary-b2 hover:text-primary-orange ">
+              <a href="" className="mx-3 text-center text-lg text-primary-b2 hover:text-primary-orange">
                 login
               </a>
               <Button ghost className="mx-3">
