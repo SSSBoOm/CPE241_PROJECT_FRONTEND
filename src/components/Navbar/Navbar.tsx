@@ -40,8 +40,8 @@ const Navbar = () => {
         <div className="h-16 content-center bg-primary-blue-600">
           <div className="grid grid-cols-3 justify-items-center gap-x-2 px-5">
             <div></div>
-            <div className="grid grid-cols-4 content-center text-center text-lg text-primary-b2">
-              <a href="" className="mx-3 hover:text-primary-orange">
+            <div className="grid grid-cols-4 content-center text-lg text-primary-b2 text-center">
+              <a href="/" className=" mx-3 hover:text-primary-orange">
                 Home
               </a>
               <a href="" className="mx-3 hover:text-primary-orange">
