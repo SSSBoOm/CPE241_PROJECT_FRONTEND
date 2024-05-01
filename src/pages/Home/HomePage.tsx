@@ -1,8 +1,6 @@
 import { Card, Carousel } from 'antd'
 import React from 'react'
 
-const { Meta } = Card
-
 const HomePage: React.FC = () => {
   return (
     <>
@@ -27,22 +25,22 @@ const HomePage: React.FC = () => {
       <Carousel autoplay className=" h-96 object-none w-full ">
         <div>
           <div className="flex">
-            <img className=" h-96 w-1/2 object-cover " src="Room_1.jpg" alt="" />
-            <img className=" h-96 w-1/2 object-cover " src="Room_2.jpg" alt="" />
+            <img className=" h-96 w-1/2 object-cover" src="Room_1.jpg" alt="" />
+            <img className=" h-96 w-1/2 object-cover" src="Room_2.jpg" alt="" />
           </div>
         </div>
 
         <div>
           <div className="flex">
-            <img className=" h-96 w-1/2 object-cover " src="Room_3.jpg" alt="" />
-            <img className=" h-96 w-1/2 object-cover " src="Room_4.jpg" alt="" />
+            <img className=" h-96 w-1/2 object-cover" src="Room_3.jpg" alt="" />
+            <img className=" h-96 w-1/2 object-cover" src="Room_4.jpg" alt="" />
           </div>
         </div>
 
         <div>
           <div className="flex">
-            <img className=" h-96 w-1/2 object-cover " src="Room_5.jpg" alt="" />
-            <img className=" h-96 w-1/2 object-cover " src="Room_6.png" alt="" />
+            <img className=" h-96 w-1/2 object-cover" src="Room_5.jpg" alt="" />
+            <img className=" h-96 w-1/2 object-cover" src="Room_6.png" alt="" />
           </div>
         </div>
       </Carousel>
@@ -55,27 +53,21 @@ const HomePage: React.FC = () => {
                 hoverable
                 style={{ width: 240 }}
                 cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-              >
-                <Meta title="Europe Street beat" description="www.instagram.com" />
-              </Card>
+              />
             </div>
             <div>
               <Card
                 hoverable
                 style={{ width: 240 }}
                 cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-              >
-                <Meta title="Europe Street beat" description="www.instagram.com" />
-              </Card>
+              />
             </div>
             <div>
               <Card
                 hoverable
                 style={{ width: 240 }}
                 cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-              >
-                <Meta title="Europe Street beat" description="www.instagram.com" />
-              </Card>
+              />
             </div>
           </div>
         </div>
