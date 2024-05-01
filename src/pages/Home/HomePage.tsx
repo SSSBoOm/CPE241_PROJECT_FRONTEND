@@ -12,11 +12,15 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Card */}
-      <div className="flex my-9 place-content-center">
-        <img src="hotel-pool.jpg " alt="" />
-        <div>
-          <h2 className=" text-3xl px-8">Wellcome to Meridian Bliss</h2>
-          <p className=" text-xl p-8">content....</p>
+      <div className="mx-auto container grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-4 my-8 px-4">
+        <img src="hotel-pool.jpg" className="w-full aspect-video object-cover" alt="" />
+        <div className="">
+          <h2 className="text-3xl">Lorem ipsum dolor sit</h2>
+          <p className="text-xl">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam error necessitatibus voluptate ut atque,
+            incidunt quae minus quos repellendus reprehenderit nisi facere ipsa quis rerum, qui consequuntur iusto
+            dignissimos velit?
+          </p>
         </div>
       </div>
 
