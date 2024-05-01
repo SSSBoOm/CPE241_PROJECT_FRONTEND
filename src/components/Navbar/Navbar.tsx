@@ -41,7 +41,7 @@ const Navbar = () => {
           <div className=" grid grid-cols-3 gap-x-2 px-5 justify-items-center">
             <div></div>
             <div className="grid grid-cols-4 content-center text-lg text-primary-b2 text-center">
-              <a href="" className=" mx-3 hover:text-primary-orange">
+              <a href="/" className=" mx-3 hover:text-primary-orange">
                 Home
               </a>
               <a href="" className="mx-3 hover:text-primary-orange">
