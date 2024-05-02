@@ -15,8 +15,7 @@ const RoomPage = () => {
               colorBorder: '#0E4459'
             }
           }
-        }}
-      >
+        }}>
         <div className="container mx-auto grid w-2/5 grid-rows-3">
           <p className="text-4xl font-bold text-primary-blue-700">Room</p>
           <p className="text-2xl text-primary-blue-700">Room</p>

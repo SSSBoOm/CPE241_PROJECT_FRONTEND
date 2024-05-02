@@ -35,8 +35,7 @@ const Navbar = () => {
               //: '#F89200',
             }
           }
-        }}
-      >
+        }}>
         <div className="h-16 content-center bg-primary-blue-600">
           <div className="grid grid-cols-3 justify-items-center gap-x-2 px-5">
             <div></div>
