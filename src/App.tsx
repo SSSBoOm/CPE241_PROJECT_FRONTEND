@@ -1,10 +1,11 @@
 import { ConfigProvider } from 'antd'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
-import { BASE_PATH, CART_PATH, LOGIN_PATH, REGISTER_PATH, ROOM_PATH } from './configs/route'
+import { BASE_PATH, CART_PATH, LOGIN_PATH, PROFILE_PATH, REGISTER_PATH, ROOM_PATH } from './configs/route'
 import CardPage from './pages/Cart/CartPage'
 import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
+import ProfilePage from './pages/Profile/ProfilePage'
 import RegisterPage from './pages/Register/RegisterPage'
 import RoomPage from './pages/Room/RoomPage'
 
@@ -37,6 +38,7 @@ function App() {
           <Route path={REGISTER_PATH} element={<RegisterPage />} />
           <Route path={ROOM_PATH} element={<RoomPage />} />
           <Route path={CART_PATH} element={<CardPage />} />
+          <Route path={PROFILE_PATH} element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </ConfigProvider>
