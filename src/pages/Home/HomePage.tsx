@@ -6,12 +6,12 @@ const HomePage: React.FC = () => {
     <>
       {/* BG top page */}
       <div className="">
-        <img className="object-none h-80 w-full" src="landing_hotel.jpg" alt="" />
+        <img className="h-80 w-full object-none" src="landing_hotel.jpg" alt="" />
       </div>
 
       {/* Card */}
-      <div className="mx-auto container grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-4 my-8 px-4">
-        <img src="hotel-pool.jpg" className="w-full aspect-video object-cover" alt="" />
+      <div className="container mx-auto my-8 grid grid-cols-1 gap-y-4 px-4 md:grid-cols-2 md:gap-x-4">
+        <img src="hotel-pool.jpg" className="aspect-video w-full object-cover" alt="" />
         <div className="">
           <h2 className="text-3xl">Lorem ipsum dolor sit</h2>
           <p className="text-xl">
@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      <Carousel autoplay className=" h-96 object-none w-full ">
+      <Carousel autoplay className=" h-96 w-full object-none ">
         <div>
           <div className="flex">
             <img className=" h-96 w-1/2 object-cover" src="Room_1.jpg" alt="" />
@@ -45,7 +45,7 @@ const HomePage: React.FC = () => {
         </div>
       </Carousel>
 
-      <Carousel autoplay className=" h-96 object-none w-full my-9">
+      <Carousel autoplay className=" my-9 h-96 w-full object-none">
         <div>
           <div className="flex justify-around">
             <div className="">
