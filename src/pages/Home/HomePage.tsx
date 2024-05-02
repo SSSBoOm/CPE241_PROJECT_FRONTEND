@@ -6,7 +6,7 @@ const HomePage: React.FC = () => {
     <>
       {/* BG top page */}
       <div className="">
-        <img className="h-80 w-full object-none" src="landing_hotel.jpg" alt="" />
+        <img className="w-full object-none" src="landing_hotel.jpg" alt="" />
       </div>
 
       {/* Card */}

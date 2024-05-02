@@ -1,9 +1,7 @@
-// type Props = {}
-
 import { Button } from 'antd'
 import RoomCardList from '../../components/Card/RoomCardList'
 
-const CartPage = (/*props: Props*/) => {
+const CartPage = () => {
   const RoomCard = [
     {
       name: 'Room name',
