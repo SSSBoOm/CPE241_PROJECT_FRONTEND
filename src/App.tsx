@@ -1,8 +1,17 @@
 import { ConfigProvider } from 'antd'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
-import { BASE_PATH, CART_PATH, FACILITY_PATH,HISTORY_PATH, LOGIN_PATH, REGISTER_PATH, ROOM_PATH } from './configs/route'
+import {
+  BASE_PATH,
+  CART_PATH,
+  FACILITY_PATH,
+  HISTORY_PATH,
+  LOGIN_PATH,
+  REGISTER_PATH,
+  ROOM_PATH
+} from './configs/route'
 import CardPage from './pages/Cart/CartPage'
+import Facility from './pages/Facitily/Facility'
 import HistoryPage from './pages/History/HistoryPage'
 import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
