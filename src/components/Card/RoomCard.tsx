@@ -17,12 +17,12 @@ type Props = {
 
 const RoomCard = (props: Props) => {
   return (
-    <div className="container box-content grid h-72 w-[52rem] grid-cols-3 content-center border-4 text-primary-blue-600">
-      <div className="col-span-1 flex w-full content-center items-center">
-        <img src={props.image} className="w-4/6 " alt="" />
+    <div className="container box-content grid grid-cols-1 rounded-md border-2 text-primary-blue-600 lg:h-80 lg:w-[52rem] lg:grid-cols-3">
+      <div className="col-span-1 h-full w-full">
+        <img src={props.image} className=" h-full w-full self-center object-cover object-right " alt="" />
       </div>
-      <div className="col-span-2 row-span-1 grid w-full grid-cols-2 grid-rows-9 p-3">
-        <div className="col-span-2 w-full">
+      <div className=" col-span-1 grid w-full grid-cols-2 grid-rows-9 p-3 lg:col-span-2">
+        <div className="col-span-1 w-full">
           <span className="text-2xl">{props.name}</span>
         </div>
         <div className="col-span-2 row-span-2 w-full">
@@ -32,7 +32,7 @@ const RoomCard = (props: Props) => {
             {props.content}
           </span>
         </div>
-        <div className="col-span-1 row-span-6 grid w-full grid-rows-6">
+        <div className="col-span-1 row-span-5 grid w-full grid-rows-5">
           <div className="text-base ">
             <ExpandAltOutlined className="pr-1"></ExpandAltOutlined>
             content of room
