@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import { BASE_PATH, CART_PATH, LOGIN_PATH, REGISTER_PATH, ROOM_PATH } from './configs/route'
@@ -9,16 +10,36 @@ import RoomPage from './pages/Room/RoomPage'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path={BASE_PATH} element={<HomePage />} />
-        <Route path={LOGIN_PATH} element={<LoginPage />} />
-        <Route path={REGISTER_PATH} element={<RegisterPage />} />
-        <Route path={ROOM_PATH} element={<RoomPage />} />
-        <Route path={CART_PATH} element={<CardPage />} />
-      </Routes>
-    </BrowserRouter>
+    <ConfigProvider
+      theme={{
+        components: {
+          Button: {
+            contentFontSize: 18,
+            defaultColor: '#F89200',
+            defaultHoverBorderColor: '#F89200',
+            defaultGhostBorderColor: '#F89200',
+            defaultHoverColor: '#F89200'
+          },
+          InputNumber: {
+            colorBorder: '#0E4459'
+          },
+          DatePicker: {
+            colorBorder: '#0E4459'
+          }
+        }
+      }}
+    >
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path={BASE_PATH} element={<HomePage />} />
+          <Route path={LOGIN_PATH} element={<LoginPage />} />
+          <Route path={REGISTER_PATH} element={<RegisterPage />} />
+          <Route path={ROOM_PATH} element={<RoomPage />} />
+          <Route path={CART_PATH} element={<CardPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ConfigProvider>
   )
 }
 
