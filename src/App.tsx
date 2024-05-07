@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import {
   BASE_PATH,
   CART_PATH,
+  CUSTOMERSERVICE_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
@@ -17,6 +18,7 @@ import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Register/RegisterPage'
 import RoomPage from './pages/Room/RoomPage'
+import Service from './pages/Service/Service'
 
 function App() {
   return (
@@ -48,6 +50,7 @@ function App() {
           <Route path={ROOM_PATH} element={<RoomPage />} />
           <Route path={CART_PATH} element={<CardPage />} />
           <Route path={FACILITY_PATH} element={<Facility />} />
+          <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
           <Route path={HISTORY_PATH} element={<HistoryPage />} />
         </Routes>
       </BrowserRouter>
