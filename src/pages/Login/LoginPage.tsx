@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
         <div className="flex h-full flex-col justify-center">
           <div>
             <div className="mb-2 text-xl text-primary-blue-600">Meridian Bliss</div>
-            <div className="mb-3 text-4xl font-bold text-primary-blue-600">Login</div>
+            <div className="mb-3 text-4xl font-bold text-primary-blue-600 ">Login</div>
           </div>
           <div className="mb-4">
             <div className="mb-2 text-2xl font-bold text-primary-blue-600">Email</div>
@@ -19,7 +19,11 @@ const LoginPage: React.FC = () => {
             <Input type="password" />
           </div>
           <div className="flex justify-center">
-            <Button type="primary" className="mb-3 h-full w-1/3 text-2xl " style={{ backgroundColor: '#0E4459' }}>
+            <Button
+              type="primary"
+              className="mb-3 h-full min-w-44 text-2xl sm:w-full lg:w-1/3"
+              style={{ backgroundColor: '#0E4459' }}
+            >
               Login
             </Button>
           </div>
