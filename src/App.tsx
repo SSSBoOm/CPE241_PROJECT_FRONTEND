@@ -6,12 +6,14 @@ import {
   CART_PATH,
   CUSTOMERSERVICE_PATH,
   FACILITY_PATH,
+  HISTORY_PATH,
   LOGIN_PATH,
   REGISTER_PATH,
   ROOM_PATH
 } from './configs/route'
 import CardPage from './pages/Cart/CartPage'
 import Facility from './pages/Facitily/Facility'
+import HistoryPage from './pages/History/HistoryPage'
 import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Register/RegisterPage'
@@ -49,6 +51,7 @@ function App() {
           <Route path={CART_PATH} element={<CardPage />} />
           <Route path={FACILITY_PATH} element={<Facility />} />
           <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
+          <Route path={HISTORY_PATH} element={<HistoryPage />} />
         </Routes>
       </BrowserRouter>
     </ConfigProvider>
