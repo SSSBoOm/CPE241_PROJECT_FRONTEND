@@ -1,7 +1,7 @@
 type Props = {
-  name?: string
-  content?: string
-  image?: string
+  name: string
+  content: string
+  image: string
 }
 
 const FacilityCard = (props: Props) => {
