@@ -8,6 +8,7 @@ import {
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
+  PROFILE_PATH,
   REGISTER_PATH,
   ROOM_PATH
 } from './configs/route'
@@ -16,6 +17,7 @@ import Facility from './pages/Facitily/Facility'
 import HistoryPage from './pages/History/HistoryPage'
 import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
+import ProfilePage from './pages/Profile/ProfilePage'
 import RegisterPage from './pages/Register/RegisterPage'
 import RoomPage from './pages/Room/RoomPage'
 import Service from './pages/Service/Service'
@@ -49,6 +51,7 @@ function App() {
           <Route path={REGISTER_PATH} element={<RegisterPage />} />
           <Route path={ROOM_PATH} element={<RoomPage />} />
           <Route path={CART_PATH} element={<CardPage />} />
+          <Route path={PROFILE_PATH} element={<ProfilePage />} />
           <Route path={FACILITY_PATH} element={<Facility />} />
           <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
           <Route path={HISTORY_PATH} element={<HistoryPage />} />
