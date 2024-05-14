@@ -8,6 +8,7 @@ import {
   HISTORY_PATH,
   LOGIN_PATH,
   REGISTER_PATH,
+  ROOMANAGEMENT_PATH,
   ROOM_PATH
 } from './configs/route'
 import CardPage from './pages/Cart/CartPage'
@@ -17,6 +18,7 @@ import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Register/RegisterPage'
 import RoomPage from './pages/Room/RoomPage'
+import RoomManagementPage from './pages/Staff/RoomManagementPage'
 
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
           <Route path={CART_PATH} element={<CardPage />} />
           <Route path={FACILITY_PATH} element={<Facility />} />
           <Route path={HISTORY_PATH} element={<HistoryPage />} />
+          <Route path={ROOMANAGEMENT_PATH} element={<RoomManagementPage />} />
         </Routes>
       </BrowserRouter>
     </ConfigProvider>
