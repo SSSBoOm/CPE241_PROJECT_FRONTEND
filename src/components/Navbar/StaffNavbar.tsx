@@ -1,13 +1,10 @@
 import { Button } from 'antd'
 
-type Props = {
-  Name: string
-}
-
-const StaffNavbar = (props: Props) => {
+const StaffNavbar = () => {
+  const Name = 'Test Name'
   return (
     <>
-      <div className=" grid h-screen w-80 grid-rows-2 content-center justify-items-center gap-y-2 bg-primary-blue-600 py-8">
+      <div className="grid h-full w-80 grid-rows-2 content-center justify-items-center gap-y-2 bg-primary-blue-600 py-8">
         <div className=" grid w-full content-center text-center align-middle text-lg text-primary-b2">
           <a className=" my-5 text-3xl font-bold">Meridian Bliss</a>
           <a className=" mb-10 text-base font-bold">Wave & Sand</a>
@@ -28,7 +25,7 @@ const StaffNavbar = (props: Props) => {
         </div>
         <div className=" content-center text-center text-lg text-primary-b2 ">
           <div className="bottom-0 grid content-center gap-y-5">
-            <a>{props.Name}</a>
+            <a>{Name}</a>
             <Button ghost className="mx-3">
               Logout
             </Button>

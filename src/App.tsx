@@ -1,7 +1,9 @@
 import { ConfigProvider } from 'antd'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar'
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
+import AdminLayout from './components/Layout/AdminLayout'
+import HomeLayout from './components/Layout/HomeLayout'
 import {
+  ADMIN_PATH,
   BASE_PATH,
   CART_PATH,
   CUSTOMERSERVICE_PATH,
@@ -10,7 +12,6 @@ import {
   LOGIN_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
-  ROOMANAGEMENT_PATH,
   ROOM_PATH
 } from './configs/route'
 import CardPage from './pages/Cart/CartPage'
@@ -21,7 +22,6 @@ import LoginPage from './pages/Login/LoginPage'
 import ProfilePage from './pages/Profile/ProfilePage'
 import RegisterPage from './pages/Register/RegisterPage'
 import RoomPage from './pages/Room/RoomPage'
-import RoomManagementPage from './pages/Staff/RoomManagementPage'
 import Service from './pages/Service/Service'
 
 function App() {
@@ -43,21 +43,35 @@ function App() {
             colorBorder: '#0E4459'
           }
         }
-      }}
-    >
+      }}>
       <BrowserRouter>
-        <Navbar />
         <Routes>
-          <Route path={BASE_PATH} element={<HomePage />} />
-          <Route path={LOGIN_PATH} element={<LoginPage />} />
-          <Route path={REGISTER_PATH} element={<RegisterPage />} />
-          <Route path={ROOM_PATH} element={<RoomPage />} />
-          <Route path={CART_PATH} element={<CardPage />} />
-          <Route path={PROFILE_PATH} element={<ProfilePage />} />
-          <Route path={FACILITY_PATH} element={<Facility />} />
-          <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
-          <Route path={HISTORY_PATH} element={<HistoryPage />} />
-          <Route path={ROOMANAGEMENT_PATH} element={<RoomManagementPage />} />
+          <Route
+            path={BASE_PATH}
+            element={
+              <HomeLayout>
+                <Outlet />
+              </HomeLayout>
+            }>
+            <Route index element={<HomePage />} />
+            <Route path={LOGIN_PATH} element={<LoginPage />} />
+            <Route path={REGISTER_PATH} element={<RegisterPage />} />
+            <Route path={ROOM_PATH} element={<RoomPage />} />
+            <Route path={CART_PATH} element={<CardPage />} />
+            <Route path={PROFILE_PATH} element={<ProfilePage />} />
+            <Route path={FACILITY_PATH} element={<Facility />} />
+            <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
+            <Route path={HISTORY_PATH} element={<HistoryPage />} />
+          </Route>
+          <Route
+            path={ADMIN_PATH}
+            element={
+              <AdminLayout>
+                <Outlet />
+              </AdminLayout>
+            }>
+            <Route index element={<HomePage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </ConfigProvider>
