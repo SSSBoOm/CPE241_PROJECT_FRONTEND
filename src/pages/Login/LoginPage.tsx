@@ -3,9 +3,9 @@ import React from 'react'
 
 const LoginPage: React.FC = () => {
   return (
-    <div className="flex h-screen items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-500">
-      <Card className="w-1/3 min-w-fit border-2 border-primary-blue-600 opacity-80 sm:min-w-3.5">
-        <div className="grid h-full flex-col overflow-auto">
+    <div className="flex h-screen items-center justify-center bg-[url('hotelview2.svg')] bg-cover bg-repeat">
+      <Card className="h-2/3 w-1/3 border-2 border-primary-blue-600 opacity-80">
+        <div className="flex h-full flex-col justify-center">
           <div>
             <div className="mb-2 text-xl text-primary-blue-600">Meridian Bliss</div>
             <div className="mb-3 text-4xl font-bold text-primary-blue-600 ">Login</div>

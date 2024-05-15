@@ -4,9 +4,11 @@ import Navbar from './components/Navbar/Navbar'
 import {
   BASE_PATH,
   CART_PATH,
+  CUSTOMERSERVICE_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
+  PROFILE_PATH,
   REGISTER_PATH,
   ROOMANAGEMENT_PATH,
   ROOM_PATH
@@ -16,9 +18,11 @@ import Facility from './pages/Facitily/Facility'
 import HistoryPage from './pages/History/HistoryPage'
 import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
+import ProfilePage from './pages/Profile/ProfilePage'
 import RegisterPage from './pages/Register/RegisterPage'
 import RoomPage from './pages/Room/RoomPage'
 import RoomManagementPage from './pages/Staff/RoomManagementPage'
+import Service from './pages/Service/Service'
 
 function App() {
   return (
@@ -49,7 +53,9 @@ function App() {
           <Route path={REGISTER_PATH} element={<RegisterPage />} />
           <Route path={ROOM_PATH} element={<RoomPage />} />
           <Route path={CART_PATH} element={<CardPage />} />
+          <Route path={PROFILE_PATH} element={<ProfilePage />} />
           <Route path={FACILITY_PATH} element={<Facility />} />
+          <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
           <Route path={HISTORY_PATH} element={<HistoryPage />} />
           <Route path={ROOMANAGEMENT_PATH} element={<RoomManagementPage />} />
         </Routes>
