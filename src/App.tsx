@@ -10,6 +10,7 @@ import {
   LOGIN_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
+  ROOMANAGEMENT_PATH,
   ROOM_PATH
 } from './configs/route'
 import CardPage from './pages/Cart/CartPage'
@@ -20,6 +21,7 @@ import LoginPage from './pages/Login/LoginPage'
 import ProfilePage from './pages/Profile/ProfilePage'
 import RegisterPage from './pages/Register/RegisterPage'
 import RoomPage from './pages/Room/RoomPage'
+import RoomManagementPage from './pages/Staff/RoomManagementPage'
 import Service from './pages/Service/Service'
 
 function App() {
@@ -55,6 +57,7 @@ function App() {
           <Route path={FACILITY_PATH} element={<Facility />} />
           <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
           <Route path={HISTORY_PATH} element={<HistoryPage />} />
+          <Route path={ROOMANAGEMENT_PATH} element={<RoomManagementPage />} />
         </Routes>
       </BrowserRouter>
     </ConfigProvider>
