@@ -43,7 +43,8 @@ function App() {
             colorBorder: '#0E4459'
           }
         }
-      }}>
+      }}
+    >
       <BrowserRouter>
         <Routes>
           <Route
@@ -52,7 +53,8 @@ function App() {
               <HomeLayout>
                 <Outlet />
               </HomeLayout>
-            }>
+            }
+          >
             <Route index element={<HomePage />} />
             <Route path={LOGIN_PATH} element={<LoginPage />} />
             <Route path={REGISTER_PATH} element={<RegisterPage />} />
@@ -69,7 +71,8 @@ function App() {
               <AdminLayout>
                 <Outlet />
               </AdminLayout>
-            }>
+            }
+          >
             <Route index element={<HomePage />} />
           </Route>
         </Routes>
