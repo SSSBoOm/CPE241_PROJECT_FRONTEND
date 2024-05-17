@@ -1,6 +1,8 @@
 import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
+import { Link } from 'react-router-dom'
+import { BASE_PATH, FACILITY_PATH, LOGIN_PATH, REGISTER_PATH, ROOM_PATH } from '../../configs/route'
 
 const items: MenuProps['items'] = [
   {
@@ -19,6 +21,7 @@ const items: MenuProps['items'] = [
     key: '3'
   }
 ]
+
 const Navbar = () => {
   return (
     <>
@@ -26,26 +29,26 @@ const Navbar = () => {
         <div className="grid grid-cols-3 justify-items-center gap-x-2 px-5">
           <div></div>
           <div className="grid grid-cols-4 content-center text-center text-lg text-primary-b2">
-            <a href="/" className=" mx-3 hover:text-primary-orange">
+            <Link to={BASE_PATH} className=" mx-3 hover:text-primary-orange">
               Home
-            </a>
-            <a href="" className="mx-3 hover:text-primary-orange">
+            </Link>
+            <Link to={ROOM_PATH} className="mx-3 hover:text-primary-orange">
               Room
-            </a>
-            <a href="" className="mx-3 hover:text-primary-orange">
+            </Link>
+            <Link to={FACILITY_PATH} className="mx-3 hover:text-primary-orange">
               Facility
-            </a>
-            <a href="" className="mx-3 hover:text-primary-orange">
+            </Link>
+            <Link to="" className="mx-3 hover:text-primary-orange">
               Services
-            </a>
+            </Link>
           </div>
           <div className="content-center justify-self-end">
-            <a href="" className="mx-3">
+            <Link to="" className="mx-3">
               <ShoppingCartOutlined
                 className="text-primary-b2  hover:text-primary-orange"
                 style={{ fontSize: '32px' }}
               />
-            </a>
+            </Link>
             <Dropdown menu={{ items }} placement="bottom" trigger={['click']}>
               <a onClick={(e) => e.preventDefault()}>
                 <UserOutlined
@@ -54,11 +57,11 @@ const Navbar = () => {
                 />
               </a>
             </Dropdown>
-            <a href="" className="mx-3 text-center text-lg text-primary-b2 hover:text-primary-orange">
+            <Link to={LOGIN_PATH} className="mx-3 text-center text-lg text-primary-b2 hover:text-primary-orange">
               login
-            </a>
+            </Link>
             <Button ghost className="mx-3">
-              Register
+              <Link to={REGISTER_PATH}>Register</Link>
             </Button>
           </div>
         </div>
