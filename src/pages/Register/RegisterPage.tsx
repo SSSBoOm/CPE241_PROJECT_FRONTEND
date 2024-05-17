@@ -5,6 +5,8 @@ const RegisterPage = () => {
   const [form] = Form.useForm()
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false)
   const onFinish = () => {
+    const values = form.getFieldsValue()
+    console.log(values)
     setComponentDisabled(true)
   }
 
