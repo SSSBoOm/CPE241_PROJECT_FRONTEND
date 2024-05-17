@@ -3,7 +3,7 @@ import React from 'react'
 
 const LoginPage: React.FC = () => {
   return (
-    <div className="flex h-screen items-center justify-center bg-[url('hotelview2.svg')] bg-cover bg-repeat">
+    <div className="flex h-screen items-center justify-center bg-[url('/images/login/view.png')] bg-cover bg-repeat">
       <Card className="h-2/3 w-1/3 border-2 border-primary-blue-600 opacity-80">
         <div className="flex h-full flex-col justify-center">
           <div>
