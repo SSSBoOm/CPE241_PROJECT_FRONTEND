@@ -7,7 +7,6 @@ import localeData from 'dayjs/plugin/localeData'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
-import { useState } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import Room from '../../components/Card/Room'
 
@@ -25,18 +24,16 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 
 const RoomPage = () => {
   const [form] = Form.useForm()
-  const [dateRange, setDateRange] = useState<{
-    start_date: Date
-    end_date: Date
-  }>({
-    start_date: dayjs().add(1, 'day').toDate(),
-    end_date: dayjs().add(2, 'day').toDate()
-  })
 
   const onFinish = () => {
     const values = form.getFieldsValue()
     console.log(values)
-    console.log(dateRange)
+    const { start_date, end_date } = {
+      start_date: dayjs(values.dates[0]).set('hour', 13).set('minute', 0).set('second', 0).set('millisecond', 0),
+      end_date: dayjs(values.dates[1]).set('hour', 11).set('minute', 0).set('second', 0).set('millisecond', 0)
+    }
+    console.log(start_date)
+    console.log(end_date)
   }
 
   return (
@@ -50,7 +47,6 @@ const RoomPage = () => {
         <Form
           layout="vertical"
           initialValues={{
-            date: [dayjs(), dayjs().add(1, 'day')],
             number: 1
           }}
           form={form}
@@ -60,40 +56,61 @@ const RoomPage = () => {
         >
           <div className="w-full gap-x-4 lg:flex lg:justify-center">
             <Form.Item
+              name="dates"
               className="min-w-[16rem]"
               label={<p className="text-xl font-bold">วันที่ต้องการเข้าพัก</p>}
-              rules={[{ required: true, message: 'โปรดระบุช่วงที่ต้องการเข้าพัก' }]}
-              hasFeedback
-            >
-              <DatePicker.RangePicker
-                defaultValue={[dayjs().add(1, 'day'), dayjs().add(2, 'day')]}
-                format={dateFormat}
-                className="w-full"
-                size="large"
-                onChange={(dates) => {
-                  console.log(dates)
-                  if (dates?.length === 2) {
-                    setDateRange({
-                      start_date: dates[0]!.toDate(),
-                      end_date: dates[1]!.toDate()
-                    })
+              rules={[
+                {
+                  required: true,
+                  message: 'โปรดระบุช่วงที่ต้องการเข้าพัก'
+                },
+                {
+                  validator: (_, value) => {
+                    if (value && value[0] && value[1]) {
+                      const startDate = dayjs(value[0])
+                        .set('hour', 13)
+                        .set('minute', 0)
+                        .set('second', 0)
+                        .set('millisecond', 0)
+                      const endDate = dayjs(value[1])
+                        .set('hour', 11)
+                        .set('minute', 0)
+                        .set('second', 0)
+                        .set('millisecond', 0)
+                      const daysDiff = Math.ceil(endDate.diff(startDate, 'days', true))
+                      if (daysDiff < 1) {
+                        return Promise.reject('โปรดระบุช่วงที่ต้องการเข้าพักให้ถูกต้อง')
+                      } else {
+                        return Promise.resolve()
+                      }
+                    } else {
+                      return Promise.resolve()
+                    }
                   }
-                }}
-                disabledDate={disabledDate}
-              />
+                }
+              ]}
+            >
+              <DatePicker.RangePicker format={dateFormat} className="w-full" size="large" disabledDate={disabledDate} />
             </Form.Item>
             <Form.Item
               className="min-w-[16rem]"
               name="number"
-              rules={[{ required: true, message: 'โปรดระบุจำนวนห้องที่ต้องการ' }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'โปรดระบุจำนวนห้องที่ต้องการ'
+                }
+              ]}
               label={<p className="text-xl font-bold">จำนวนห้อง</p>}
-              hasFeedback
             >
               <Select
                 className="w-full"
                 size="large"
                 options={new Array(8).fill({}).map((_, index) => {
-                  return { label: index + 1, value: index + 1 }
+                  return {
+                    label: index + 1,
+                    value: index + 1
+                  }
                 })}
               />
             </Form.Item>
