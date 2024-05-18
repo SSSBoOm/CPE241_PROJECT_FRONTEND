@@ -7,14 +7,14 @@ import {
   ADMIN_PATH,
   BASE_PATH,
   CART_PATH,
-  CUSTOMERSERVICE_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
   PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
-  ROOM_PATH
+  ROOM_PATH,
+  SERVICE_PATH
 } from './configs/route'
 import { AuthContext, initialContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
@@ -29,7 +29,7 @@ const LoginPage = lazy(() => import('./pages/Login/LoginPage'))
 const ProfilePage = lazy(() => import('./pages/Profile/ProfilePage'))
 const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
 const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
-const Service = lazy(() => import('./pages/Service/Service'))
+const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
 
 function App() {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
@@ -96,9 +96,9 @@ function App() {
               <Route path={CART_PATH} element={<CardPage />} />
               <Route path={PROFILE_PATH} element={<ProfilePage />} />
               <Route path={FACILITY_PATH} element={<Facility />} />
-              <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
               <Route path={HISTORY_PATH} element={<HistoryPage />} />
               <Route path={PAYMENT_PATH} element={<PaymentPage />} />
+              <Route path={SERVICE_PATH} element={<ServicePage />} />
             </Route>
             <Route
               path={ADMIN_PATH}
