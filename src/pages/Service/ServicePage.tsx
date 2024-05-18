@@ -3,14 +3,14 @@ import { DatePicker, InputNumber, Space } from 'antd'
 import React from 'react'
 const { RangePicker } = DatePicker
 
-const Service: React.FC = () => {
+const ServicePage: React.FC = () => {
   return (
     <>
-      <div className="mt-8 text-center text-4xl font-bold text-primary-blue-600 md:ml-28 md:text-left">
-        Services
-        <div className="mt-8 text-3xl">
-          บริการ
-          <div className="mt-5 text-xl">อีกสัมผัสแห่งความสะดวกสบายด้วยบริการมากมายจากทางโรงแรม</div>
+      <div className="container mx-auto px-8 py-4">
+        <div className="space-y-4 py-4 font-bold text-primary-blue-600">
+          <h1 className="text-4xl">Services</h1>
+          <h1 className="text-3xl">บริการ</h1>
+          <p className="text-xl">อีกสัมผัสแห่งความสะดวกสบายด้วยบริการมากมายจากทางโรงแรม</p>
         </div>
         <div className="container mx-auto mt-8 w-fit">
           <Space direction="vertical" size={12}>
@@ -31,4 +31,4 @@ const Service: React.FC = () => {
   )
 }
 
-export default Service
+export default ServicePage
