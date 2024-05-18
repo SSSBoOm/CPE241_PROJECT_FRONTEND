@@ -1,11 +1,20 @@
-import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
+import {
+  BASE_PATH,
+  CART_PATH,
+  FACILITY_PATH,
+  LOGIN_PATH,
+  PROFILE_PATH,
+  REGISTER_PATH,
+  ROOM_PATH,
+  SERVICE_PATH
+} from '@/configs/route'
+import { AuthContext } from '@/contexts/AuthContext'
+import { handleLogout } from '@/lib/googleSignUp'
+import { MenuOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
-import { FC, useContext } from 'react'
+import { FC, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BASE_PATH, FACILITY_PATH, LOGIN_PATH, PROFILE_PATH, REGISTER_PATH, ROOM_PATH } from '../../configs/route'
-import { AuthContext } from '../../contexts/AuthContext'
-import { handleLogout } from '../../lib/googleSignUp'
 
 const items: MenuProps['items'] = [
   {
@@ -40,11 +49,12 @@ const items: MenuProps['items'] = [
 const Navbar: FC = () => {
   const authContext = useContext(AuthContext)
   const isAuthenticated = authContext?.authContext.isAuthenticated
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
     <>
       <div className="h-16 content-center bg-primary-blue-600">
-        <div className="grid grid-cols-3 justify-items-center gap-x-2 px-5">
+        <div className="hidden grid-cols-3 justify-items-center gap-x-2 px-8 lg:grid">
           <div></div>
           <div className="grid grid-cols-4 content-center text-center text-lg text-primary-b2">
             <Link to={BASE_PATH} className=" mx-3 hover:text-primary-orange">
@@ -56,7 +66,7 @@ const Navbar: FC = () => {
             <Link to={FACILITY_PATH} className="mx-3 hover:text-primary-orange">
               Facility
             </Link>
-            <Link to="" className="mx-3 hover:text-primary-orange">
+            <Link to={SERVICE_PATH} className="mx-3 hover:text-primary-orange">
               Services
             </Link>
           </div>
@@ -89,6 +99,86 @@ const Navbar: FC = () => {
               </>
             )}
           </div>
+        </div>
+        <div className="lg:hidden">
+          <div className="flex w-full justify-between px-4">
+            <div>LOGO</div>
+            <div className="">
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen)
+                }}
+              >
+                <MenuOutlined className="text-white" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={`w-full ${isOpen ? null : 'hidden'}`}>
+        <div>
+          <Link
+            to={BASE_PATH}
+            className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+          >
+            Home
+          </Link>
+          <Link
+            to={ROOM_PATH}
+            className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+          >
+            Room
+          </Link>
+          <Link
+            to={FACILITY_PATH}
+            className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+          >
+            Facility
+          </Link>
+          <Link
+            to={SERVICE_PATH}
+            className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+          >
+            Services
+          </Link>
+          {isAuthenticated ? (
+            <>
+              <hr />
+              <Link
+                to={CART_PATH}
+                className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+              >
+                Cart
+              </Link>
+              <Link
+                to={PROFILE_PATH}
+                className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+              >
+                Profile
+              </Link>
+              <button
+                className="block w-full bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to={LOGIN_PATH}
+                className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+              >
+                Login
+              </Link>
+              <Link
+                to={REGISTER_PATH}
+                className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </>
