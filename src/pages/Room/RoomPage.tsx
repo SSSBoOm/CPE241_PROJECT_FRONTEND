@@ -39,10 +39,10 @@ const RoomPage = () => {
   return (
     <Fragment>
       <div className="container mx-auto px-8 py-4">
-        <div className="space-y-4 py-4">
-          <h1 className="text-4xl font-bold text-primary-blue-700">Room</h1>
-          <p className="text-2xl text-primary-blue-700">ห้องพักโรงแรม</p>
-          <p className="text-base  text-primary-blue-700">อีกสัมผัสแห่งความสะดวกสบายด้วยบริการมากมายจากทางโรงแรม</p>
+        <div className="space-y-4 py-4 font-bold text-primary-blue-600">
+          <h1 className="text-4xl">Room</h1>
+          <p className="text-3xl">ห้องพักโรงแรม</p>
+          <p className="text-xl">อีกสัมผัสแห่งความสะดวกสบายด้วยบริการมากมายจากทางโรงแรม</p>
         </div>
         <Form
           layout="vertical"
@@ -58,7 +58,7 @@ const RoomPage = () => {
             <Form.Item
               name="dates"
               className="min-w-[16rem]"
-              label={<p className="text-xl font-bold">วันที่ต้องการเข้าพัก</p>}
+              label={<p className="text-xl font-bold text-primary-blue-600">วันที่ต้องการเข้าพัก</p>}
               rules={[
                 {
                   required: true,
@@ -101,7 +101,7 @@ const RoomPage = () => {
                   message: 'โปรดระบุจำนวนห้องที่ต้องการ'
                 }
               ]}
-              label={<p className="text-xl font-bold">จำนวนห้อง</p>}
+              label={<p className="text-xl font-bold text-primary-blue-600">จำนวนห้อง</p>}
             >
               <Select
                 className="w-full"
@@ -125,9 +125,11 @@ const RoomPage = () => {
             </Form.Item>
           </div>
         </Form>
-        <Room />
-        <Room />
-        <Room />
+        <div className="flex flex-col space-y-4">
+          <Room />
+          <Room />
+          <Room />
+        </div>
       </div>
     </Fragment>
   )

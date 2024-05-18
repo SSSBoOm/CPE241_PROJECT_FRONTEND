@@ -3,9 +3,9 @@ import { ExpandAltOutlined } from '@ant-design/icons'
 const Room = () => {
   return (
     <>
-      <div className=" h-70  container mx-auto my-4 grid w-2/5  grid-cols-5 gap-x-2 rounded-md border-2 border-primary-blue-600">
-        <div className="col-span-2 ">
-          <img className=" h-full object-cover object-right" src="StandardSuiteRoom.svg" alt="" />
+      <div className="container mx-auto grid h-[16rem] grid-cols-5 gap-x-2 rounded-md border-2 border-primary-blue-600">
+        <div className="col-span-2">
+          <img className="h-[16rem] w-full object-cover" src="StandardSuiteRoom.svg" alt="" />
         </div>
         <div className="col-span-3">
           <p className=" text-3xl">Standard</p>
