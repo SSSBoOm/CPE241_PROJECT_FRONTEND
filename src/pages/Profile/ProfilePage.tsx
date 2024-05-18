@@ -29,6 +29,8 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 const ProfilePage = () => {
   const auth = useContext(AuthContext)
   const [form] = Form.useForm()
+  if (auth?.authContext.dob) form.setFieldsValue({ dob: dayjs(auth?.authContext.dob) })
+
   const onFinish = async () => {
     try {
       const values = await form.validateFields()
@@ -70,8 +72,7 @@ const ProfilePage = () => {
               lastName: auth?.authContext.lastName,
               phone: auth?.authContext.phone,
               address: auth?.authContext.address,
-              gender: auth?.authContext.gender,
-              dob: dayjs(auth?.authContext.dob)
+              gender: auth?.authContext.gender
             }}
           >
             <h1 className="m-4 text-3xl font-bold text-primary-blue-700 opacity-75">Profile</h1>
