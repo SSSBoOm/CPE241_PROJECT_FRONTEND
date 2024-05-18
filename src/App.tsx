@@ -11,6 +11,7 @@ import {
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
+  PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
   ROOM_PATH
@@ -18,6 +19,7 @@ import {
 import { AuthContext, initialContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
 import { AxiosInstance } from './lib/axios'
+import PaymentPage from './pages/Payment/PaymentPage'
 
 const CardPage = lazy(() => import('./pages/Cart/CartPage'))
 const Facility = lazy(() => import('./pages/Facitily/Facility'))
@@ -96,6 +98,7 @@ function App() {
               <Route path={FACILITY_PATH} element={<Facility />} />
               <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
               <Route path={HISTORY_PATH} element={<HistoryPage />} />
+              <Route path={PAYMENT_PATH} element={<PaymentPage />} />
             </Route>
             <Route
               path={ADMIN_PATH}
