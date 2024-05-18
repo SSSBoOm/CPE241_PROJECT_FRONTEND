@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
@@ -14,70 +15,104 @@ import {
   REGISTER_PATH,
   ROOM_PATH
 } from './configs/route'
-import CardPage from './pages/Cart/CartPage'
-import Facility from './pages/Facitily/Facility'
-import HistoryPage from './pages/History/HistoryPage'
-import HomePage from './pages/Home/HomePage'
-import LoginPage from './pages/Login/LoginPage'
-import ProfilePage from './pages/Profile/ProfilePage'
-import RegisterPage from './pages/Register/RegisterPage'
-import RoomPage from './pages/Room/RoomPage'
-import Service from './pages/Service/Service'
+import { AuthContext, initialContextValue } from './contexts/AuthContext'
+import { IAuthContext } from './interfaces/AuthContext'
+import { AxiosInstance } from './lib/axios'
+
+const CardPage = lazy(() => import('./pages/Cart/CartPage'))
+const Facility = lazy(() => import('./pages/Facitily/Facility'))
+const HistoryPage = lazy(() => import('./pages/History/HistoryPage'))
+const HomePage = lazy(() => import('./pages/Home/HomePage'))
+const LoginPage = lazy(() => import('./pages/Login/LoginPage'))
+const ProfilePage = lazy(() => import('./pages/Profile/ProfilePage'))
+const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
+const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
+const Service = lazy(() => import('./pages/Service/Service'))
 
 function App() {
+  const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
+  const [loading, setLoading] = useState(true)
+
+  const handleLogin = useCallback(async (): Promise<void> => {
+    try {
+      const result = await AxiosInstance.get('/api/user/me')
+      if (result.status === 200) {
+        setAuthContext({ ...result.data.data, isAuthenticated: true })
+      }
+    } catch (err) {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    handleLogin().then(() => {
+      setLoading(false)
+    })
+  }, [handleLogin])
+
+  if (loading) {
+    return <div> console.log(authContext)</div>
+  }
+
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Button: {
-            contentFontSize: 18,
-            defaultColor: '#F89200',
-            defaultHoverBorderColor: '#F89200',
-            defaultGhostBorderColor: '#F89200',
-            defaultHoverColor: '#F89200'
-          },
-          InputNumber: {
-            colorBorder: '#0E4459'
-          },
-          DatePicker: {
-            colorBorder: '#0E4459'
+    <AuthContext.Provider value={{ authContext, setAuthContext }}>
+      <ConfigProvider
+        theme={{
+          components: {
+            Button: {
+              contentFontSize: 18,
+              defaultColor: '#F89200',
+              defaultHoverBorderColor: '#F89200',
+              defaultGhostBorderColor: '#F89200',
+              defaultHoverColor: '#F89200'
+            },
+            InputNumber: {
+              colorBorder: '#0E4459'
+            },
+            DatePicker: {
+              colorBorder: '#0E4459'
+            }
           }
-        }
-      }}
-    >
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={BASE_PATH}
-            element={
-              <HomeLayout>
-                <Outlet />
-              </HomeLayout>
-            }
-          >
-            <Route index element={<HomePage />} />
-            <Route path={LOGIN_PATH} element={<LoginPage />} />
-            <Route path={REGISTER_PATH} element={<RegisterPage />} />
-            <Route path={ROOM_PATH} element={<RoomPage />} />
-            <Route path={CART_PATH} element={<CardPage />} />
-            <Route path={PROFILE_PATH} element={<ProfilePage />} />
-            <Route path={FACILITY_PATH} element={<Facility />} />
-            <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
-            <Route path={HISTORY_PATH} element={<HistoryPage />} />
-          </Route>
-          <Route
-            path={ADMIN_PATH}
-            element={
-              <AdminLayout>
-                <Outlet />
-              </AdminLayout>
-            }
-          >
-            <Route index element={<HomePage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ConfigProvider>
+        }}
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path={BASE_PATH}
+              element={
+                <Suspense>
+                  <HomeLayout>
+                    <Outlet />
+                  </HomeLayout>
+                </Suspense>
+              }
+            >
+              <Route index element={<HomePage />} />
+              <Route path={LOGIN_PATH} element={<LoginPage />} />
+              <Route path={REGISTER_PATH} element={<RegisterPage />} />
+              <Route path={ROOM_PATH} element={<RoomPage />} />
+              <Route path={CART_PATH} element={<CardPage />} />
+              <Route path={PROFILE_PATH} element={<ProfilePage />} />
+              <Route path={FACILITY_PATH} element={<Facility />} />
+              <Route path={CUSTOMERSERVICE_PATH} element={<Service />} />
+              <Route path={HISTORY_PATH} element={<HistoryPage />} />
+            </Route>
+            <Route
+              path={ADMIN_PATH}
+              element={
+                <Suspense>
+                  <AdminLayout>
+                    <Outlet />
+                  </AdminLayout>
+                </Suspense>
+              }
+            >
+              <Route index element={<HomePage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ConfigProvider>
+    </AuthContext.Provider>
   )
 }
 

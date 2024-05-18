@@ -1,16 +1,18 @@
-import React from 'react'
-import Navbar from '../Navbar/Navbar'
+import { FC, Fragment, lazy, ReactNode, Suspense } from 'react'
+const Navbar = lazy(() => import('../Navbar/Navbar'))
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
-const HomeLayout: React.FC<Props> = (props) => {
+const HomeLayout: FC<Props> = (props) => {
   return (
-    <React.Fragment>
-      <Navbar />
-      {props.children}
-    </React.Fragment>
+    <Fragment>
+      <Suspense>
+        <Navbar />
+        {props.children}
+      </Suspense>
+    </Fragment>
   )
 }
 

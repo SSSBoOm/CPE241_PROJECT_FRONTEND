@@ -1,5 +1,6 @@
 import { Button, Card, Input } from 'antd'
 import React from 'react'
+import { handleSignInWithGoogle } from '../../lib/googleSignUp'
 
 const LoginPage: React.FC = () => {
   return (
@@ -29,7 +30,9 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
         <div className="mb-3 mt-2 text-center text-lg font-normal leading-snug text-cyan-900">OR</div>
-        <Button className="h-full w-full">Google</Button>
+        <Button className="h-full w-full" onClick={handleSignInWithGoogle}>
+          Google
+        </Button>
       </Card>
     </div>
   )
