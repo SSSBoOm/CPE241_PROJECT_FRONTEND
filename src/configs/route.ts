@@ -7,6 +7,6 @@ export const PROFILE_PATH = '/profile'
 export const FACILITY_PATH = '/facility'
 export const CUSTOMERSERVICE_PATH = '/customerservice'
 export const HISTORY_PATH = '/history'
-export const PAYMENT_PATH = 'cart/payment'
+export const PAYMENT_PATH = '/cart/payment'
 
 export const ADMIN_PATH = '/admin'

@@ -1,5 +1,6 @@
 import RoomCardPayment from '@/components/Card/RoomCardPayment'
 import { Button, Checkbox, Form } from 'antd'
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { useState } from 'react'
 
 const roomCard = [
@@ -59,7 +60,7 @@ const serviceCard = [
 const PaymentPage = () => {
   const [value, setValue] = useState('')
 
-  function handleChange(checkedValues) {
+  const handleChange = (checkedValues: CheckboxChangeEvent) => {
     setValue(checkedValues.target.value)
   }
 
