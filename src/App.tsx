@@ -6,6 +6,8 @@ import HomeLayout from './components/Layout/HomeLayout'
 import {
   ADMIN_PATH,
   BASE_PATH,
+  BOOKING_DETAILS,
+  BOOKING_LIST,
   CART_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
@@ -13,8 +15,12 @@ import {
   PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
+  ROOM_MANAGE,
   ROOM_PATH,
-  SERVICE_PATH
+  SERVICE_MANAGE,
+  SERVICE_PATH,
+  USER_DETAILS,
+  USER_MANAGE
 } from './configs/route'
 import { AuthContext, initialContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
@@ -30,6 +36,13 @@ const ProfilePage = lazy(() => import('./pages/Profile/ProfilePage'))
 const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
 const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
 const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
+
+import Booking_details from './pages/Admin/Booking_list/Booking_details'
+import Booking_list from './pages/Admin/Booking_list/Booking_list'
+import Room_manage from './pages/Admin/Room_management/Room_management'
+import Service_manage from './pages/Admin/Service_management/Service_management'
+import User_details from './pages/Admin/User_management/User_details'
+import User_management from './pages/Admin/User_management/User_management'
 
 function App() {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
@@ -111,6 +124,12 @@ function App() {
               }
             >
               <Route index element={<HomePage />} />
+              <Route path={ROOM_MANAGE} element={<Room_manage />} />
+              <Route path={SERVICE_MANAGE} element={<Service_manage />} />
+              <Route path={USER_MANAGE} element={<User_management />} />
+              <Route path={USER_DETAILS} element={<User_details />} />
+              <Route path={BOOKING_LIST} element={<Booking_list />} />
+              <Route path={BOOKING_DETAILS} element={<Booking_details />} />
             </Route>
           </Routes>
         </BrowserRouter>

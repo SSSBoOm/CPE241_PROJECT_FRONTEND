@@ -12,7 +12,7 @@ const AdminLayout: React.FC<Props> = (props) => {
         <div className="sticky left-0 top-0 h-screen bg-white">
           <StaffNavbar />
         </div>
-        <div>{props.children}</div>
+        <div className="mx-auto">{props.children}</div>
       </div>
     </React.Fragment>
   )

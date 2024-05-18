@@ -146,6 +146,25 @@ const RoomPage = () => {
           })}
         </div>
       </div>
+      <div className=" container mx-auto w-fit">
+        <Space direction="vertical" size={12}>
+          <RangePicker size="large" />
+        </Space>
+        <InputNumber size="large" min={1} max={8} defaultValue={2} className=" mx-9" />
+        <button>Search</button>
+      </div>
+      <div className="mx-auto my-8 w-5/12">
+        <CardUpgrade
+          food={true}
+          view={{ sea: true, forest: true }}
+          accommodate={2}
+          bed="Kingsize"
+          content="dwdwdwdw"
+          name="dwdwdwwd"
+          price={24}
+          image="Room_2.jpg"
+        />
+      </div>
     </Fragment>
   )
 }
