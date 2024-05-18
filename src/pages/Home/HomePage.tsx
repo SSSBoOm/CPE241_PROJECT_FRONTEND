@@ -1,12 +1,14 @@
 import { Card, Carousel } from 'antd'
-import React from 'react'
+import React, { lazy } from 'react'
+const Footer = lazy(() => import('../../components/Footer/Footer'))
 
 const HomePage: React.FC = () => {
   return (
     <>
       {/* BG top page */}
-      <div className="">
-        <img className="w-full object-none" src="landing_hotel.jpg" alt="" />
+      <div className="relative max-h-[32rem]">
+        <h1 className="absolute top-1/2 w-full text-center text-6xl font-bold text-white">Hotel Del Luna</h1>
+        <img className="max-h-[32rem] w-full object-cover" src="landing_hotel.jpg" alt="hero" />
       </div>
 
       {/* Card */}
@@ -72,6 +74,8 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </Carousel>
+
+      <Footer />
     </>
   )
 }
