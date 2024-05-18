@@ -3,17 +3,25 @@ import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { FC, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { BASE_PATH, FACILITY_PATH, LOGIN_PATH, REGISTER_PATH, ROOM_PATH } from '../../configs/route'
+import { BASE_PATH, FACILITY_PATH, LOGIN_PATH, PROFILE_PATH, REGISTER_PATH, ROOM_PATH } from '../../configs/route'
 import { AuthContext } from '../../contexts/AuthContext'
 import { handleLogout } from '../../lib/googleSignUp'
 
 const items: MenuProps['items'] = [
   {
-    label: <a href="">Edit Profile</a>,
-    key: '0'
+    label: (
+      <Link to={PROFILE_PATH} className="w-full">
+        <p className="text-center">Profile</p>
+      </Link>
+    ),
+    key: 'profile'
   },
   {
-    label: <a href="">Booking History</a>,
+    label: (
+      <Link to={BASE_PATH} className="w-full">
+        <p className="text-center">Booking History</p>
+      </Link>
+    ),
     key: '1'
   },
   {

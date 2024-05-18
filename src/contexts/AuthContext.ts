@@ -1,13 +1,19 @@
 import { createContext } from 'react'
 import { IAuthContext, IAuthContextType } from '../interfaces/AuthContext'
+import { GenderType } from '../interfaces/enums/Gender'
+import { PrefixType } from '../interfaces/enums/Prefix'
 
 export const initialContextValue: IAuthContext = {
   id: '',
   email: '',
-  prefix: '',
+  prefix: PrefixType.MR,
   firstName: '',
   lastName: '',
   profileUrl: '',
+  phone: '',
+  address: '',
+  dob: new Date(),
+  gender: GenderType.MALE,
   isAuthenticated: false
 }
 
