@@ -1,5 +1,35 @@
-import { EditOutlined, PlusOutlined } from '@ant-design/icons'
-import { Switch } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
+import type { TableColumnsType } from 'antd'
+import { Switch, Table } from 'antd'
+interface servicetype {
+  key: string
+  name: string
+  quantity: number
+}
+const service_col: TableColumnsType<servicetype> = [
+  { title: 'Name', dataIndex: 'name', key: 'name' },
+  { title: 'Quantity', dataIndex: 'quantity', key: 'quantity' },
+
+  {
+    title: 'Status',
+    dataIndex: '',
+    key: 'x',
+    render: () => <Switch checkedChildren="On" unCheckedChildren="Off" />
+  },
+  {
+    title: 'Action',
+    dataIndex: '',
+    key: 'x',
+    render: () => <a href="">Edit</a>
+  }
+]
+const service_data: servicetype[] = [
+  {
+    key: '1',
+    name: 'Deluxe Room',
+    quantity: 2
+  }
+]
 const Service_manage: React.FC = () => {
   return (
     <>
@@ -8,29 +38,7 @@ const Service_manage: React.FC = () => {
         <PlusOutlined className="place-self-end self-center" />
       </div>
       <div className="mx-auto w-fit text-center">
-        <table className="w-96 table-auto">
-          <thead>
-            <tr>
-              <th className="border-2 border-primary-blue-600">Name</th>
-              <th className="border-2 border-primary-blue-600">Quantity</th>
-              <th className="border-2 border-primary-blue-600">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border-2 border-primary-blue-600">Deluxe Room</td>
-              <td className="border-2 border-primary-blue-600">2</td>
-              <td className="border-2 border-primary-blue-600">
-                <Switch checkedChildren="On" unCheckedChildren="Off" />
-              </td>
-              <td>
-                <a href="">
-                  <EditOutlined />
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <Table columns={service_col} dataSource={service_data}></Table>
       </div>
     </>
   )

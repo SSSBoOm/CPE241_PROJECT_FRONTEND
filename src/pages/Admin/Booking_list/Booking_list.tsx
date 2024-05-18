@@ -1,5 +1,57 @@
-import { EditOutlined } from '@ant-design/icons'
-import { DatePicker, Form } from 'antd'
+import type { TableColumnsType } from 'antd'
+import { DatePicker, Form, Table } from 'antd'
+interface Datatype {
+  key: string
+  bookingid: string
+  roomno: string
+  userid: string
+  fname: string
+  lname: string
+  checkin: string
+  checkout: string
+}
+const columns: TableColumnsType<Datatype> = [
+  {
+    title: 'BookingID',
+    dataIndex: 'bookingid',
+    key: 'bookingid'
+  },
+  { title: 'RoomNo.', dataIndex: 'roomno', key: 'roomno' },
+  { title: 'UserID', dataIndex: 'userid', key: 'userid' },
+  { title: 'Firstname', dataIndex: 'fname', key: 'fname' },
+  { title: 'Lastname', dataIndex: 'lname', key: 'lname' },
+  { title: 'checkIn', dataIndex: 'checkin', key: 'checkin' },
+  { title: 'checkOut', dataIndex: 'checkout', key: 'checkout' },
+
+  {
+    title: 'Action',
+    dataIndex: '',
+    key: 'x',
+    render: () => <a href="/admin/booking_details">Check</a>
+  }
+]
+const data: Datatype[] = [
+  {
+    key: '1',
+    bookingid: '0042',
+    userid: '001',
+    fname: 'Panachai',
+    lname: 'Bualoi',
+    roomno: 'A245',
+    checkin: '05/06/2024',
+    checkout: '06/06/2024'
+  },
+  {
+    key: '1',
+    bookingid: '0044',
+    userid: '001',
+    fname: 'Panachai',
+    lname: 'Bualoi',
+    roomno: 'A245',
+    checkin: '05/06/2024',
+    checkout: '06/06/2024'
+  }
+]
 const Booking_list: React.FC = () => {
   return (
     <>
@@ -14,36 +66,7 @@ const Booking_list: React.FC = () => {
         </Form>
       </div>
       <div className="mx-auto max-w-fit text-center">
-        <table className=" table-auto">
-          <thead>
-            <tr>
-              <th className="border-2 border-primary-blue-600 px-4">BookingID</th>
-              <th className="border-2 border-primary-blue-600 px-4">RoomNo.</th>
-              <th className="border-2 border-primary-blue-600 px-4">Firstname</th>
-              <th className="border-2 border-primary-blue-600 px-4">Lastname</th>
-              <th className="border-2 border-primary-blue-600 px-4">checkIn</th>
-              <th className="border-2 border-primary-blue-600 px-4">checkOut</th>
-              <th className="border-2 border-primary-blue-600 px-4">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border-2 border-primary-blue-600 px-4">00223</td>
-              <td className="border-2 border-primary-blue-600 px-4">A24</td>
-              <td className=" border-2 border-primary-blue-600 px-4">Panachai</td>
-              <td className="border-2 border-primary-blue-600 px-4">Bualoi</td>
-
-              <td className="border-2 border-primary-blue-600 px-4">44/25/5554</td>
-              <td className="border-2 border-primary-blue-600 px-4">34/04/2004</td>
-              <td className="border-2 border-primary-blue-600 px-4">coming</td>
-              <td>
-                <a href="/admin/booking_details">
-                  <EditOutlined />
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <Table columns={columns} dataSource={data} />
       </div>
     </>
   )

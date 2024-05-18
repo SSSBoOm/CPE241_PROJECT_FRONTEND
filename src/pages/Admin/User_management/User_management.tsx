@@ -1,5 +1,41 @@
-import { EditOutlined } from '@ant-design/icons'
-import { Button, Form, Input } from 'antd'
+import type { TableColumnsType } from 'antd'
+import { Button, Form, Input, Table } from 'antd'
+interface Datatype {
+  key: string
+  userid: string
+  fname: string
+  lname: string
+  phone: string
+  dob: string
+}
+const columns: TableColumnsType<Datatype> = [
+  {
+    title: 'UserID',
+    dataIndex: 'userid',
+    key: 'userid'
+  },
+  { title: 'Firstname', dataIndex: 'fname', key: 'fname' },
+  { title: 'Lastname', dataIndex: 'lname', key: 'lname' },
+  { title: 'Phone', dataIndex: 'phone', key: 'phone' },
+  { title: 'DOB', dataIndex: 'dob', key: 'dob' },
+
+  {
+    title: 'Action',
+    dataIndex: '',
+    key: 'x',
+    render: () => <a href="/admin/user_datils">Check</a>
+  }
+]
+const data: Datatype[] = [
+  {
+    key: '1',
+    userid: '001',
+    fname: 'Panachai',
+    lname: 'Bualoi',
+    phone: 'xxx-xxx-xxxx',
+    dob: '04/01/2004'
+  }
+]
 const User_management: React.FC = () => {
   return (
     <>
@@ -20,31 +56,7 @@ const User_management: React.FC = () => {
         </Form>
       </div>
       <div className="mx-auto max-w-fit text-center">
-        <table className=" table-auto">
-          <thead>
-            <tr>
-              <th className="border-2 border-primary-blue-600 px-4">UserID</th>
-              <th className="border-2 border-primary-blue-600 px-4">Firstname</th>
-              <th className="border-2 border-primary-blue-600 px-4">Lastname</th>
-              <th className="border-2 border-primary-blue-600 px-4">Phone</th>
-              <th className="border-2 border-primary-blue-600 px-4">DOB</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border-2 border-primary-blue-600 px-4">00223</td>
-              <td className=" border-2 border-primary-blue-600 px-4">Panachai...</td>
-              <td className="border-2 border-primary-blue-600 px-4">Bualoi</td>
-              <td className="border-2 border-primary-blue-600 px-4">061 xxx xxxx</td>
-              <td className="border-2 border-primary-blue-600 px-4">34/04/2004</td>
-              <td>
-                <a href="/admin/user_datils">
-                  <EditOutlined />
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <Table columns={columns} dataSource={data} />
       </div>
     </>
   )
