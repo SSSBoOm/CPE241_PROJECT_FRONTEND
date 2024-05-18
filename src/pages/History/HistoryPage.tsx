@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import RoomCardHist from '../../components/Card/RoomCardHist'
 
 const HistoryPage: React.FC = () => {
@@ -57,7 +57,7 @@ const HistoryPage: React.FC = () => {
   ]
 
   return (
-    <>
+    <Fragment>
       <div className="container mx-auto mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4 ">
         <div className=" col-span-2 col-start-1 grid-cols-2 rounded-md border-2 text-primary-blue-600 lg:col-start-2 ">
           <div className=" col-span-2 col-start-1 m-5 text-4xl font-bold text-primary-blue-600 ">Room</div>
@@ -102,18 +102,7 @@ const HistoryPage: React.FC = () => {
           })}
         </div>
       </div>
-    </>
-    //   <div className="container mx-auto mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4 ">
-    //     <div className=' col-span-2 lg:col-span-4 col-start-1 m-5 justify-self-center lg:col-start-1 '>
-    //       <RoomCardHist name='Room name' content='no context' size='king size' accommodate={2} food={true} view={{ sea: true, forest: true }} price={690} checkIn='23/04/2023' checkOut='24/04/2023' image='hotel-pool.jpg' />
-    //     </div>
-    //     <div className=' col-span-2 lg:col-span-4 col-start-1 m-5 justify-self-center lg:col-start-1 '>
-    //       <RoomCard name='Room name' content='no context' size='king size' accommodate={2} food={true} view={{ sea: true, forest: true }} price={690} image='hotel-pool.jpg' />
-    //     </div>
-    //     <div className=' col-span-2 lg:col-span-4 col-start-1 m-5 justify-self-center lg:col-start-1 '>
-    //       <RoomCardList name='Room name' content='no context' size='king size' accommodate={2} food={true} view={{ sea: true, forest: true }} price={690} checkIn='23/04/2023' checkOut='24/04/2023' image='hotel-pool.jpg' />
-    //     </div>
-    //   </div>
+    </Fragment>
   )
 }
 

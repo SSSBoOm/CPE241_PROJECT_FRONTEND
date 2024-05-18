@@ -1,7 +1,6 @@
+import Room from '@/components/Card/Room'
 import { DatePicker, InputNumber, Space } from 'antd'
 import React from 'react'
-import Room from '../../components/Card/Room'
-
 const { RangePicker } = DatePicker
 
 const Service: React.FC = () => {

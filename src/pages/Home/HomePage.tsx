@@ -1,10 +1,10 @@
 import { Card, Carousel } from 'antd'
-import React, { lazy } from 'react'
+import React, { Fragment, lazy } from 'react'
 const Footer = lazy(() => import('../../components/Footer/Footer'))
 
 const HomePage: React.FC = () => {
   return (
-    <>
+    <Fragment>
       {/* BG top page */}
       <div className="relative max-h-[32rem]">
         <h1 className="absolute top-1/2 w-full text-center text-6xl font-bold text-white">Hotel Del Luna</h1>
@@ -76,7 +76,7 @@ const HomePage: React.FC = () => {
       </Carousel>
 
       <Footer />
-    </>
+    </Fragment>
   )
 }
 

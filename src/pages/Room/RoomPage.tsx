@@ -8,7 +8,7 @@ import localeData from 'dayjs/plugin/localeData'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
-import { Fragment } from 'react/jsx-runtime'
+import { Fragment } from 'react'
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
 dayjs.extend(customParseFormat)

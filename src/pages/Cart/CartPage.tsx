@@ -1,4 +1,5 @@
 import { Button } from 'antd'
+import { Fragment } from 'react'
 import RoomCardList from '../../components/Card/RoomCardList'
 
 const CartPage = () => {
@@ -52,7 +53,7 @@ const CartPage = () => {
     }
   ]
   return (
-    <>
+    <Fragment>
       <div className="container mx-auto mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4 ">
         <div className=" col-span-2 col-start-1 m-5 grid-cols-2 text-4xl font-bold text-primary-blue-600 lg:col-start-2 ">
           Room
@@ -105,7 +106,7 @@ const CartPage = () => {
           <Button className="mx-1 bg-primary-blue-600 text-white">Proceed to book</Button>
         </div>
       </div>
-    </>
+    </Fragment>
   )
 }
 
