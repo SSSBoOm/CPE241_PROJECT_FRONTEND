@@ -26,11 +26,6 @@ const RoomManagement: React.FC = () => {
             value={record.isActive}
             onChange={async (value: boolean) => {
               try {
-                setRoomTypeData((prev) => {
-                  const newData = [...prev]
-                  newData[index].isActive = !newData[index].isActive
-                  return newData
-                })
                 const response = await AxiosInstance.post(`/api/room_type/active`, {
                   id: record.id,
                   isActive: value
@@ -42,9 +37,19 @@ const RoomManagement: React.FC = () => {
                     text: 'แก้ไขสถานะสำเร็จ',
                     icon: 'success'
                   })
+                  setRoomTypeData((prev) => {
+                    const newData = [...prev]
+                    newData[index].isActive = !newData[index].isActive
+                    return newData
+                  })
                 }
               } catch (error) {
                 console.error(error)
+                Swal.fire({
+                  title: 'Error',
+                  text: 'เกิดข้อผิดพลาด',
+                  icon: 'error'
+                })
               }
             }}
           />
@@ -83,17 +88,16 @@ const RoomManagement: React.FC = () => {
             value={record.isActive}
             onChange={async (value: boolean) => {
               try {
-                setRoomData((prev) => {
-                  const newData = [...prev]
-                  newData[index].isActive = !newData[index].isActive
-                  return newData
-                })
                 const response = await AxiosInstance.post(`/api/room/active`, {
                   id: record.id,
                   isActive: value
                 })
-                console.log(response)
                 if (response.status === 200) {
+                  setRoomData((prev) => {
+                    const newData = [...prev]
+                    newData[index].isActive = !newData[index].isActive
+                    return newData
+                  })
                   Swal.fire({
                     title: 'Success',
                     text: 'แก้ไขสถานะสำเร็จ',
@@ -102,6 +106,11 @@ const RoomManagement: React.FC = () => {
                 }
               } catch (error) {
                 console.error(error)
+                Swal.fire({
+                  title: 'Error',
+                  text: 'เกิดข้อผิดพลาด',
+                  icon: 'error'
+                })
               }
             }}
           />
