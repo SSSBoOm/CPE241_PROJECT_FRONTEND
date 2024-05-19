@@ -4,6 +4,7 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
+  ADD_ROOMTYPE,
   ADMIN_PATH,
   BASE_PATH,
   BOOKING_DETAILS,
@@ -42,6 +43,7 @@ const ProfilePage = lazy(() => import('./pages/Profile/ProfilePage'))
 const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
 const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
 const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
+const Add_RoomtypePage = lazy(() => import('./pages/Admin/RoomManagement/Add_roomtype'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
@@ -129,6 +131,7 @@ function App(): React.ReactElement {
               <Route path={USER_DETAILS} element={<User_details />} />
               <Route path={BOOKING_LIST} element={<Booking_list />} />
               <Route path={BOOKING_DETAILS} element={<Booking_details />} />
+              <Route path={ADD_ROOMTYPE} element={<Add_RoomtypePage />} />
             </Route>
           </Routes>
         </BrowserRouter>
