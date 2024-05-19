@@ -1,5 +1,6 @@
 import { FullscreenOutlined, UserOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
+import React from 'react'
 type Props = {
   name?: string
   content?: string
@@ -15,7 +16,8 @@ type Props = {
 
   bed?: string
 }
-const CardUpgrade = (props: Props) => {
+
+const CardUpgrade: React.FC<Props> = (props) => {
   return (
     <>
       <div className="flex w-fit rounded-md border-2 border-primary-blue-700">
