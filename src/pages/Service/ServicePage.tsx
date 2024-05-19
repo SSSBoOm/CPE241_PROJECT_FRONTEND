@@ -8,6 +8,7 @@ const data: IRoomType = {
   id: 1,
   name: 'Standard Suite Room',
   detail: 'Standard Suite Room',
+  price: 1000,
   isActive: true,
   updateAt: new Date(),
   createdAt: new Date()
