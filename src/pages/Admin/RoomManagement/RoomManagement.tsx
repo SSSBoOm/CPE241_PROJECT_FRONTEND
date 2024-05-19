@@ -7,6 +7,7 @@ import { Switch, Table } from 'antd'
 import React, { Fragment, useEffect, useState } from 'react'
 import { PiMagnifyingGlass } from 'react-icons/pi'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const RoomManagement: React.FC = () => {
   const [roomTypeData, setRoomTypeData] = useState<IRoomType[]>([])
@@ -23,13 +24,28 @@ const RoomManagement: React.FC = () => {
         return (
           <Switch
             value={record.isActive}
-            onClick={() => {
-              setRoomTypeData((prev) => {
-                const newData = [...prev]
-                newData[index].isActive = !newData[index].isActive
-                return newData
-              })
-              // TODO: update isActive in database
+            onChange={async (value: boolean) => {
+              try {
+                setRoomTypeData((prev) => {
+                  const newData = [...prev]
+                  newData[index].isActive = !newData[index].isActive
+                  return newData
+                })
+                const response = await AxiosInstance.post(`/api/room_type/active`, {
+                  id: record.id,
+                  isActive: value
+                })
+                console.log(response)
+                if (response.status === 200) {
+                  Swal.fire({
+                    title: 'Success',
+                    text: 'แก้ไขสถานะสำเร็จ',
+                    icon: 'success'
+                  })
+                }
+              } catch (error) {
+                console.error(error)
+              }
             }}
           />
         )
@@ -65,13 +81,28 @@ const RoomManagement: React.FC = () => {
         return (
           <Switch
             value={record.isActive}
-            onClick={() => {
-              setRoomTypeData((prev) => {
-                const newData = [...prev]
-                newData[index].isActive = !newData[index].isActive
-                return newData
-              })
-              // TODO: update isActive in database
+            onChange={async (value: boolean) => {
+              try {
+                setRoomData((prev) => {
+                  const newData = [...prev]
+                  newData[index].isActive = !newData[index].isActive
+                  return newData
+                })
+                const response = await AxiosInstance.post(`/api/room/active`, {
+                  id: record.id,
+                  isActive: value
+                })
+                console.log(response)
+                if (response.status === 200) {
+                  Swal.fire({
+                    title: 'Success',
+                    text: 'แก้ไขสถานะสำเร็จ',
+                    icon: 'success'
+                  })
+                }
+              } catch (error) {
+                console.error(error)
+              }
             }}
           />
         )
@@ -101,7 +132,6 @@ const RoomManagement: React.FC = () => {
     const fetchRoom = async () => {
       try {
         const res = await AxiosInstance.get('/api/room/all')
-        console.log(res.data.data)
         setRoomData(res.data.data)
       } catch (err) {
         console.error(err)
