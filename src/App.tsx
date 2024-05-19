@@ -1,5 +1,5 @@
 import { ConfigProvider } from 'antd'
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import React, { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
@@ -25,8 +25,14 @@ import {
 import { AuthContext, initialContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
 import { AxiosInstance } from './lib/axios'
-import PaymentPage from './pages/Payment/PaymentPage'
 
+const Booking_details = lazy(() => import('./pages/Admin/Booking_list/Booking_details'))
+const Booking_list = lazy(() => import('./pages/Admin/Booking_list/Booking_list'))
+const Room_manage = lazy(() => import('./pages/Admin/Room_management/Room_management'))
+const Service_manage = lazy(() => import('./pages/Admin/Service_management/Service_management'))
+const User_details = lazy(() => import('./pages/Admin/User_management/User_details'))
+const User_management = lazy(() => import('./pages/Admin/User_management/User_management'))
+const PaymentPage = lazy(() => import('./pages/Payment/PaymentPage'))
 const CardPage = lazy(() => import('./pages/Cart/CartPage'))
 const Facility = lazy(() => import('./pages/Facitily/Facility'))
 const HistoryPage = lazy(() => import('./pages/History/HistoryPage'))
@@ -37,14 +43,7 @@ const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
 const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
 const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
 
-import Booking_details from './pages/Admin/Booking_list/Booking_details'
-import Booking_list from './pages/Admin/Booking_list/Booking_list'
-import Room_manage from './pages/Admin/Room_management/Room_management'
-import Service_manage from './pages/Admin/Service_management/Service_management'
-import User_details from './pages/Admin/User_management/User_details'
-import User_management from './pages/Admin/User_management/User_management'
-
-function App() {
+function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
   const [loading, setLoading] = useState(true)
 
@@ -66,7 +65,7 @@ function App() {
   }, [handleLogin])
 
   if (loading) {
-    return <div> console.log(authContext)</div>
+    return <div></div>
   }
 
   return (
