@@ -1,6 +1,6 @@
-import { Button, Form, Input, InputNumber, Select, Space, Switch } from 'antd'
-
+import { PlusOutlined } from '@ant-design/icons'
 import type { FormInstance } from 'antd'
+import { Button, Form, Input, InputNumber, Select, Space, Switch, Upload } from 'antd'
 import React from 'react'
 
 interface SubmitButtonProps {
@@ -114,6 +114,14 @@ const Add_roomtype = () => {
                 <Switch></Switch>
               </Form.Item>
             </div>
+            <Form.Item label="Upload" valuePropName="fileList">
+              <Upload action="/upload.do" listType="picture-card">
+                <button style={{ border: 0, background: 'none' }} type="button">
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </button>
+              </Upload>
+            </Form.Item>
           </div>
 
           <Form.Item>
