@@ -1,4 +1,6 @@
 import Room from '@/components/Card/Room'
+import { IRoomType } from '@/interfaces/RoomType'
+import { AxiosInstance } from '@/lib/axios'
 import { SearchOutlined } from '@ant-design/icons'
 import { DatePicker, Form, GetProps, Select } from 'antd'
 import dayjs from 'dayjs'
@@ -8,7 +10,7 @@ import localeData from 'dayjs/plugin/localeData'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
 dayjs.extend(customParseFormat)
@@ -24,6 +26,7 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 
 const RoomPage = () => {
   const [form] = Form.useForm()
+  const [roomTypes, setRoomTypes] = useState<IRoomType[]>([])
 
   const onFinish = () => {
     const values = form.getFieldsValue()
@@ -32,9 +35,21 @@ const RoomPage = () => {
       start_date: dayjs(values.dates[0]).set('hour', 13).set('minute', 0).set('second', 0).set('millisecond', 0),
       end_date: dayjs(values.dates[1]).set('hour', 11).set('minute', 0).set('second', 0).set('millisecond', 0)
     }
-    console.log(start_date)
-    console.log(end_date)
+    console.log(start_date.toISOString())
+    console.log(end_date.toISOString())
   }
+
+  useEffect(() => {
+    const fetchRoom = async () => {
+      try {
+        const result = await AxiosInstance.get('/api/room_type/all')
+        setRoomTypes(result.data.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchRoom()
+  }, [])
 
   return (
     <Fragment>
@@ -126,9 +141,9 @@ const RoomPage = () => {
           </div>
         </Form>
         <div className="flex flex-col space-y-4">
-          <Room />
-          <Room />
-          <Room />
+          {roomTypes.map((roomType) => {
+            return <Room key={roomType.id} data={roomType} />
+          })}
         </div>
       </div>
     </Fragment>

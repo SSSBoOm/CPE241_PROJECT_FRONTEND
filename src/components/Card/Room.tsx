@@ -1,6 +1,12 @@
+import { IRoomType } from '@/interfaces/RoomType'
 import { ExpandAltOutlined } from '@ant-design/icons'
+import { FC } from 'react'
 
-const Room = () => {
+type Props = {
+  data: IRoomType
+}
+
+const Room: FC<Props> = (props) => {
   return (
     <>
       <div className="container mx-auto grid h-[16rem] grid-cols-5 gap-x-2 rounded-md border-2 border-primary-blue-600">
@@ -8,8 +14,8 @@ const Room = () => {
           <img className="h-[16rem] w-full object-cover" src="StandardSuiteRoom.svg" alt="" />
         </div>
         <div className="col-span-3">
-          <p className=" text-3xl">Standard</p>
-          <p className=" mb-2 text-lg">Content.....</p>
+          <p className=" text-3xl">{props.data.name}</p>
+          <p className=" mb-2 text-lg">{props.data.detail}</p>
           <div className=" mb-3 grid grid-cols-3 text-lg">
             <div>
               <p>
