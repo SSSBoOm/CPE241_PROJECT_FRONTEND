@@ -1,8 +1,5 @@
-import Room from '@/components/Card/Room'
-import { IRoomType } from '@/interfaces/RoomType'
-import { AxiosInstance } from '@/lib/axios'
 import { SearchOutlined } from '@ant-design/icons'
-import { DatePicker, Form, GetProps, Select } from 'antd'
+import { DatePicker, Form, GetProps, InputNumber, Select, Space } from 'antd'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -10,7 +7,14 @@ import localeData from 'dayjs/plugin/localeData'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
-import { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, lazy, useEffect, useState } from 'react'
+import { IRoomType } from '../../interfaces/RoomType'
+import { AxiosInstance } from '../../lib/axios'
+
+const CardUpgrade = lazy(() => import('../../components/Card/CardUpgrade'))
+const Room = lazy(() => import('../../components/Card/Room'))
+
+const { RangePicker } = DatePicker
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
 dayjs.extend(customParseFormat)
@@ -24,7 +28,7 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
   return current && current < dayjs().endOf('day')
 }
 
-const RoomPage = () => {
+const RoomPage: React.FC = () => {
   const [form] = Form.useForm()
   const [roomTypes, setRoomTypes] = useState<IRoomType[]>([])
 
@@ -145,6 +149,25 @@ const RoomPage = () => {
             return <Room key={roomType.id} data={roomType} />
           })}
         </div>
+      </div>
+      <div className=" container mx-auto w-fit">
+        <Space direction="vertical" size={12}>
+          <RangePicker size="large" />
+        </Space>
+        <InputNumber size="large" min={1} max={8} defaultValue={2} className=" mx-9" />
+        <button>Search</button>
+      </div>
+      <div className="mx-auto my-8 w-5/12">
+        <CardUpgrade
+          food={true}
+          view={{ sea: true, forest: true }}
+          accommodate={2}
+          bed="Kingsize"
+          content="dwdwdwdw"
+          name="dwdwdwwd"
+          price={24}
+          image="Room_2.jpg"
+        />
       </div>
     </Fragment>
   )

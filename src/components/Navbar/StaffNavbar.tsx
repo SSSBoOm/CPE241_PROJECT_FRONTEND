@@ -13,13 +13,28 @@ const StaffNavbar = () => {
           <a href="" className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange">
             Dashboard
           </a>
-          <a href="" className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange">
+          <a
+            href="/admin/bookinglist"
+            className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange"
+          >
+            Booking List
+          </a>
+          <a
+            href="/admin/user_management"
+            className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange"
+          >
             User Management
           </a>
-          <a href="" className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange">
+          <a
+            href="/admin/room_management"
+            className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange"
+          >
             Room Management
           </a>
-          <a href="" className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange">
+          <a
+            href="/admin/service_management"
+            className=" h-10 text-center hover:bg-primary-blue-700 hover:text-primary-orange"
+          >
             Service Management
           </a>
         </div>

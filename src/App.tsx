@@ -1,11 +1,13 @@
 import { ConfigProvider } from 'antd'
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import React, { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
   ADMIN_PATH,
   BASE_PATH,
+  BOOKING_DETAILS,
+  BOOKING_LIST,
   CART_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
@@ -13,14 +15,24 @@ import {
   PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
+  ROOM_MANAGE,
   ROOM_PATH,
-  SERVICE_PATH
+  SERVICE_MANAGE,
+  SERVICE_PATH,
+  USER_DETAILS,
+  USER_MANAGE
 } from './configs/route'
 import { AuthContext, initialContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
 import { AxiosInstance } from './lib/axios'
-import PaymentPage from './pages/Payment/PaymentPage'
 
+const Booking_details = lazy(() => import('./pages/Admin/Booking_list/Booking_details'))
+const Booking_list = lazy(() => import('./pages/Admin/Booking_list/Booking_list'))
+const Room_manage = lazy(() => import('./pages/Admin/Room_management/Room_management'))
+const Service_manage = lazy(() => import('./pages/Admin/Service_management/Service_management'))
+const User_details = lazy(() => import('./pages/Admin/User_management/User_details'))
+const User_management = lazy(() => import('./pages/Admin/User_management/User_management'))
+const PaymentPage = lazy(() => import('./pages/Payment/PaymentPage'))
 const CardPage = lazy(() => import('./pages/Cart/CartPage'))
 const Facility = lazy(() => import('./pages/Facitily/Facility'))
 const HistoryPage = lazy(() => import('./pages/History/HistoryPage'))
@@ -31,7 +43,7 @@ const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
 const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
 const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
 
-function App() {
+function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
   const [loading, setLoading] = useState(true)
 
@@ -53,7 +65,7 @@ function App() {
   }, [handleLogin])
 
   if (loading) {
-    return <div> console.log(authContext)</div>
+    return <div></div>
   }
 
   return (
@@ -111,6 +123,12 @@ function App() {
               }
             >
               <Route index element={<HomePage />} />
+              <Route path={ROOM_MANAGE} element={<Room_manage />} />
+              <Route path={SERVICE_MANAGE} element={<Service_manage />} />
+              <Route path={USER_MANAGE} element={<User_management />} />
+              <Route path={USER_DETAILS} element={<User_details />} />
+              <Route path={BOOKING_LIST} element={<Booking_list />} />
+              <Route path={BOOKING_DETAILS} element={<Booking_details />} />
             </Route>
           </Routes>
         </BrowserRouter>
