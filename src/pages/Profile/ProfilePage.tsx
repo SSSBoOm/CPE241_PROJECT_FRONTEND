@@ -157,8 +157,8 @@ const ProfilePage = () => {
                 <Form.Item
                   name="gender"
                   className="col-span-1"
-                  label={<p className="font-bold">คำนำหน้าชื่อ</p>}
-                  rules={[{ required: true, message: 'กรุณากรอกคำนำหน้าชื่อ' }]}
+                  label={<p className="font-bold">เพศ</p>}
+                  rules={[{ required: true, message: 'กรุณากรอกเพศ' }]}
                 >
                   <Select
                     showSearch
