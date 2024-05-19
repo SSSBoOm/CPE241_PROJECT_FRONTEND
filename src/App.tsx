@@ -28,7 +28,7 @@ import { AxiosInstance } from './lib/axios'
 
 const Booking_details = lazy(() => import('./pages/Admin/Booking_list/Booking_details'))
 const Booking_list = lazy(() => import('./pages/Admin/Booking_list/Booking_list'))
-const Room_manage = lazy(() => import('./pages/Admin/Room_management/Room_management'))
+const RoomManagement = lazy(() => import('./pages/Admin/RoomManagement/RoomManagement'))
 const Service_manage = lazy(() => import('./pages/Admin/Service_management/Service_management'))
 const User_details = lazy(() => import('./pages/Admin/User_management/User_details'))
 const User_management = lazy(() => import('./pages/Admin/User_management/User_management'))
@@ -123,7 +123,7 @@ function App(): React.ReactElement {
               }
             >
               <Route index element={<HomePage />} />
-              <Route path={ROOM_MANAGE} element={<Room_manage />} />
+              <Route path={ROOM_MANAGE} element={<RoomManagement />} />
               <Route path={SERVICE_MANAGE} element={<Service_manage />} />
               <Route path={USER_MANAGE} element={<User_management />} />
               <Route path={USER_DETAILS} element={<User_details />} />

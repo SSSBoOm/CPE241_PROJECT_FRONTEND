@@ -13,7 +13,7 @@ import { handleLogout } from '@/lib/googleSignUp'
 import { MenuOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
-import { FC, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const items: MenuProps['items'] = [
@@ -46,9 +46,9 @@ const items: MenuProps['items'] = [
   }
 ]
 
-const Navbar: FC = () => {
-  const authContext = useContext(AuthContext)
-  const isAuthenticated = authContext?.authContext.isAuthenticated
+const Navbar: React.FC = () => {
+  const auth = useContext(AuthContext)
+  const isAuthenticated = auth?.authContext.isAuthenticated || false
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
