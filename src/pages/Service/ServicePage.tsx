@@ -1,7 +1,17 @@
 import Room from '@/components/Card/Room'
+import { IRoomType } from '@/interfaces/RoomType'
 import { DatePicker, InputNumber, Space } from 'antd'
 import React from 'react'
 const { RangePicker } = DatePicker
+
+const data: IRoomType = {
+  id: 1,
+  name: 'Standard Suite Room',
+  detail: 'Standard Suite Room',
+  isActive: true,
+  updateAt: new Date(),
+  createdAt: new Date()
+}
 
 const ServicePage: React.FC = () => {
   return (
@@ -21,9 +31,7 @@ const ServicePage: React.FC = () => {
         </div>
         <div className="mt-8 flex justify-center">
           <div className="grid grid-cols-1 gap-8 font-normal sm:grid-cols-1">
-            <Room />
-            <Room />
-            <Room />
+            <Room data={data} />
           </div>
         </div>
       </div>
