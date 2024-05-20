@@ -1,3 +1,4 @@
+import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
 import { SearchOutlined } from '@ant-design/icons'
 import { DatePicker, Form, GetProps, Select } from 'antd'
 import dayjs from 'dayjs'
@@ -66,6 +67,7 @@ const RoomPage: React.FC = () => {
             number: 1
           }}
           form={form}
+          requiredMark={customizeRequiredMark}
           scrollToFirstError
           size="large"
           onFinish={onFinish}

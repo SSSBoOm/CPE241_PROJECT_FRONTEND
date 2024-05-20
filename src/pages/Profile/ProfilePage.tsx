@@ -9,6 +9,7 @@ import weekday from 'dayjs/plugin/weekday'
 import { Fragment, useContext } from 'react'
 import Swal from 'sweetalert2'
 
+import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
 import { AuthContext } from '@/contexts/AuthContext'
 import { GenderType } from '@/interfaces/enums/Gender'
 import { PrefixType } from '@/interfaces/enums/Prefix'
@@ -65,6 +66,7 @@ const ProfilePage = () => {
             layout="vertical"
             onFinish={onFinish}
             form={form}
+            requiredMark={customizeRequiredMark}
             scrollToFirstError
             initialValues={{
               prefix: auth?.authContext.prefix,

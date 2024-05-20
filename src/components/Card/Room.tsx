@@ -1,4 +1,3 @@
-import { ExpandAltOutlined } from '@ant-design/icons'
 import React from 'react'
 import { IRoomType } from '../../interfaces/RoomType'
 
@@ -18,12 +17,8 @@ const Room: React.FC<Props> = (props) => {
           <p className=" mb-2 text-lg">{props.data.detail}</p>
           <div className=" mb-3 grid grid-cols-3 text-lg">
             <div>
-              <p>
-                <ExpandAltOutlined />
-                Size : 27
-              </p>
               <p>Bed : King size</p>
-              <p>People : 2</p>
+              <p>People : {props.data.accommodate}</p>
               <p>Garden view</p>
               <p>Sea view</p>
             </div>

@@ -15,11 +15,11 @@ const HomePage: React.FC = () => {
       <div className="container mx-auto my-8 grid grid-cols-1 gap-y-4 px-4 md:grid-cols-2 md:gap-x-4">
         <img src="hotel-pool.jpg" className="aspect-video w-full object-cover" alt="" />
         <div className="">
-          <h2 className="text-3xl">Lorem ipsum dolor sit</h2>
+          <h2 className="text-3xl">Hotel Del Luna</h2>
           <p className="text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam error necessitatibus voluptate ut atque,
-            incidunt quae minus quos repellendus reprehenderit nisi facere ipsa quis rerum, qui consequuntur iusto
-            dignissimos velit?
+            พักผ่อนกาย ผ่อนคลายใจ ริมชายหาดส่วนตัว ขึ้นชื่อเรื่องหาดทรายขาว น้ำทะเลใส เหมาะกับการพักผ่อน
+            สัมผัสบรรยากาศสุดโรแมนติก ชมพระอาทิตย์ขึ้นและตกดินเหนือท้องทะเล เพลิดเพลินกับกิจกรรมทางน้ำมากมาย เช่น
+            ว่ายน้ำ ดำน้ำ เล่นเซิร์ฟ ผ่อนคลายร่างกายและจิตใจด้วยบริการสปา
           </p>
         </div>
       </div>

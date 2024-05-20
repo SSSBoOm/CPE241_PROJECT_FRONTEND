@@ -1,3 +1,4 @@
+import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
 import { GoogleOutlined } from '@ant-design/icons'
 import { Form, Input } from 'antd'
 import React from 'react'
@@ -11,7 +12,7 @@ const LoginPage: React.FC = () => {
           <p className="text-xs font-medium text-primary-blue-700 lg:text-lg">Meridian Bliss</p>
           <p className="text-3xl font-bold text-primary-blue-700 lg:text-5xl">Login</p>
         </div>
-        <Form layout="vertical">
+        <Form layout="vertical" requiredMark={customizeRequiredMark}>
           <div className=" mx-auto my-8 w-10/12 max-w-[23rem]">
             <Form.Item
               name="username"
@@ -19,7 +20,7 @@ const LoginPage: React.FC = () => {
               className="font-semibold"
               rules={[{ required: true, message: 'Please input your username!' }]}
             >
-              <Input size="large"></Input>
+              <Input size="large" />
             </Form.Item>
             <Form.Item
               name="password"
@@ -27,7 +28,7 @@ const LoginPage: React.FC = () => {
               className="font-semibold"
               rules={[{ required: true, message: 'Please input your Password' }]}
             >
-              <Input.Password size="large"></Input.Password>
+              <Input.Password size="large" />
             </Form.Item>
           </div>
           <Form.Item className="mx-auto  w-3/12 min-w-[10rem] rounded-md border-2 border-primary-blue-700 text-center text-primary-blue-700 hover:border-primary-orange hover:text-primary-orange">
