@@ -178,7 +178,7 @@ const RoomManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room</p>
-            <button className="flex min-w-[8rem] justify-center space-x-2 rounded-md bg-primary-blue-500 px-4 py-2 text-white">
+            <button className="flex min-w-[8rem] justify-center space-x-2 rounded-md bg-primary-blue-500 px-4 py-2 text-white ">
               <p>Add Room</p>
               <PlusOutlined className="place-self-end self-center" />
             </button>
