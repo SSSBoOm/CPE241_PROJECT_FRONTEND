@@ -7,7 +7,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="flex h-screen items-center justify-center bg-[url('/images/login/view.png')]  bg-cover bg-repeat">
       <div className=" h-screen w-screen border-primary-blue-600 bg-white px-10 py-4 md:h-fit md:w-5/12 md:rounded-md md:border-2">
-        <div className="mx-4">
+        <div className="text-center md:mx-4 md:text-start">
           <p className="text-xs font-medium text-primary-blue-700 lg:text-lg">Meridian Bliss</p>
           <p className="text-3xl font-bold text-primary-blue-700 lg:text-5xl">Login</p>
         </div>
