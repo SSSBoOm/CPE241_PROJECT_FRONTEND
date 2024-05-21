@@ -5,9 +5,9 @@ import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
   ADD_ROOM,
+  ADD_ROOM_TYPE_PATH,
   ADD_SERVICE,
   ADD_SERVICETYPE,
-  ADD_ROOM_TYPE_PATH,
   ADMIN_PATH,
   BASE_PATH,
   BOOKING_DETAILS,
@@ -89,6 +89,12 @@ function App(): React.ReactElement {
               defaultHoverColor: '#F89200'
             },
             InputNumber: {
+              colorBorder: '#0E4459'
+            },
+            Input: {
+              colorBorder: '#0E4459'
+            },
+            Select: {
               colorBorder: '#0E4459'
             },
             DatePicker: {
