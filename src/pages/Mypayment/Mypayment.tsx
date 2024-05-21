@@ -1,3 +1,4 @@
+import { ADDCARD_PATH } from '@/configs/route'
 import { Button, Table } from 'antd'
 const columns = [
   {
@@ -28,7 +29,7 @@ const Mypayment = () => {
         <div className="container rounded-xl bg-white p-8 md:mx-auto">
           <div className="flex justify-between py-2 sm:px-8">
             <p className="text-2xl font-semibold text-primary-blue-700">Payment</p>
-            <Button type="primary">
+            <Button type="primary" onClick={() => (document.location = ADDCARD_PATH)}>
               <p>Add Card</p>
             </Button>
           </div>
