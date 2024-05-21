@@ -2,8 +2,10 @@ import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber, Select, Space, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
+import React from 'react'
 import Swal from 'sweetalert2'
-const Add_service = () => {
+
+const Add_service: React.FC = () => {
   function cancel() {
     Swal.fire({
       title: 'คุณเเน่ใจที่จะออก?',

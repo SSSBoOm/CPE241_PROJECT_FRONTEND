@@ -18,7 +18,6 @@ const CreateRoomType: React.FC = () => {
   const onFinish = async () => {
     try {
       const values = form.getFieldsValue()
-      console.log(values)
       // TODO: Validate Fields
       const response = await AxiosInstance.post('/api/room_type', {
         ...values,

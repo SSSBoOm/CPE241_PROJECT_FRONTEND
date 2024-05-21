@@ -2,7 +2,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import type { FormInstance } from 'antd'
 import { Button, Form, Input, InputNumber, Space, Switch, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
-import React from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { FaPlus } from 'react-icons/fa'
 
 interface SubmitButtonProps {
@@ -11,7 +11,7 @@ interface SubmitButtonProps {
 
 const { TextArea } = Input
 
-const Add_ServiceType = () => {
+const Add_ServiceType: React.FC = () => {
   const [form] = Form.useForm()
   const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ form, children }) => {
     const [submittable, setSubmittable] = React.useState<boolean>(false)
@@ -19,7 +19,7 @@ const Add_ServiceType = () => {
     // Watch all values
     const values = Form.useWatch([], form)
 
-    React.useEffect(() => {
+    useEffect(() => {
       form
         .validateFields({ validateOnly: true })
         .then(() => setSubmittable(true))
@@ -34,7 +34,7 @@ const Add_ServiceType = () => {
   }
 
   return (
-    <>
+    <Fragment>
       <div className="container mx-auto space-y-4 px-4">
         <h1 className="text-3xl  font-bold text-primary-blue-600">Add Service Type</h1>
         <Form form={form} layout="vertical" autoComplete="off">
@@ -146,7 +146,7 @@ const Add_ServiceType = () => {
           </Form.Item>
         </Form>
       </div>
-    </>
+    </Fragment>
   )
 }
 export default Add_ServiceType

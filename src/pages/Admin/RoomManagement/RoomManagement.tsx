@@ -133,7 +133,7 @@ const RoomManagement: React.FC = () => {
   useEffect(() => {
     const fetchRoomType = async () => {
       try {
-        const res = await AxiosInstance.get('/api/room_type/all')
+        const res = await AxiosInstance.get('/api/room_type')
         setRoomTypeData(res.data.data)
       } catch (err) {
         console.error(err)
@@ -141,7 +141,7 @@ const RoomManagement: React.FC = () => {
     }
     const fetchRoom = async () => {
       try {
-        const res = await AxiosInstance.get('/api/room/all')
+        const res = await AxiosInstance.get('/api/room')
         setRoomData(res.data.data)
       } catch (err) {
         console.error(err)

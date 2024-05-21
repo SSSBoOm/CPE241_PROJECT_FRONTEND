@@ -130,7 +130,7 @@ const ServiceManagement: React.FC = () => {
   useEffect(() => {
     const fetchServiceType = async () => {
       try {
-        const res = await AxiosInstance.get('/api/service_type/all')
+        const res = await AxiosInstance.get('/api/service_type')
         setServiceTypeData(res.data.data)
       } catch (err) {
         console.error(err)
@@ -138,7 +138,7 @@ const ServiceManagement: React.FC = () => {
     }
     const fetchService = async () => {
       try {
-        const res = await AxiosInstance.get('/api/service/all')
+        const res = await AxiosInstance.get('/api/service')
         setServiceData(res.data.data)
       } catch (err) {
         console.error(err)

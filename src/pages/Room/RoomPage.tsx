@@ -44,7 +44,7 @@ const RoomPage: React.FC = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const result = await AxiosInstance.get('/api/room_type/all')
+        const result = await AxiosInstance.get('/api/room_type')
         setRoomTypes(result.data.data)
       } catch (err) {
         console.log(err)
