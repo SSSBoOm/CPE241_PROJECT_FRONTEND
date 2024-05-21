@@ -3,6 +3,7 @@ import { ROOM_MANAGE } from '@/configs/route'
 import { AxiosInstance } from '@/lib/axios'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber, Select, Space, Switch, Upload } from 'antd'
+import ImgCrop from 'antd-img-crop'
 import React, { Fragment } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
@@ -106,12 +107,14 @@ const CreateRoomType: React.FC = () => {
               </Form.Item>
             </div>
             <Form.Item label="Upload" valuePropName="fileList">
-              <Upload action="/upload.do" listType="picture-card">
-                <button style={{ border: 0, background: 'none' }} type="button">
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>Upload</div>
-                </button>
-              </Upload>
+              <ImgCrop>
+                <Upload action="/upload.do" listType="picture-card">
+                  <button style={{ border: 0, background: 'none' }} type="button">
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Upload</div>
+                  </button>
+                </Upload>
+              </ImgCrop>
             </Form.Item>
           </div>
           <div>

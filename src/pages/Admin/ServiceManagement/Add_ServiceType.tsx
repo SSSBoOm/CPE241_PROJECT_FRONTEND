@@ -1,7 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons'
 import type { FormInstance } from 'antd'
 import { Button, Form, Input, InputNumber, Space, Switch, Upload } from 'antd'
+import ImgCrop from 'antd-img-crop'
 import React from 'react'
+import { FaPlus } from 'react-icons/fa'
 
 interface SubmitButtonProps {
   form: FormInstance
@@ -33,14 +35,17 @@ const Add_ServiceType = () => {
 
   return (
     <>
-      <div>
-        <p className="text-center text-3xl font-bold text-primary-blue-700">Add Service Type</p>
-      </div>
-      <div className="mx-auto  w-3/5 ">
+      <div className="container mx-auto space-y-4 px-4">
+        <h1 className="text-3xl  font-bold text-primary-blue-600">Add Service Type</h1>
         <Form form={form} layout="vertical" autoComplete="off">
           <div className="grid grid-cols-1 gap-2">
-            <Form.Item name="Name" label="Name of room" rules={[{ required: true, message: 'กรุณากรอกชื่อห้อง' }]}>
+            <Form.Item
+              name="Name"
+              label={<p className="font-semibold">Name of Service Type</p>}
+              rules={[{ required: true, message: 'กรุณากรอกชื่อประเภทบริการ' }]}
+            >
               <Input
+                size="large"
                 placeholder="please Input Name"
                 count={{
                   show: true,
@@ -48,22 +53,11 @@ const Add_ServiceType = () => {
                 }}
               ></Input>
             </Form.Item>
-            <Form.Item
-              name="Price"
-              label="Price"
-              rules={[
-                { required: true, message: 'กรุณากรอกราคา' },
-                {
-                  pattern: /^[0-9]*$/,
-                  message: 'กรุณากรอกราคาให้ถูกต้อง'
-                }
-              ]}
-            >
-              <Input placeholder="please Input Price"></Input>
-            </Form.Item>
+
             <div className="">
-              <Form.Item label="content">
+              <Form.Item label={<p className="font-semibold">content</p>}>
                 <TextArea
+                  size="large"
                   placeholder="please Input content"
                   autoSize={{ minRows: 3, maxRows: 4 }}
                   count={{
@@ -73,22 +67,76 @@ const Add_ServiceType = () => {
                 ></TextArea>
               </Form.Item>
             </div>
-            <div className="grid w-fit md:grid-cols-2">
-              <Form.Item className="" label="accommodate ">
-                <InputNumber min={1} max={8} defaultValue={2}></InputNumber>
-              </Form.Item>
-              <Form.Item label="Food">
-                <Switch></Switch>
-              </Form.Item>
-              <Form.Item label="Upload" valuePropName="fileList">
-                <Upload action="/upload.do" listType="picture-card">
-                  <button style={{ border: 0, background: 'none' }} type="button">
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </button>
-                </Upload>
-              </Form.Item>
-            </div>
+          </div>
+          <div>
+            <Form.Item label={<p className="text-xl font-bold text-primary-blue-600">Service</p>}>
+              <Form.List name={'room'}>
+                {(Field, option) => (
+                  <div className="space-y-8">
+                    {Field.map((item) => {
+                      return (
+                        <div key={item.key} className="grid w-full grid-cols-1 md:grid-cols-2 md:gap-x-4">
+                          <Form.Item
+                            name={[item.name, 'roomNumber']}
+                            label={<p className="font-semibold">Room Number</p>}
+                            className="w-full"
+                          >
+                            <Input placeholder="หมายเลขห้อง" size="large" />
+                          </Form.Item>
+                          <Form.Item
+                            name={[item.name, 'roomNumber']}
+                            label={<p className="font-semibold">Room Number</p>}
+                            className="w-full"
+                          >
+                            <Input placeholder="หมายเลขห้อง" size="large" />
+                          </Form.Item>
+                          <Form.Item
+                            name={[item.name, 'roomNumber']}
+                            label={<p className="font-semibold">Room Number</p>}
+                            className="w-full"
+                          >
+                            <Input placeholder="หมายเลขห้อง" size="large" />
+                          </Form.Item>
+                          <div className="flex w-full flex-wrap space-x-8">
+                            <Form.Item label={<p className="font-semibold">Upload</p>} valuePropName="fileList">
+                              <ImgCrop>
+                                <Upload action="/upload.do" listType="picture-card">
+                                  <button style={{ border: 0, background: 'none' }} type="button">
+                                    <PlusOutlined />
+                                    <div style={{ marginTop: 8 }}>Upload</div>
+                                  </button>
+                                </Upload>
+                              </ImgCrop>
+                            </Form.Item>
+                            <div>
+                              <Form.Item label={<p className="font-semibold">accommodate</p>}>
+                                <InputNumber size="large" min={1} max={8} defaultValue={2}></InputNumber>
+                              </Form.Item>
+                              <Form.Item name={[item.name, 'isActive']} label={<p className="font-semibold">Active</p>}>
+                                <Switch />
+                              </Form.Item>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                    <div>
+                      <button
+                        className="border-primary-blue text-primary-blue hover:bg-primary-blue flex flex-row items-center rounded-lg border bg-white px-4 py-2  text-sm font-bold hover:text-white"
+                        type="button"
+                        onClick={() => {
+                          const initValue = { roomNumber: '', isActive: true }
+                          option.add(initValue)
+                        }}
+                      >
+                        <p>Add service</p>
+                        <FaPlus className="mx-2" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </Form.List>
+            </Form.Item>
           </div>
           <Form.Item className="text-end">
             <Space>
