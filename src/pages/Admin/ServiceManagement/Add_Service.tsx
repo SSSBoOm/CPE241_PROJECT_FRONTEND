@@ -1,6 +1,6 @@
 import { Button, Form, Input, Select, Space } from 'antd'
 import Swal from 'sweetalert2'
-const Add_room = () => {
+const Add_service = () => {
   function cancle() {
     Swal.fire({
       title: 'คุณเเน่ใจที่จะออก?',
@@ -28,28 +28,28 @@ const Add_room = () => {
           <div className="mx-auto grid w-9/12 grid-cols-1 gap-4 md:grid-cols-2">
             <Form.Item
               className="justify-self-end md:w-8/12"
+              label="Type Of Room"
+              rules={[{ required: true, message: 'กรุณาเลือกService' }]}
+              name="type"
+            >
+              <Select
+                options={[
+                  { value: 'จองรถ', label: 'จองรถ' },
+                  { value: 'ดำน้ำ', label: 'ดำน้ำ' }
+                ]}
+              />
+            </Form.Item>
+            <Form.Item
+              className=" md:w-8/12"
               label="Number Of Room"
-              rules={[{ required: true, message: 'กรุณากรอกเลขห้อง' }]}
-              name="num"
+              rules={[{ required: true, message: 'กรุณากรอกทะเบียนรถหรือหมายเลขเรือ' }]}
+              name="numcar_ship"
             >
               <Input
                 count={{
                   show: true,
                   max: 30
                 }}
-              />
-            </Form.Item>
-            <Form.Item
-              className="md:w-8/12"
-              label="Type Of Room"
-              rules={[{ required: true, message: 'กรุณาเลือกประเภทห้อง' }]}
-              name="type"
-            >
-              <Select
-                options={[
-                  { value: 'Standard Room', label: 'Standard Room' },
-                  { value: 'Superior Room', label: 'Superior Room' }
-                ]}
               />
             </Form.Item>
             <div className="md:col-start-2">
@@ -68,4 +68,4 @@ const Add_room = () => {
     </>
   )
 }
-export default Add_room
+export default Add_service
