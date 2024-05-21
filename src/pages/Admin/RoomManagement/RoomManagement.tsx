@@ -1,3 +1,4 @@
+import { ADD_ROOM_TYPE_PATH } from '@/configs/route'
 import { IRoom } from '@/interfaces/Room'
 import { IRoomType } from '@/interfaces/RoomType'
 import { AxiosInstance } from '@/lib/axios'
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2'
 
 const RoomManagement: React.FC = () => {
   const [roomTypeData, setRoomTypeData] = useState<IRoomType[]>([])
-  const [roomData, setRoomData] = React.useState<IRoom[]>([])
+  const [roomData, setRoomData] = useState<IRoom[]>([])
 
   const roomTypeCol: TableColumnsType<IRoomType> = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
@@ -157,14 +158,19 @@ const RoomManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room Type</p>
-            <button className="flex min-w-[8rem] justify-center space-x-2 rounded-md bg-primary-blue-500 px-4 py-2 text-white">
+            <Link
+              to={ADD_ROOM_TYPE_PATH}
+              reloadDocument
+              className="flex min-w-[8rem] justify-center space-x-2 rounded-md bg-primary-blue-500 px-4 py-2 text-white"
+            >
               <p>Add Room Type</p>
               <PlusOutlined className="place-self-end self-center" />
-            </button>
+            </Link>
           </div>
           <div className="mx-auto text-center">
             <Table
               columns={roomTypeCol}
+              pagination={{ pageSize: 5 }}
               dataSource={roomTypeData.map((item) => {
                 return {
                   ...item,

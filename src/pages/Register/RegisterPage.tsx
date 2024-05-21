@@ -1,3 +1,4 @@
+import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
 import { Button, Checkbox, Form, Input } from 'antd'
 import { useState } from 'react'
 
@@ -18,6 +19,7 @@ const RegisterPage = () => {
             className="lg:m-2"
             layout="vertical"
             disabled={componentDisabled}
+            requiredMark={customizeRequiredMark}
             form={form}
             scrollToFirstError={true}
             initialValues={{

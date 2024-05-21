@@ -3,6 +3,7 @@ export interface IRoomType {
   name: string
   detail: string
   price: number
+  accommodate: number
   isActive: boolean
   updateAt: Date
   createdAt: Date

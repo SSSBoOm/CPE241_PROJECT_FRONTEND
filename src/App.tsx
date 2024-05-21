@@ -5,9 +5,9 @@ import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
   ADD_ROOM,
-  ADD_ROOMTYPE,
   ADD_SERVICE,
   ADD_SERVICETYPE,
+  ADD_ROOM_TYPE_PATH,
   ADMIN_PATH,
   BASE_PATH,
   BOOKING_DETAILS,
@@ -46,7 +46,7 @@ const ProfilePage = lazy(() => import('./pages/Profile/ProfilePage'))
 const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
 const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
 const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
-const Add_RoomtypePage = lazy(() => import('./pages/Admin/RoomManagement/Add_roomtype'))
+const CreateRoomType = lazy(() => import('./pages/Admin/RoomManagement/CreateRoomType'))
 const Add_roomPage = lazy(() => import('./pages/Admin/RoomManagement/Add_room'))
 const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
@@ -137,7 +137,7 @@ function App(): React.ReactElement {
               <Route path={USER_DETAILS} element={<User_details />} />
               <Route path={BOOKING_LIST} element={<Booking_list />} />
               <Route path={BOOKING_DETAILS} element={<Booking_details />} />
-              <Route path={ADD_ROOMTYPE} element={<Add_RoomtypePage />} />
+              <Route path={ADD_ROOM_TYPE_PATH} element={<CreateRoomType />} />
               <Route path={ADD_ROOM} element={<Add_roomPage />} />
               <Route path={ADD_SERVICETYPE} element={<Add_ServiceType />} />
               <Route path={ADD_SERVICE} element={<Add_Service />} />
