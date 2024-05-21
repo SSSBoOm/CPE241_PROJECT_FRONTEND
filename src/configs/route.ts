@@ -8,6 +8,8 @@ export const FACILITY_PATH = '/facility'
 export const HISTORY_PATH = '/history'
 export const PAYMENT_PATH = '/cart/payment'
 export const SERVICE_PATH = '/service'
+export const MYPAYMENT_PATH = '/payment'
+export const ADDCARD_PATH = '/addcard'
 
 export const ADMIN_PATH = '/admin'
 export const ROOM_MANAGE = '/admin/room_management'
