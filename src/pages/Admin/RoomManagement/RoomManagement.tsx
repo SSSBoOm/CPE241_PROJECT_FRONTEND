@@ -4,7 +4,7 @@ import { IRoomType } from '@/interfaces/RoomType'
 import { AxiosInstance } from '@/lib/axios'
 import { PlusOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
-import { Switch, Table } from 'antd'
+import { Button, Switch, Table } from 'antd'
 import React, { Fragment, useEffect, useState } from 'react'
 import { PiMagnifyingGlass } from 'react-icons/pi'
 import { Link } from 'react-router-dom'
@@ -158,14 +158,15 @@ const RoomManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room Type</p>
-            <Link
-              to={ADD_ROOM_TYPE_PATH}
-              reloadDocument
-              className="flex min-w-[8rem] justify-center space-x-2 rounded-md bg-primary-blue-500 px-4 py-2 text-white"
+            <Button
+              onClick={() => (document.location = ADD_ROOM_TYPE_PATH)}
+              type="primary"
+              className="flex"
+              size="large"
             >
               <p>Add Room Type</p>
               <PlusOutlined className="place-self-end self-center" />
-            </Link>
+            </Button>
           </div>
           <div className="mx-auto text-center">
             <Table
@@ -184,10 +185,10 @@ const RoomManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room</p>
-            <button className="flex min-w-[8rem] justify-center space-x-2 rounded-md bg-primary-blue-500 px-4 py-2 text-white ">
+            <Button type="primary" className="flex" size="large">
               <p>Add Room</p>
               <PlusOutlined className="place-self-end self-center" />
-            </button>
+            </Button>
           </div>
           <div className="mx-auto text-center">
             <Table

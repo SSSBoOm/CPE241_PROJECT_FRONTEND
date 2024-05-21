@@ -8,6 +8,7 @@ import {
   ADD_ROOM_TYPE_PATH,
   ADD_SERVICE,
   ADD_SERVICETYPE,
+  ADDCARD_PATH,
   ADMIN_PATH,
   BASE_PATH,
   BOOKING_DETAILS,
@@ -16,6 +17,7 @@ import {
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
+  MYPAYMENT_PATH,
   PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
@@ -50,6 +52,8 @@ const CreateRoomType = lazy(() => import('./pages/Admin/RoomManagement/CreateRoo
 const Add_roomPage = lazy(() => import('./pages/Admin/RoomManagement/Add_room'))
 const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
+const MypaymentPage = lazy(() => import('./pages/Mypayment/Mypayment'))
+const AddcardPage = lazy(() => import('./pages/Mypayment/Addcard'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
@@ -80,6 +84,9 @@ function App(): React.ReactElement {
     <AuthContext.Provider value={{ authContext, setAuthContext }}>
       <ConfigProvider
         theme={{
+          token: {
+            colorPrimary: '#1A6886'
+          },
           components: {
             Button: {
               contentFontSize: 18,
@@ -125,6 +132,8 @@ function App(): React.ReactElement {
               <Route path={HISTORY_PATH} element={<HistoryPage />} />
               <Route path={PAYMENT_PATH} element={<PaymentPage />} />
               <Route path={SERVICE_PATH} element={<ServicePage />} />
+              <Route path={MYPAYMENT_PATH} element={<MypaymentPage />} />
+              <Route path={ADDCARD_PATH} element={<AddcardPage />} />
             </Route>
             <Route
               path={ADMIN_PATH}
