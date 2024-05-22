@@ -17,6 +17,7 @@ import {
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
+  MAINTENANCE_PATH,
   MYPAYMENT_PATH,
   PAYMENT_PATH,
   PROFILE_PATH,
@@ -54,6 +55,7 @@ const CreateRoomType = lazy(() => import('./pages/Admin/RoomManagement/CreateRoo
 const Add_roomPage = lazy(() => import('./pages/Admin/RoomManagement/Add_room'))
 const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
+const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
@@ -156,6 +158,7 @@ function App(): React.ReactElement {
               <Route path={ADD_ROOM_PATH} element={<Add_roomPage />} />
               <Route path={ADD_SERVICETYPE_PATH} element={<Add_ServiceType />} />
               <Route path={ADD_SERVICE_PATH} element={<Add_Service />} />
+              <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
             </Route>
           </Routes>
         </BrowserRouter>
