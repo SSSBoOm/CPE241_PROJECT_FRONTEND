@@ -52,8 +52,8 @@ const CreateRoomType = lazy(() => import('./pages/Admin/RoomManagement/CreateRoo
 const Add_roomPage = lazy(() => import('./pages/Admin/RoomManagement/Add_room'))
 const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
-const MypaymentPage = lazy(() => import('./pages/Mypayment/Mypayment'))
-const AddcardPage = lazy(() => import('./pages/Mypayment/Addcard'))
+const MyPaymentPage = lazy(() => import('./pages/MyPayment/MyPaymentPage'))
+const AddPaymentPage = lazy(() => import('./pages/MyPayment/AddPaymentPage'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
@@ -132,8 +132,8 @@ function App(): React.ReactElement {
               <Route path={HISTORY_PATH} element={<HistoryPage />} />
               <Route path={PAYMENT_PATH} element={<PaymentPage />} />
               <Route path={SERVICE_PATH} element={<ServicePage />} />
-              <Route path={MYPAYMENT_PATH} element={<MypaymentPage />} />
-              <Route path={ADDCARD_PATH} element={<AddcardPage />} />
+              <Route path={MYPAYMENT_PATH} element={<MyPaymentPage />} />
+              <Route path={ADDCARD_PATH} element={<AddPaymentPage />} />
             </Route>
             <Route
               path={ADMIN_PATH}
