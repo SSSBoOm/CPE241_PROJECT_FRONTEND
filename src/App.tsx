@@ -9,6 +9,8 @@ import {
   ADD_SERVICE_PATH,
   ADD_SERVICETYPE_PATH,
   ADDCARD_PATH,
+  ADDROOMMAINTAIN_PATH,
+  ADDSERVICEMAINTAIN_PATH,
   ADMIN_PATH,
   BASE_PATH,
   BOOKING_DETAILS_PATH,
@@ -56,6 +58,8 @@ const Add_roomPage = lazy(() => import('./pages/Admin/RoomManagement/Add_room'))
 const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
 const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
+const Addroommaintain = lazy(() => import('./pages/Admin/Maintenance/AddRoommaintain'))
+const Addservicemaintain = lazy(() => import('./pages/Admin/Maintenance/Addservicemaintain'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
@@ -159,6 +163,8 @@ function App(): React.ReactElement {
               <Route path={ADD_SERVICETYPE_PATH} element={<Add_ServiceType />} />
               <Route path={ADD_SERVICE_PATH} element={<Add_Service />} />
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
+              <Route path={ADDROOMMAINTAIN_PATH} element={<Addroommaintain />} />
+              <Route path={ADDSERVICEMAINTAIN_PATH} element={<Addservicemaintain />} />
             </Route>
           </Routes>
         </BrowserRouter>

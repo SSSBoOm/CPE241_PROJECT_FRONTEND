@@ -44,7 +44,7 @@ const Service_columns = [
     key: 'check'
   }
 ]
-const maintain = () => {
+const MaintenancePage = () => {
   return (
     <>
       <div className="container mx-auto">
@@ -74,4 +74,4 @@ const maintain = () => {
     </>
   )
 }
-export default maintain
+export default MaintenancePage
