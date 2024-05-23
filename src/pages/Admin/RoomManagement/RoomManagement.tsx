@@ -1,4 +1,4 @@
-import { ADD_ROOM_TYPE_PATH } from '@/configs/route'
+import { ADD_ROOM_PATH, ADD_ROOM_TYPE_PATH } from '@/configs/route'
 import { IRoom } from '@/interfaces/Room'
 import { IRoomType } from '@/interfaces/RoomType'
 import { AxiosInstance } from '@/lib/axios'
@@ -158,15 +158,12 @@ const RoomManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room Type</p>
-            <Button
-              onClick={() => (document.location = ADD_ROOM_TYPE_PATH)}
-              type="primary"
-              className="flex"
-              size="large"
-            >
-              <p>Add Room Type</p>
-              <PlusOutlined className="place-self-end self-center" />
-            </Button>
+            <Link to={ADD_ROOM_TYPE_PATH}>
+              <Button type="primary" className="flex" size="large">
+                <p>Add Room Type</p>
+                <PlusOutlined className="place-self-end self-center" />
+              </Button>
+            </Link>
           </div>
           <div className="mx-auto text-center">
             <Table
@@ -185,10 +182,12 @@ const RoomManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room</p>
-            <Button type="primary" className="flex" size="large">
-              <p>Add Room</p>
-              <PlusOutlined className="place-self-end self-center" />
-            </Button>
+            <Link to={ADD_ROOM_PATH}>
+              <Button type="primary" className="flex" size="large">
+                <p>Add Room</p>
+                <PlusOutlined className="place-self-end self-center" />
+              </Button>
+            </Link>
           </div>
           <div className="mx-auto text-center">
             <Table

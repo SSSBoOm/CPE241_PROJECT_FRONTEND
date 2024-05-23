@@ -1,4 +1,10 @@
-import { BOOKING_LIST_PATH, MAINTENANCE_PATH, ROOM_MANAGE_PATH, SERVICE_MANAGE_PATH, USER_MANAGE_PATH } from '@/configs/route'
+import {
+  BOOKING_LIST_PATH,
+  MAINTENANCE_PATH,
+  ROOM_MANAGE_PATH,
+  SERVICE_MANAGE_PATH,
+  USER_MANAGE_PATH
+} from '@/configs/route'
 import { handleLogout } from '@/lib/googleSignUp'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
@@ -47,7 +53,7 @@ const StaffNavbar: React.FC = () => {
             to={MAINTENANCE_PATH}
             className="block h-10 content-center text-center hover:bg-primary-blue-700 hover:text-primary-orange"
           >
-            Maintain Management
+            Maintenance Management
           </Link>
         </div>
         <div className="content-center text-center text-lg text-primary-b2">

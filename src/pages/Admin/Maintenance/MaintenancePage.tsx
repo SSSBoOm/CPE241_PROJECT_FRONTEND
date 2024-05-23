@@ -1,5 +1,8 @@
+import { ADD_ROOM_MAINTENANCE_PATH } from '@/configs/route'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Table } from 'antd'
+import { Link } from 'react-router-dom'
+
 const columns = [
   {
     title: 'Room number',
@@ -44,25 +47,28 @@ const Service_columns = [
     key: 'check'
   }
 ]
+
 const MaintenancePage = () => {
   return (
     <>
       <div className="container mx-auto">
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
-            <p className="text-3xl  font-bold text-primary-blue-600">Room maintain</p>
-            <Button type="primary" className="flex" size="large">
-              <p>Add maintain</p>
-              <PlusOutlined className="place-self-end self-center" />
-            </Button>
+            <p className="text-3xl  font-bold text-primary-blue-600">Room Maintenance</p>
+            <Link to={ADD_ROOM_MAINTENANCE_PATH}>
+              <Button type="primary" className="flex gap-x-2" size="large">
+                <p>Add Maintenance</p>
+                <PlusOutlined className="place-self-end self-center" />
+              </Button>
+            </Link>
           </div>
           <div>
             <Table columns={columns}></Table>
           </div>
           <div className="flex w-full justify-between px-4">
-            <p className="text-3xl  font-bold text-primary-blue-600">Service maintain</p>
-            <Button type="primary" className="flex" size="large">
-              <p>Add maintain</p>
+            <p className="text-3xl  font-bold text-primary-blue-600">Service Maintenance</p>
+            <Button type="primary" className="flex gap-x-2" size="large">
+              <p>Add Maintenance</p>
               <PlusOutlined className="place-self-end self-center" />
             </Button>
           </div>

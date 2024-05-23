@@ -4,13 +4,12 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
+  ADD_ROOM_MAINTENANCE_PATH,
   ADD_ROOM_PATH,
   ADD_ROOM_TYPE_PATH,
   ADD_SERVICE_PATH,
   ADD_SERVICETYPE_PATH,
   ADDCARD_PATH,
-  ADDROOMMAINTAIN_PATH,
-  ADDSERVICEMAINTAIN_PATH,
   ADMIN_PATH,
   BASE_PATH,
   BOOKING_DETAILS_PATH,
@@ -163,8 +162,8 @@ function App(): React.ReactElement {
               <Route path={ADD_SERVICETYPE_PATH} element={<Add_ServiceType />} />
               <Route path={ADD_SERVICE_PATH} element={<Add_Service />} />
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
-              <Route path={ADDROOMMAINTAIN_PATH} element={<Addroommaintain />} />
-              <Route path={ADDSERVICEMAINTAIN_PATH} element={<Addservicemaintain />} />
+              <Route path={ADD_ROOM_MAINTENANCE_PATH} element={<Addroommaintain />} />
+              <Route path={ADD_SERVICETYPE_PATH} element={<Addservicemaintain />} />
             </Route>
           </Routes>
         </BrowserRouter>

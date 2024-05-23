@@ -1,11 +1,12 @@
 import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
 import { Button, DatePicker, Form, Input, Select, Space } from 'antd'
 const { RangePicker } = DatePicker
+
 const Addroommaintain = () => {
   return (
     <>
       <div className="container mx-auto space-y-4 px-4">
-        <h1 className="text-3xl  font-bold text-primary-blue-600">Create Room maintain</h1>
+        <h1 className="text-3xl  font-bold text-primary-blue-600">Create Room Maintenance</h1>
         <Form layout="vertical" requiredMark={customizeRequiredMark}>
           <div className="container mx-auto grid grid-cols-2 gap-4">
             <Form.Item
@@ -13,7 +14,7 @@ const Addroommaintain = () => {
               rules={[{ required: true, message: 'กรุณากรอกเลขห้อง' }]}
               label={<p className="font-semibold">หมายเลขห้องที่ปิดบำรุง</p>}
             >
-              <Select size="large"></Select>
+              <Select size="large" />
             </Form.Item>
             <Form.Item
               name="date"
@@ -27,10 +28,10 @@ const Addroommaintain = () => {
               rules={[{ required: true, message: 'กรุณากรอกหัวข้อปิดปรับปรุง' }]}
               label={<p className="font-semibold">หัวข้อการปิดบำรุง</p>}
             >
-              <Input size="large"></Input>
+              <Input size="large" />
             </Form.Item>
             <Form.Item name="detail" label={<p className="font-semibold">รายละเอียดการปิดบำรุง</p>}>
-              <Input size="large"></Input>
+              <Input size="large" />
             </Form.Item>
             <div className="text-end md:col-start-2">
               <Space>
