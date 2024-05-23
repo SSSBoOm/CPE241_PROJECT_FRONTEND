@@ -4,15 +4,15 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
-  ADD_ROOM,
+  ADD_ROOM_PATH,
   ADD_ROOM_TYPE_PATH,
-  ADD_SERVICE,
-  ADD_SERVICETYPE,
+  ADD_SERVICE_PATH,
+  ADD_SERVICETYPE_PATH,
   ADDCARD_PATH,
   ADMIN_PATH,
   BASE_PATH,
-  BOOKING_DETAILS,
-  BOOKING_LIST,
+  BOOKING_DETAILS_PATH,
+  BOOKING_LIST_PATH,
   CART_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
@@ -21,12 +21,12 @@ import {
   PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
-  ROOM_MANAGE,
+  ROOM_MANAGE_PATH,
   ROOM_PATH,
-  SERVICE_MANAGE,
+  SERVICE_MANAGE_PATH,
   SERVICE_PATH,
-  USER_DETAILS,
-  USER_MANAGE
+  USER_DETAILS_PATH,
+  USER_MANAGE_PATH
 } from './configs/route'
 import { AuthContext, initialContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
@@ -146,16 +146,16 @@ function App(): React.ReactElement {
               }
             >
               <Route index element={<HomePage />} />
-              <Route path={ROOM_MANAGE} element={<RoomManagement />} />
-              <Route path={SERVICE_MANAGE} element={<ServiceManagement />} />
-              <Route path={USER_MANAGE} element={<User_management />} />
-              <Route path={USER_DETAILS} element={<User_details />} />
-              <Route path={BOOKING_LIST} element={<Booking_list />} />
-              <Route path={BOOKING_DETAILS} element={<Booking_details />} />
+              <Route path={ROOM_MANAGE_PATH} element={<RoomManagement />} />
+              <Route path={SERVICE_MANAGE_PATH} element={<ServiceManagement />} />
+              <Route path={USER_MANAGE_PATH} element={<User_management />} />
+              <Route path={USER_DETAILS_PATH} element={<User_details />} />
+              <Route path={BOOKING_LIST_PATH} element={<Booking_list />} />
+              <Route path={BOOKING_DETAILS_PATH} element={<Booking_details />} />
               <Route path={ADD_ROOM_TYPE_PATH} element={<CreateRoomType />} />
-              <Route path={ADD_ROOM} element={<Add_roomPage />} />
-              <Route path={ADD_SERVICETYPE} element={<Add_ServiceType />} />
-              <Route path={ADD_SERVICE} element={<Add_Service />} />
+              <Route path={ADD_ROOM_PATH} element={<Add_roomPage />} />
+              <Route path={ADD_SERVICETYPE_PATH} element={<Add_ServiceType />} />
+              <Route path={ADD_SERVICE_PATH} element={<Add_Service />} />
             </Route>
           </Routes>
         </BrowserRouter>

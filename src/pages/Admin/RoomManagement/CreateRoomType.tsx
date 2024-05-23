@@ -1,5 +1,5 @@
 import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
-import { ROOM_MANAGE } from '@/configs/route'
+import { ROOM_MANAGE_PATH } from '@/configs/route'
 import { AxiosInstance } from '@/lib/axios'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber, Select, Space, Switch, Upload } from 'antd'
@@ -31,7 +31,7 @@ const CreateRoomType: React.FC = () => {
           icon: 'success',
           confirmButtonText: 'OK'
         }).then(() => {
-          navigate(ROOM_MANAGE)
+          navigate(ROOM_MANAGE_PATH)
         })
       }
     } catch (error) {
