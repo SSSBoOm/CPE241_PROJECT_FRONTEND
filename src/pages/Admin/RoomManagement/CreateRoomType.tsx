@@ -1,8 +1,8 @@
 import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { ROOM_MANAGE_PATH } from '@/configs/route'
 import { AxiosInstance } from '@/lib/axios'
-import { PlusOutlined } from '@ant-design/icons'
-import { Button, Form, Input, InputNumber, Select, Space, Switch, Upload } from 'antd'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Form, Input, InputNumber, Space, Switch, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import React, { Fragment } from 'react'
 import { FaPlus } from 'react-icons/fa'
@@ -49,7 +49,7 @@ const CreateRoomType: React.FC = () => {
             isActive: true,
             name: '',
             bed: 'King size',
-            accommodate: 2,
+            accommodate: null,
             detail: '',
             room: [{ roomNumber: '', isActive: true }]
           }}
@@ -79,30 +79,34 @@ const CreateRoomType: React.FC = () => {
               <Input size="large" placeholder="ราคา" />
             </Form.Item>
 
-            <Form.Item label="Bed">
-              <Select
-                size="large"
-                options={[
-                  { value: 'King size', label: 'King size' },
-                  { value: 'Queen size', label: 'Queen size' },
-                  { value: 'Twin bed', label: 'Twin bed' }
-                ]}
-              />
-            </Form.Item>
-            <Form.Item name={`accommodate`} className="" label="accommodate">
+            <Form.Item
+              name={`accommodate`}
+              label="accommodate"
+              rules={[
+                {
+                  required: true,
+                  message: 'กรุณากรอกจำนวนคนที่พักได้'
+                },
+                {
+                  pattern: /^[0-9]*$/,
+                  message: 'กรุณากรอกจำนวนคนที่พักได้ให้ถูกต้อง'
+                }
+              ]}
+            >
               <InputNumber size="large" min={1} max={8} className="w-full" />
             </Form.Item>
             <div className="md:col-span-2">
-              <Form.Item name={`detail`} label="detail">
-                <TextArea
-                  size="large"
-                  placeholder="please Input detail"
-                  autoSize={{ minRows: 3, maxRows: 4 }}
-                  count={{
-                    show: true,
-                    max: 80
-                  }}
-                ></TextArea>
+              <Form.Item
+                name={`detail`}
+                label="detail"
+                rules={[
+                  {
+                    required: true,
+                    message: 'กรุณากรอกรายละเอียด'
+                  }
+                ]}
+              >
+                <TextArea size="large" placeholder="please Input detail" autoSize={{ minRows: 3, maxRows: 4 }} />
               </Form.Item>
             </div>
             <Form.Item label="Upload" valuePropName="fileList">
@@ -123,21 +127,30 @@ const CreateRoomType: React.FC = () => {
                   <div>
                     {Field.map((item) => {
                       return (
-                        <div key={item.key} className="grid w-full grid-cols-1 md:grid-cols-2 md:gap-x-4">
+                        <div key={item.key} className="grid w-full grid-cols-1 md:grid-cols-5 md:gap-x-4">
                           <Form.Item
                             name={[item.name, 'roomNumber']}
                             label={<p className="font-semibold">Room Number</p>}
-                            className="w-full"
+                            rules={[{ required: true, message: 'กรุณากรอกหมายเลขห้อง' }]}
+                            className="w-full md:col-span-4"
                           >
                             <Input placeholder="หมายเลขห้อง" size="large" />
                           </Form.Item>
-                          <Form.Item
-                            name={[item.name, 'isActive']}
-                            className="w-full"
-                            label={<p className="font-semibold">Active</p>}
+                          <div
+                            className={`flex w-full ${Field.length > 1 ? 'justify-between px-4' : 'flex-row-reverse justify-end'}`}
                           >
-                            <Switch />
-                          </Form.Item>
+                            <Form.Item name={[item.name, 'isActive']} label={<p className="font-semibold">Active</p>}>
+                              <Switch />
+                            </Form.Item>
+                            <button
+                              className={`${!(Field.length > 1) && 'hidden'} text-2xl`}
+                              onClick={() => {
+                                option.remove(item.name)
+                              }}
+                            >
+                              <DeleteOutlined />
+                            </button>
+                          </div>
                         </div>
                       )
                     })}
