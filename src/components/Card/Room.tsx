@@ -9,9 +9,9 @@ type Props = {
 const Room: React.FC<Props> = (props) => {
   return (
     <React.Fragment>
-      <div className="container mx-auto grid h-[16rem] grid-cols-5 gap-x-2 rounded-md border-2 border-primary-blue-600">
+      <div className=" grid  grid-cols-5 gap-x-2 rounded-md border-2 border-primary-blue-600">
         <div className="col-span-2">
-          <img className="h-[16rem] w-full object-cover" src="StandardSuiteRoom.svg" alt="" />
+          <img className=" object-cover" src="StandardSuiteRoom.svg" alt="" />
         </div>
         <div className="col-span-3">
           <p className=" text-3xl">{props.data.name}</p>
