@@ -1,21 +1,18 @@
 import { ExpandAltOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
+import dayjs from 'dayjs'
 
 type Props = {
   name?: string
   content?: string
   size?: string
   accommodate?: number
-  food: boolean
-  view: {
-    sea: boolean
-    forest: boolean
-  }
   image?: string
   price?: number
-  checkIn: string
-  checkOut: string
+  checkIn: Date
+  checkOut: Date
 }
+
+const FormatDate = 'DD/MM/YYYY'
 
 const RoomCardHist = (props: Props) => {
   return (
@@ -27,9 +24,6 @@ const RoomCardHist = (props: Props) => {
         <div className=" col-span-1 grid w-full grid-cols-2 grid-rows-9 p-3 lg:col-span-2">
           <div className="col-span-1 w-full">
             <span className="text-2xl">{props.name}</span>
-          </div>
-          <div className=" col-span-1 text-center lg:text-right ">
-            <Button className=" ">cancel</Button>
           </div>
           <div className="col-span-2 row-span-2 w-full">
             <span className="text-sm">
@@ -49,13 +43,10 @@ const RoomCardHist = (props: Props) => {
             <div>
               <span className="text-base">For {props.accommodate}</span>
             </div>
-            <div>{props.food ? <span className="text-base">food</span> : null}</div>
-            <div>{props.view.sea ? <span className="text-base">sea view</span> : null}</div>
-            <div>{props.view.forest ? <span className="text-base">forest view</span> : null}</div>
           </div>
           <div className="col-span-1 row-span-1 w-full text-center"></div>
-          <div className="col-span-1 row-span-1 w-full text-center">{props.checkIn}</div>
-          <div className="col-span-1 row-span-1 w-full text-center">{props.checkOut}</div>
+          <div className="col-span-1 row-span-1 w-full text-center">{dayjs(props.checkIn).format(FormatDate)}</div>
+          <div className="col-span-1 row-span-1 w-full text-center">{dayjs(props.checkOut).format(FormatDate)}</div>
           <div className="col-span-1 row-span-3 w-full content-end text-center lg:text-right">
             <span className="text-2xl font-bold">{props.price} Bath</span>
           </div>

@@ -1,4 +1,4 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { GoogleOutlined } from '@ant-design/icons'
 import { Form, Input } from 'antd'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { Button, Checkbox, Form, Input } from 'antd'
 import { useState } from 'react'
 

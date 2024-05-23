@@ -2,8 +2,9 @@ import {
   BASE_PATH,
   CART_PATH,
   FACILITY_PATH,
+  HISTORY_PATH,
   LOGIN_PATH,
-  MYPAYMENT_PATH,
+  MY_PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
   ROOM_PATH,
@@ -28,7 +29,7 @@ const items: MenuProps['items'] = [
   },
   {
     label: (
-      <Link to={MYPAYMENT_PATH} className="w-full">
+      <Link to={MY_PAYMENT_PATH} className="w-full">
         <p className="text-center">My Payment</p>
       </Link>
     ),
@@ -36,7 +37,7 @@ const items: MenuProps['items'] = [
   },
   {
     label: (
-      <Link to={BASE_PATH} className="w-full">
+      <Link to={HISTORY_PATH} className="w-full">
         <p className="text-center">Booking History</p>
       </Link>
     ),

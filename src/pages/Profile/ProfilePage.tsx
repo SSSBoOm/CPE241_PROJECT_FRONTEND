@@ -9,7 +9,7 @@ import weekday from 'dayjs/plugin/weekday'
 import { Fragment, useContext } from 'react'
 import Swal from 'sweetalert2'
 
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { AuthContext } from '@/contexts/AuthContext'
 import { GenderType } from '@/interfaces/enums/Gender'
 import { PrefixType } from '@/interfaces/enums/Prefix'
@@ -59,7 +59,7 @@ const ProfilePage = () => {
 
   return (
     <Fragment>
-      <div className="min-h-screen bg-[url('hotelview2.svg')] bg-cover bg-no-repeat px-4 py-8">
+      <div className="min-h-screen bg-[url('/images/login/view.png')] bg-cover bg-no-repeat px-4 py-8">
         <div className="container rounded-xl bg-white p-8 md:mx-auto">
           <Form
             className="mx-2 my-2"

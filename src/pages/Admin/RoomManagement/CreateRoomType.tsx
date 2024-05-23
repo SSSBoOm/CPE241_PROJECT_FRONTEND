@@ -1,4 +1,4 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { ROOM_MANAGE_PATH } from '@/configs/route'
 import { AxiosInstance } from '@/lib/axios'
 import { PlusOutlined } from '@ant-design/icons'

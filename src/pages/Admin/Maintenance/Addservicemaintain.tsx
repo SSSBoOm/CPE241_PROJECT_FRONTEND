@@ -1,4 +1,4 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { Button, DatePicker, Form, Input, Select, Space } from 'antd'
 const { RangePicker } = DatePicker
 const Addservicemaintain = () => {

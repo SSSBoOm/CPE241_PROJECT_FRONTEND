@@ -1,4 +1,6 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
+import { IRoomType } from '@/interfaces/RoomType'
+import { AxiosInstance } from '@/lib/axios'
 import { SearchOutlined } from '@ant-design/icons'
 import { DatePicker, Form, GetProps, Select } from 'antd'
 import dayjs from 'dayjs'
@@ -9,10 +11,8 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
 import React, { Fragment, lazy, useEffect, useState } from 'react'
-import { IRoomType } from '../../interfaces/RoomType'
-import { AxiosInstance } from '../../lib/axios'
 
-const Room = lazy(() => import('../../components/Card/Room'))
+const Room = lazy(() => import('@/components/Card/Room'))
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
 dayjs.extend(customParseFormat)
@@ -21,6 +21,7 @@ dayjs.extend(weekday)
 dayjs.extend(localeData)
 dayjs.extend(weekOfYear)
 dayjs.extend(weekYear)
+
 const dateFormat = 'DD/MM/YYYY'
 const disabledDate: RangePickerProps['disabledDate'] = (current) => {
   return current && current < dayjs().endOf('day')
@@ -31,14 +32,23 @@ const RoomPage: React.FC = () => {
   const [roomTypes, setRoomTypes] = useState<IRoomType[]>([])
 
   const onFinish = () => {
-    const values = form.getFieldsValue()
-    console.log(values)
-    const { start_date, end_date } = {
-      start_date: dayjs(values.dates[0]).set('hour', 13).set('minute', 0).set('second', 0).set('millisecond', 0),
-      end_date: dayjs(values.dates[1]).set('hour', 11).set('minute', 0).set('second', 0).set('millisecond', 0)
+    try {
+      const values = form.getFieldsValue()
+      console.log(values)
+      const { start_date, end_date } = {
+        start_date: dayjs(values.dates[0]).set('hour', 13).set('minute', 0).set('second', 0).set('millisecond', 0),
+        end_date: dayjs(values.dates[1]).set('hour', 11).set('minute', 0).set('second', 0).set('millisecond', 0)
+      }
+      console.log(start_date.toISOString())
+      console.log(end_date.toISOString())
+      // const response = AxiosInstance.post('/api/room', {
+      //   start_date: start_date.toISOString(),
+      //   end_date: end_date.toISOString(),
+      //   number: values.number
+      // })
+    } catch (error) {
+      console.log('Failed:', error)
     }
-    console.log(start_date.toISOString())
-    console.log(end_date.toISOString())
   }
 
   useEffect(() => {
@@ -132,7 +142,7 @@ const RoomPage: React.FC = () => {
                 })}
               />
             </Form.Item>
-            <Form.Item className="min-w-[16rem] justify-center lg:inline lg:content-end">
+            <Form.Item className="mt-12 min-w-[16rem] justify-center lg:mt-0 lg:inline lg:content-end">
               <button
                 className="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white"
                 type="submit"
@@ -145,7 +155,15 @@ const RoomPage: React.FC = () => {
         </Form>
         <div className="flex flex-col space-y-4">
           {roomTypes.map((roomType) => {
-            return <Room key={roomType.id} data={roomType} />
+            return (
+              <Room
+                key={roomType.id}
+                data={roomType}
+                onClick={() => {
+                  console.log(roomType.id)
+                }}
+              />
+            )
           })}
         </div>
       </div>

@@ -1,5 +1,5 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
-import { MYPAYMENT_PATH } from '@/configs/route'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
+import { MY_PAYMENT_PATH } from '@/configs/route'
 import { AxiosInstance } from '@/lib/axios'
 import { Button, Form, Input, Select, Space } from 'antd'
 import { useEffect, useState } from 'react'
@@ -34,7 +34,7 @@ const AddPaymentPage: React.FC = () => {
           text: 'เพิ่มบัตรสำเร็จ',
           confirmButtonText: 'OK'
         }).then(() => {
-          navigate(MYPAYMENT_PATH)
+          navigate(MY_PAYMENT_PATH)
         })
       }
     } catch (error) {

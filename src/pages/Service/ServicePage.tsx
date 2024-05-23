@@ -1,4 +1,4 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { IServiceType } from '@/interfaces/ServiceType'
 import { AxiosInstance } from '@/lib/axios'
 import { SearchOutlined } from '@ant-design/icons'

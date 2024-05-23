@@ -1,4 +1,4 @@
-import { customizeRequiredMark } from '@/components/utils/customizeRequiredMark'
+import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber, Select, Space, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'

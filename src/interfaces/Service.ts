@@ -3,6 +3,8 @@ import { IServiceType } from '@/interfaces/ServiceType'
 export interface IService {
   id: number
   name: string
+  description: string
+  information: string
   price: number
   isActive: boolean
   serviceType: IServiceType

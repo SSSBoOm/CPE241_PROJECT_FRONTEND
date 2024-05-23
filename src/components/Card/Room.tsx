@@ -3,6 +3,7 @@ import { IRoomType } from '../../interfaces/RoomType'
 
 type Props = {
   data: IRoomType
+  onClick?: () => void
 }
 
 const Room: React.FC<Props> = (props) => {
@@ -22,8 +23,11 @@ const Room: React.FC<Props> = (props) => {
               <p>Garden view</p>
               <p>Sea view</p>
             </div>
-            <div className=" col-span-2 content-center justify-self-center">
-              <button className=" rounded-md bg-primary-blue-600 px-3 py-1 text-primary-b2 hover:bg-primary-blue-500">
+            <div className="col-span-2 content-center justify-self-center">
+              <button
+                className="rounded-md bg-primary-blue-600 px-3 py-1 text-primary-b2 hover:bg-primary-blue-500"
+                onClick={props.onClick}
+              >
                 Booking
               </button>
             </div>

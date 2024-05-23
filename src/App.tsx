@@ -1,15 +1,15 @@
 import { ConfigProvider } from 'antd'
-import React, { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
+  ADDCARD_PATH,
   ADD_ROOM_MAINTENANCE_PATH,
   ADD_ROOM_PATH,
   ADD_ROOM_TYPE_PATH,
-  ADD_SERVICE_PATH,
   ADD_SERVICETYPE_PATH,
-  ADDCARD_PATH,
+  ADD_SERVICE_PATH,
   ADMIN_PATH,
   BASE_PATH,
   BOOKING_DETAILS_PATH,
@@ -19,7 +19,7 @@ import {
   HISTORY_PATH,
   LOGIN_PATH,
   MAINTENANCE_PATH,
-  MYPAYMENT_PATH,
+  MY_PAYMENT_PATH,
   PAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
@@ -30,7 +30,7 @@ import {
   USER_DETAILS_PATH,
   USER_MANAGE_PATH
 } from './configs/route'
-import { AuthContext, initialContextValue } from './contexts/AuthContext'
+import { AuthContext, initialAuthContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
 import { AxiosInstance } from './lib/axios'
 
@@ -61,7 +61,7 @@ const Addroommaintain = lazy(() => import('./pages/Admin/Maintenance/AddRoommain
 const Addservicemaintain = lazy(() => import('./pages/Admin/Maintenance/Addservicemaintain'))
 
 function App(): React.ReactElement {
-  const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
+  const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
   const [loading, setLoading] = useState(true)
 
   const handleLogin = useCallback(async (): Promise<void> => {
@@ -137,7 +137,7 @@ function App(): React.ReactElement {
               <Route path={HISTORY_PATH} element={<HistoryPage />} />
               <Route path={PAYMENT_PATH} element={<PaymentPage />} />
               <Route path={SERVICE_PATH} element={<ServicePage />} />
-              <Route path={MYPAYMENT_PATH} element={<MyPaymentPage />} />
+              <Route path={MY_PAYMENT_PATH} element={<MyPaymentPage />} />
               <Route path={ADDCARD_PATH} element={<AddPaymentPage />} />
             </Route>
             <Route

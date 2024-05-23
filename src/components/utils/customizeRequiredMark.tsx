@@ -1,4 +1,4 @@
-export const customizeRequiredMark = (label: React.ReactNode, { required }: { required: boolean }) => (
+const customizeRequiredMark = (label: React.ReactNode, { required }: { required: boolean }) => (
   <>
     {label}
     {required && (
@@ -8,3 +8,5 @@ export const customizeRequiredMark = (label: React.ReactNode, { required }: { re
     )}
   </>
 )
+
+export default customizeRequiredMark

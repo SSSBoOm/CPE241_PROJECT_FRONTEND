@@ -3,7 +3,7 @@ import { IAuthContext, IAuthContextType } from '../interfaces/AuthContext'
 import { GenderType } from '../interfaces/enums/Gender'
 import { PrefixType } from '../interfaces/enums/Prefix'
 
-export const initialContextValue: IAuthContext = {
+export const initialAuthContextValue: IAuthContext = {
   id: '',
   email: '',
   prefix: PrefixType.MR,
