@@ -41,8 +41,8 @@ const Booking_details = lazy(() => import('./pages/Admin/Booking_list/Booking_de
 const Booking_list = lazy(() => import('./pages/Admin/Booking_list/Booking_list'))
 const ServiceManagement = lazy(() => import('@/pages/Admin/ServiceManagement/ServiceManagement'))
 const RoomManagement = lazy(() => import('./pages/Admin/RoomManagement/RoomManagement'))
-const User_details = lazy(() => import('./pages/Admin/User_management/User_details'))
-const User_management = lazy(() => import('./pages/Admin/User_management/User_management'))
+const User_details = lazy(() => import('./pages/Admin/UserManagement/User_details'))
+const UserManagement = lazy(() => import('./pages/Admin/UserManagement/UserManagement'))
 const PaymentPage = lazy(() => import('./pages/Payment/PaymentPage'))
 const CardPage = lazy(() => import('./pages/Cart/CartPage'))
 const Facility = lazy(() => import('./pages/Facitily/Facility'))
@@ -153,7 +153,7 @@ function App(): React.ReactElement {
               <Route index element={<HomePage />} />
               <Route path={ROOM_MANAGE_PATH} element={<RoomManagement />} />
               <Route path={SERVICE_MANAGE_PATH} element={<ServiceManagement />} />
-              <Route path={USER_MANAGE_PATH} element={<User_management />} />
+              <Route path={USER_MANAGE_PATH} element={<UserManagement />} />
               <Route path={USER_DETAILS_PATH} element={<User_details />} />
               <Route path={BOOKING_LIST_PATH} element={<Booking_list />} />
               <Route path={BOOKING_DETAILS_PATH} element={<Booking_details />} />
