@@ -1,45 +1,51 @@
 import { ADD_ROOM_MAINTENANCE_PATH } from '@/configs/route'
+import { MaintenanceStatus } from '@/interfaces/enums/Maintenance'
+import { IMaintenance } from '@/interfaces/Maintenance'
+import { AxiosInstance } from '@/lib/axios'
 import { PlusOutlined } from '@ant-design/icons'
-import { Button, Table } from 'antd'
+import { Button, Table, TableColumnsType } from 'antd'
+import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const columns = [
+const FormatDate = 'DD/MM/YYYY'
+
+const columns: TableColumnsType<IMaintenance> = [
   {
     title: 'Room number',
-    dataIndex: 'roomnum',
-    key: 'roomnum'
+    dataIndex: 'roomNumber',
+    key: 'roomNumber',
+    render: (_: string, row: IMaintenance) => <p>{row.room.roomNumber}</p>
   },
   {
     title: 'Start Date maintain',
     dataIndex: 'date',
-    key: 'date'
+    key: 'startDate',
+    render: (_: string, row: IMaintenance) => {
+      const date = row.maintenanceLog.find(
+        (item) => item.status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_CASE_OPEN
+      )?.createdAt
+
+      if (!date) {
+        return <p>-</p>
+      }
+      return <p>{dayjs(date).format(FormatDate)}</p>
+    }
   },
   {
     title: 'End Date maintain',
     dataIndex: 'date',
-    key: 'date'
-  },
-  {
-    title: 'Check',
-    dataIndex: 'check',
-    key: 'check'
-  }
-]
-const Service_columns = [
-  {
-    title: 'Service',
-    dataIndex: 'Service',
-    key: 'Service'
-  },
-  {
-    title: 'Start Date maintain',
-    dataIndex: 'date',
-    key: 'date'
-  },
-  {
-    title: 'End Date maintain',
-    dataIndex: 'date',
-    key: 'date'
+    key: 'endDate',
+    render: (_: string, row: IMaintenance) => {
+      const date = row.maintenanceLog.find(
+        (item) => item.status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_DONE
+      )?.createdAt
+
+      if (!date) {
+        return <p>-</p>
+      }
+      return <p>{dayjs(date).format(FormatDate)}</p>
+    }
   },
   {
     title: 'Check',
@@ -49,6 +55,20 @@ const Service_columns = [
 ]
 
 const MaintenancePage = () => {
+  const [data, setData] = useState<IMaintenance[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await AxiosInstance.get('/api/maintenance')
+        setData(response.data.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <>
       <div className="container mx-auto">
@@ -63,17 +83,7 @@ const MaintenancePage = () => {
             </Link>
           </div>
           <div>
-            <Table columns={columns}></Table>
-          </div>
-          <div className="flex w-full justify-between px-4">
-            <p className="text-3xl  font-bold text-primary-blue-600">Service Maintenance</p>
-            <Button type="primary" className="flex gap-x-2" size="large">
-              <p>Add Maintenance</p>
-              <PlusOutlined className="place-self-end self-center" />
-            </Button>
-          </div>
-          <div>
-            <Table columns={Service_columns}></Table>
+            <Table columns={columns} dataSource={data} />
           </div>
         </div>
       </div>
