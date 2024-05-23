@@ -50,8 +50,10 @@ const Addminpayment = () => {
       <div className="container mx-auto">
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
-            <p>Payment</p>
-            <Button onClick={Addcard}>Addcard</Button>
+            <p className="text-3xl  font-bold text-primary-blue-600">Payment</p>
+            <Button type="primary" size="large" onClick={Addcard}>
+              Addcard
+            </Button>
           </div>
           <Table columns={column_data}></Table>
         </div>
