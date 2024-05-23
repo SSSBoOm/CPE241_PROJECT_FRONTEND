@@ -11,8 +11,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
 import React, { Fragment, lazy, useEffect, useState } from 'react'
-
-const Room = lazy(() => import('@/components/Card/Room'))
+const CardUpgrade = lazy(() => import('../../components/Card/CardUpgrade'))
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
 dayjs.extend(customParseFormat)
@@ -153,18 +152,12 @@ const RoomPage: React.FC = () => {
             </Form.Item>
           </div>
         </Form>
-        <div className="flex flex-col space-y-4">
-          {roomTypes.map((roomType) => {
-            return (
-              <Room
-                key={roomType.id}
-                data={roomType}
-                onClick={() => {
-                  console.log(roomType.id)
-                }}
-              />
-            )
-          })}
+        <div className="grid grid-cols-5">
+          <div className="col-start-1 col-end-6 flex flex-col space-y-4 md:col-start-2 md:col-end-5">
+            {roomTypes.map((roomType) => {
+              return <CardUpgrade key={roomType.id} data={roomType} />
+            })}
+          </div>
         </div>
       </div>
     </Fragment>
