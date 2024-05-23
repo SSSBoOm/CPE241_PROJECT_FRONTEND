@@ -3,6 +3,7 @@ import {
   CART_PATH,
   FACILITY_PATH,
   LOGIN_PATH,
+  MYPAYMENT_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
   ROOM_PATH,
@@ -27,11 +28,19 @@ const items: MenuProps['items'] = [
   },
   {
     label: (
+      <Link to={MYPAYMENT_PATH} className="w-full">
+        <p className="text-center">My Payment</p>
+      </Link>
+    ),
+    key: 'my-payment'
+  },
+  {
+    label: (
       <Link to={BASE_PATH} className="w-full">
         <p className="text-center">Booking History</p>
       </Link>
     ),
-    key: '1'
+    key: 'booking-history'
   },
   {
     type: 'divider'
@@ -42,7 +51,7 @@ const items: MenuProps['items'] = [
         Logout
       </button>
     ),
-    key: '3'
+    key: 'logout'
   }
 ]
 

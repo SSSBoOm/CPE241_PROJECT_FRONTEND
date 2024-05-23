@@ -19,7 +19,6 @@ const AddPaymentPage: React.FC = () => {
   const onFinish = async () => {
     try {
       const value = await form.validateFields()
-
       const response = await AxiosInstance.post('/api/payment', {
         name: value.name,
         paymentNumber: value.paymentNumber,
