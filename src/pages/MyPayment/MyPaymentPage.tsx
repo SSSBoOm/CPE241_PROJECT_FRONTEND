@@ -2,7 +2,7 @@ import { ADDCARD_PATH } from '@/configs/route'
 import { IPayment } from '@/interfaces/Payment'
 import { AxiosInstance } from '@/lib/axios'
 import { Button, Table, TableColumnsType } from 'antd'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const columns: TableColumnsType<IPayment> = [
@@ -41,8 +41,6 @@ const MyPaymentPage: React.FC = () => {
     const getPayment = async () => {
       try {
         const response = await AxiosInstance.get('/api/user/payment')
-        console.log(response.data.data)
-
         setPayment(response.data.data)
       } catch (error) {
         console.log(error)
@@ -52,8 +50,8 @@ const MyPaymentPage: React.FC = () => {
   }, [])
 
   return (
-    <>
-      <div className="min-h-screen bg-[url('hotelview2.svg')] bg-cover bg-no-repeat px-4 py-8">
+    <React.Fragment>
+      <div className="min-h-screen bg-[url('/images/login/view.png')] bg-cover bg-no-repeat px-4 py-8">
         <div className="container space-y-4 rounded-xl bg-white p-8 md:mx-auto">
           <div className="flex justify-between sm:px-8">
             <p className="text-2xl font-semibold text-primary-blue-700">Payment</p>
@@ -66,7 +64,7 @@ const MyPaymentPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   )
 }
 export default MyPaymentPage
