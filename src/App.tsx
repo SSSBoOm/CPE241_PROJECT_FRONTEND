@@ -5,7 +5,6 @@ import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
   ADDCARD_PATH,
-  ADD_ROOM_MAINTENANCE_PATH,
   ADD_ROOM_PATH,
   ADD_ROOM_TYPE_PATH,
   ADD_SERVICETYPE_PATH,
@@ -15,6 +14,7 @@ import {
   BOOKING_DETAILS_PATH,
   BOOKING_LIST_PATH,
   CART_PATH,
+  CREATE_MAINTENANCE_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
@@ -57,8 +57,7 @@ const Add_roomPage = lazy(() => import('./pages/Admin/RoomManagement/Add_room'))
 const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
 const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
-const Addroommaintain = lazy(() => import('./pages/Admin/Maintenance/AddRoommaintain'))
-const Addservicemaintain = lazy(() => import('./pages/Admin/Maintenance/Addservicemaintain'))
+const CreateMaintenance = lazy(() => import('./pages/Admin/Maintenance/CreateMaintenance'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
@@ -162,8 +161,7 @@ function App(): React.ReactElement {
               <Route path={ADD_SERVICETYPE_PATH} element={<Add_ServiceType />} />
               <Route path={ADD_SERVICE_PATH} element={<Add_Service />} />
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
-              <Route path={ADD_ROOM_MAINTENANCE_PATH} element={<Addroommaintain />} />
-              <Route path={ADD_SERVICETYPE_PATH} element={<Addservicemaintain />} />
+              <Route path={CREATE_MAINTENANCE_PATH} element={<CreateMaintenance />} />
             </Route>
           </Routes>
         </BrowserRouter>

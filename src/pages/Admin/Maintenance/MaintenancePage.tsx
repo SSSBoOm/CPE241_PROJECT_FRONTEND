@@ -1,4 +1,4 @@
-import { ADD_ROOM_MAINTENANCE_PATH } from '@/configs/route'
+import { CREATE_MAINTENANCE_PATH } from '@/configs/route'
 import { MaintenanceStatus } from '@/interfaces/enums/Maintenance'
 import { IMaintenance } from '@/interfaces/Maintenance'
 import { AxiosInstance } from '@/lib/axios'
@@ -74,10 +74,10 @@ const MaintenancePage = () => {
       <div className="container mx-auto">
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
-            <p className="text-3xl  font-bold text-primary-blue-600">Room Maintenance</p>
-            <Link to={ADD_ROOM_MAINTENANCE_PATH}>
+            <p className="text-3xl  font-bold text-primary-blue-600">Maintenance</p>
+            <Link to={CREATE_MAINTENANCE_PATH}>
               <Button type="primary" className="flex gap-x-2" size="large">
-                <p>Add Maintenance</p>
+                <p>Create Maintenance</p>
                 <PlusOutlined className="place-self-end self-center" />
               </Button>
             </Link>
