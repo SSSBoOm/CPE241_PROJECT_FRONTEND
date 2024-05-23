@@ -32,6 +32,8 @@ import { AuthContext, initialContextValue } from './contexts/AuthContext'
 import { IAuthContext } from './interfaces/AuthContext'
 import { AxiosInstance } from './lib/axios'
 
+const AddPaymentPage = lazy(() => import('./pages/MyPayment/AddPaymentPage'))
+const MyPaymentPage = lazy(() => import('./pages/MyPayment/MyPaymentPage'))
 const Booking_details = lazy(() => import('./pages/Admin/Booking_list/Booking_details'))
 const Booking_list = lazy(() => import('./pages/Admin/Booking_list/Booking_list'))
 const ServiceManagement = lazy(() => import('@/pages/Admin/ServiceManagement/ServiceManagement'))
@@ -52,8 +54,6 @@ const CreateRoomType = lazy(() => import('./pages/Admin/RoomManagement/CreateRoo
 const Add_roomPage = lazy(() => import('./pages/Admin/RoomManagement/Add_room'))
 const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
-const MyPaymentPage = lazy(() => import('./pages/MyPayment/MyPaymentPage'))
-const AddPaymentPage = lazy(() => import('./pages/MyPayment/AddPaymentPage'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialContextValue)
