@@ -1,4 +1,5 @@
 import {
+  ADMINPAYMENT_PATH,
   BOOKING_LIST_PATH,
   MAINTENANCE_PATH,
   ROOM_MANAGE_PATH,
@@ -54,6 +55,12 @@ const StaffNavbar: React.FC = () => {
             className="block h-10 content-center text-center hover:bg-primary-blue-700 hover:text-primary-orange"
           >
             Maintenance Management
+          </Link>
+          <Link
+            to={ADMINPAYMENT_PATH}
+            className="block h-10 content-center text-center hover:bg-primary-blue-700 hover:text-primary-orange"
+          >
+            Payment Management
           </Link>
         </div>
         <div className="content-center text-center text-lg text-primary-b2">
