@@ -6,7 +6,7 @@ type Props = {
   onClick?: () => void
 }
 
-const Room: React.FC<Props> = () => {
+const Room: React.FC<Props> = (props) => {
   return (
     <React.Fragment>
       <div className=" grid  grid-cols-5 gap-x-2 rounded-md border-2 border-primary-blue-600">
@@ -14,12 +14,12 @@ const Room: React.FC<Props> = () => {
           <img className=" object-cover" src="StandardSuiteRoom.svg" alt="" />
         </div>
         <div className="col-span-3">
-          <p className=" text-3xl">props.data.name</p>
-          <p className=" mb-2 text-lg">props.data.detail</p>
+          <p className=" text-3xl">{props.data.name}</p>
+          <p className=" mb-2 text-lg">{props.data.detail}</p>
           <div className=" mb-3 grid grid-cols-3 text-lg">
             <div>
               <p>Bed : King size</p>
-              <p>People : props.data.accommodate</p>
+              <p>People : {props.data.accommodate}</p>
               <p>Garden view</p>
               <p>Sea view</p>
             </div>
