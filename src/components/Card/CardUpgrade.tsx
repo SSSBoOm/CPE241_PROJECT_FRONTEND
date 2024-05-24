@@ -23,20 +23,20 @@ const CardUpgrade: React.FC<Props> = (props) => {
             <div className="flex-1 flex-col flex-wrap">
               <p className="text-sm md:text-lg">
                 <FullscreenOutlined />
-                size
+                Size: {props.data.size | 10} m²
               </p>
               <p className="text-sm md:text-lg">
                 <UserOutlined />
-                For: {props.data.accommodate}
+                Capacity: {props.data.accommodate | 1}
               </p>
-              <p className="text-sm md:text-lg">Bed : King size</p>
-              <p className="text-sm md:text-lg">food</p>
-              <p className="text-sm md:text-lg">view sea</p>
-              <p className="text-sm md:text-lg">view forest</p>
+              {props.data.bed && <p className="text-sm md:text-lg">Bed : {props.data.bed}</p>}
             </div>
 
             <div className="flex-col flex-wrap text-center md:flex-1">
-              <p className="text-lg md:text-2xl">price Bath</p>
+              <p className="text-lg font-semibold md:text-2xl">
+                {(props.data.price | 0).toLocaleString(navigator.language, { minimumFractionDigits: 2 })} ฿
+              </p>
+              <p className="text-md md:text-md">Per Day</p>
               <Button
                 disabled={props.disabled}
                 size="small"

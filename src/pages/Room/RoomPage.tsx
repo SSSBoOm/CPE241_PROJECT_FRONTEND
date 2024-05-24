@@ -44,6 +44,7 @@ const RoomPage: React.FC = () => {
 
   const onFinish = async () => {
     try {
+      setDisabled(false)
       const values = form.getFieldsValue()
       const { start_date, end_date } = {
         start_date: dayjs(values.dates[0]).set('hour', 13).set('minute', 0).set('second', 0).set('millisecond', 0),
@@ -58,8 +59,9 @@ const RoomPage: React.FC = () => {
         const endDate = dayjs(r.endDate)
         return startDate.isBefore(end_date) && endDate.isAfter(start_date)
       })
-
+      console.log(reservationInDateRange)
       const data = reservationInDateRange.map((r: IReservation) => r.room?.id)
+      console.log(data)
       setRoomTypesFilter(
         roomTypes
           .map((roomType) => {
@@ -70,9 +72,8 @@ const RoomPage: React.FC = () => {
           })
           .filter((r) => r.room?.length !== 0)
       )
-
-      setDisabled(false)
     } catch (error) {
+      setDisabled(true)
       console.log('Failed:', error)
     }
   }
@@ -81,12 +82,10 @@ const RoomPage: React.FC = () => {
     const fetchRoom = async () => {
       try {
         const result = await AxiosInstance.get('/api/room_type')
-        const roomType: IRoomType[] = []
-        result.data.data.forEach((r: IRoomType) => {
-          r.room = r.room?.filter((room) => room.isActive)
-          roomType.push(r)
-        })
-
+        const roomType: IRoomType[] = result.data.data.reduce((acc: IRoomType[], r: IRoomType) => {
+          return [...acc, { ...r, room: r.room?.filter((room) => room.isActive) }]
+        }, [] as IRoomType[])
+        console.log(roomType)
         setRoomTypes(roomType.filter((r: IRoomType) => r.room?.length !== 0))
         setRoomTypesFilter(roomType.filter((r: IRoomType) => r.room?.length !== 0))
       } catch (err) {
@@ -163,7 +162,8 @@ const RoomPage: React.FC = () => {
             </Form.Item>
             <Form.Item className="mt-12 min-w-[16rem] justify-center lg:mt-0 lg:inline lg:content-end">
               <button
-                className="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white"
+                className="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white opacity-100 disabled:opacity-50"
+                disabled={!disabled}
                 type="submit"
               >
                 <p>ค้นหาห้องพัก</p>
@@ -174,19 +174,21 @@ const RoomPage: React.FC = () => {
         </Form>
         <div className="grid grid-cols-5">
           <div className="col-start-1 col-end-6 flex flex-col space-y-4 md:col-start-2 md:col-end-5">
-            {roomTypesFilter.map((roomType) => {
-              return (
-                <CardUpgrade
-                  key={roomType.id}
-                  data={roomType}
-                  onClick={() => {
-                    setSelectedRoomType(roomType)
-                    setIsModalVisible(true)
-                  }}
-                  disabled={disabled}
-                />
-              )
-            })}
+            {roomTypesFilter
+              .sort((a, b) => a.price - b.price)
+              .map((roomType) => {
+                return (
+                  <CardUpgrade
+                    key={roomType.id}
+                    data={roomType}
+                    onClick={() => {
+                      setSelectedRoomType(roomType)
+                      setIsModalVisible(true)
+                    }}
+                    disabled={disabled}
+                  />
+                )
+              })}
           </div>
         </div>
       </div>
