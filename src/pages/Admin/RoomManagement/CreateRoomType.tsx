@@ -77,6 +77,14 @@ const CreateRoomType: React.FC = () => {
       }
     } catch (error) {
       console.error(error)
+      Swal.fire({
+        title: 'เกิดข้อผิดพลาด',
+        text: 'ไม่สามารถสร้างประเภทห้องได้',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        navigate(ROOM_MANAGE_PATH)
+      })
     }
   }
 
@@ -236,7 +244,8 @@ const CreateRoomType: React.FC = () => {
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>
-              <Button>Cancel</Button>
+
+              <Button onClick={() => navigate(ROOM_MANAGE_PATH)}>Cancel</Button>
             </Space>
           </Form.Item>
         </Form>
