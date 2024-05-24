@@ -61,13 +61,13 @@ const ServicePage = lazy(() => import('@/pages/Service/ServicePage'))
 const CreateRoomType = lazy(() => import('@/pages/Admin/RoomManagement/CreateRoomType'))
 const CreateRoomPage = lazy(() => import('@/pages/Admin/RoomManagement/CreateRoom'))
 const CreateServiceType = lazy(() => import('@/pages/Admin/ServiceManagement/CreateServiceType'))
-const Add_Service = lazy(() => import('@/pages/Admin/ServiceManagement/Add_Service'))
+const CreateService = lazy(() => import('@/pages/Admin/ServiceManagement/CreateService'))
 const MaintenancePage = lazy(() => import('@/pages/Admin/Maintenance/MaintenancePage'))
 const CreateMaintenance = lazy(() => import('@/pages/Admin/Maintenance/CreateMaintenance'))
 const PaymentManagement = lazy(() => import('@/pages/Admin/PaymentManagement/PaymentManagement'))
 const MaintenanceDetailPage = lazy(() => import('@/pages/Admin/Maintenance/MaintenanceDetail'))
-const Promotionadmin = lazy(() => import('@/pages/Admin/Promotion/promotionadmin'))
-const AddPromotionadmin = lazy(() => import('@/pages/Admin/Promotion/Addpromotion'))
+const PromotionManagement = lazy(() => import('@/pages/Admin/Promotion/PromotionManagement'))
+const CreatePromotionPage = lazy(() => import('@/pages/Admin/Promotion/CreatePromotionPage'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
@@ -174,7 +174,7 @@ function App(): React.ReactElement {
               <Route path={ADD_ROOM_TYPE_PATH} element={<CreateRoomType />} />
               <Route path={ADD_ROOM_PATH} element={<CreateRoomPage />} />
               <Route path={ADD_SERVICE_TYPE_PATH} element={<CreateServiceType />} />
-              <Route path={ADD_SERVICE_PATH} element={<Add_Service />} />
+              <Route path={ADD_SERVICE_PATH} element={<CreateService />} />
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
               <Route path={CREATE_MAINTENANCE_PATH} element={<CreateMaintenance />} />
               <Route path={ADMIN_PAYMENT_PATH} element={<PaymentManagement />} />
@@ -182,8 +182,8 @@ function App(): React.ReactElement {
                 <Route index element={<Navigate to={MAINTENANCE_PATH} />} />
                 <Route path=":id" element={<MaintenanceDetailPage />} />
               </Route>
-              <Route path={PROMOTIONADMIN_PATH} element={<Promotionadmin />} />
-              <Route path={ADD_PROMOTIONADMIN_PATH} element={<AddPromotionadmin />} />
+              <Route path={PROMOTIONADMIN_PATH} element={<PromotionManagement />} />
+              <Route path={ADD_PROMOTIONADMIN_PATH} element={<CreatePromotionPage />} />
               <Route path={RESERVATION_MANAGEMENT_PATH} element={<ReservationManagement />} />
             </Route>
           </Routes>

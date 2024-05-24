@@ -3,22 +3,18 @@ import { PlusOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import { Button, Switch, Table } from 'antd'
 import { Link } from 'react-router-dom'
-const promotionadmin = () => {
+
+const PromotionManagement = () => {
   const column_data: TableColumnsType = [
     {
-      title: 'Type room',
-      dataIndex: 'typeroom',
-      key: 'typeroom'
-    },
-    {
-      title: 'Old price',
-      dataIndex: 'oldprice',
-      key: 'oldprice'
+      title: 'Room Type',
+      dataIndex: 'RoomType',
+      key: 'RoomType'
     },
     {
       title: 'Promotion price',
-      dataIndex: 'promotionprice',
-      key: 'promotionprice'
+      dataIndex: 'promotionPrice',
+      key: 'promotionPrice'
     },
     {
       title: 'Start date',
@@ -43,7 +39,7 @@ const promotionadmin = () => {
     <>
       <div className="container mx-auto px-8 py-4">
         <div className=" flex h-fit w-full content-center justify-between space-y-4 px-4">
-          <p className="content-center text-3xl font-bold text-primary-blue-600">Promotion</p>
+          <p className="content-center text-3xl font-bold text-primary-blue-600">Create Promotion</p>
           <Link to={ADD_PROMOTIONADMIN_PATH}>
             <Button size="large" type="primary" className="h-fit content-center">
               Add promotion
@@ -52,9 +48,9 @@ const promotionadmin = () => {
           </Link>
         </div>
 
-        <Table columns={column_data}></Table>
+        <Table columns={column_data} />
       </div>
     </>
   )
 }
-export default promotionadmin
+export default PromotionManagement

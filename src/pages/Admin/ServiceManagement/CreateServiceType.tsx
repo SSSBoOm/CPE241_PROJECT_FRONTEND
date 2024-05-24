@@ -93,21 +93,21 @@ const CreateServiceType: React.FC = () => {
                             label={<p className="font-semibold">ชื่อบริการ</p>}
                             className="w-full"
                           >
-                            <Input placeholder="หมายเลขห้อง" size="large" />
+                            <Input placeholder="ชื่อบริการ" size="large" />
                           </Form.Item>
                           <Form.Item
                             name={[item.name, 'description']}
                             label={<p className="font-semibold">คำอธิบาย</p>}
                             className="w-full"
                           >
-                            <Input placeholder="หมายเลขห้อง" size="large" />
+                            <Input placeholder="คำอธิบาย" size="large" />
                           </Form.Item>
                           <Form.Item
                             name={[item.name, 'information']}
                             label={<p className="font-semibold">ข้อมูลเพิ่มเติม (สำหรับภายใน)</p>}
                             className="w-full"
                           >
-                            <Input placeholder="หมายเลขห้อง" size="large" />
+                            <Input placeholder="ข้อมูลเพิ่มเติม" size="large" />
                           </Form.Item>
                           <Form.Item
                             name={[item.name, 'price']}
@@ -118,7 +118,7 @@ const CreateServiceType: React.FC = () => {
                             ]}
                             className="w-full"
                           >
-                            <Input placeholder="หมายเลขห้อง" size="large" />
+                            <Input placeholder="ราคา" size="large" />
                           </Form.Item>
                           <div
                             className={`flex w-full ${Field.length > 1 ? 'justify-between px-4' : 'flex-row-reverse justify-end'}`}
