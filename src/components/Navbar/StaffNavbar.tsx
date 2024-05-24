@@ -3,6 +3,7 @@ import {
   BOOKING_LIST_PATH,
   MAINTENANCE_PATH,
   PROMOTIONADMIN_PATH,
+  RESERVATION_MANAGEMENT_PATH,
   ROOM_MANAGE_PATH,
   SERVICE_MANAGE_PATH,
   USER_MANAGE_PATH
@@ -26,6 +27,12 @@ const StaffNavbar: React.FC = () => {
             className="block h-10 content-center text-center hover:bg-primary-blue-700 hover:text-primary-orange"
           >
             Dashboard
+          </Link>
+          <Link
+            to={RESERVATION_MANAGEMENT_PATH}
+            className="block h-10 content-center text-center hover:bg-primary-blue-700 hover:text-primary-orange"
+          >
+            Reservation Management
           </Link>
           <Link
             to={BOOKING_LIST_PATH}

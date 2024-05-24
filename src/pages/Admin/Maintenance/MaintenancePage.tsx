@@ -1,4 +1,4 @@
-import { CREATE_MAINTENANCE_PATH } from '@/configs/route'
+import { CREATE_MAINTENANCE_PATH, DETAIL_MAINTENACE_PATH } from '@/configs/route'
 import { MaintenanceStatus } from '@/interfaces/enums/Maintenance'
 import { IMaintenance } from '@/interfaces/Maintenance'
 import { AxiosInstance } from '@/lib/axios'
@@ -18,10 +18,9 @@ const columns: TableColumnsType<IMaintenance> = [
     render: (_: string, row: IMaintenance) => <p>{row.room.roomNumber}</p>
   },
   {
-    title: 'Reason for maintenance',
-    dataIndex: 'reason',
-    key: 'reason',
-    render: (_: string, row: IMaintenance) => <p>{row.room.roomNumber}</p>
+    title: 'Title',
+    dataIndex: 'title',
+    key: 'title'
   },
   {
     title: 'Start Date maintain',
@@ -54,9 +53,14 @@ const columns: TableColumnsType<IMaintenance> = [
     }
   },
   {
-    title: 'Check',
-    dataIndex: 'check',
-    key: 'check'
+    title: 'Detail',
+    dataIndex: '',
+    key: 'check',
+    render: (_: string, row: IMaintenance) => (
+      <Link to={`${DETAIL_MAINTENACE_PATH}/${row.id}`}>
+        <Button type="primary">Detail</Button>
+      </Link>
+    )
   }
 ]
 

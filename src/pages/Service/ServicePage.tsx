@@ -36,7 +36,7 @@ const ServicePage: React.FC = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const result = await AxiosInstance.get('/api/service_type/all')
+        const result = await AxiosInstance.get('/api/service_type')
         console.log(result.data.data)
         setData(result.data.data)
       } catch (err) {

@@ -1,9 +1,9 @@
+import { MaintenanceStatus } from '@/interfaces/enums/Maintenance'
 import {
   CheckCircleOutlined,
   ClockCircleOutlined,
   CloseCircleOutlined,
   InfoCircleOutlined,
-  PlusCircleOutlined,
   WarningOutlined
 } from '@ant-design/icons'
 import { Card } from 'antd'
@@ -17,28 +17,31 @@ interface detailCard {
 
 const MaintenaceStatusCard = (detailCards: detailCard) => {
   function checkStatus(Status: string) {
-    if (Status === 'Success') {
+    if (
+      Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_APPROVED ||
+      Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_DONE
+    ) {
       return (
         <p className="rounded-md bg-green-600/60 p-2 text-xl font-semibold text-primary-blue-600">
           <CheckCircleOutlined />
           {detailCards.C_Status_name}
         </p>
       )
-    } else if (Status === 'Update') {
+    } else if (Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_PENDING) {
       return (
         <p className=" rounded-md bg-primary-orange/60 p-2 text-xl font-semibold text-primary-blue-600">
           <InfoCircleOutlined />
           {detailCards.C_Status_name}
         </p>
       )
-    } else if (Status === 'Create') {
+    } else if (Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_CASE_OPEN) {
       return (
-        <p className=" rounded-md bg-green-600/60 p-2 text-xl font-semibold text-primary-blue-600">
-          <PlusCircleOutlined />
+        <p className=" rounded-md bg-primary-orange/60 p-2 text-xl font-semibold text-primary-blue-600">
+          <InfoCircleOutlined />
           {detailCards.C_Status_name}
         </p>
       )
-    } else if (Status === 'Cancel') {
+    } else if (Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_REJECTED) {
       return (
         <p className=" rounded-md bg-red-700/60 p-2 text-xl font-semibold text-primary-blue-600">
           <CloseCircleOutlined />

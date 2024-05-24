@@ -1,8 +1,5 @@
-import { ConfigProvider } from 'antd'
-import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react'
-import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
-import AdminLayout from './components/Layout/AdminLayout'
-import HomeLayout from './components/Layout/HomeLayout'
+import AdminLayout from '@/components/Layout/AdminLayout'
+import HomeLayout from '@/components/Layout/HomeLayout'
 import {
   ADDCARD_PATH,
   ADD_PROMOTIONADMIN_PATH,
@@ -17,7 +14,7 @@ import {
   BOOKING_LIST_PATH,
   CART_PATH,
   CREATE_MAINTENANCE_PATH,
-  DETAILMAINTENACE_PATH,
+  DETAIL_MAINTENACE_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
@@ -27,45 +24,50 @@ import {
   PROFILE_PATH,
   PROMOTIONADMIN_PATH,
   REGISTER_PATH,
+  RESERVATION_MANAGEMENT_PATH,
   ROOM_MANAGE_PATH,
   ROOM_PATH,
   SERVICE_MANAGE_PATH,
   SERVICE_PATH,
   USER_DETAILS_PATH,
   USER_MANAGE_PATH
-} from './configs/route'
-import { AuthContext, initialAuthContextValue } from './contexts/AuthContext'
-import { IAuthContext } from './interfaces/AuthContext'
-import { AxiosInstance } from './lib/axios'
+} from '@/configs/route'
+import { AuthContext, initialAuthContextValue } from '@/contexts/AuthContext'
+import { IAuthContext } from '@/interfaces/AuthContext'
+import { AxiosInstance } from '@/lib/axios'
+import { ConfigProvider } from 'antd'
+import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react'
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
+const ReservationManagement = lazy(() => import('@/pages/Admin/BookingManagement/ReservationManagement'))
 const AddPaymentPage = lazy(() => import('@/pages/MyPayment/AddPaymentPage'))
 const MyPaymentPage = lazy(() => import('@/pages/MyPayment/MyPaymentPage'))
-const BookingDetails = lazy(() => import('./pages/Admin/BookingManagement/BookingDetails'))
-const BookingManagement = lazy(() => import('./pages/Admin/BookingManagement/BookingManagement'))
+const BookingDetails = lazy(() => import('@/pages/Admin/BookingManagement/BookingDetails'))
+const BookingManagement = lazy(() => import('@/pages/Admin/BookingManagement/BookingManagement'))
 const ServiceManagement = lazy(() => import('@/pages/Admin/ServiceManagement/ServiceManagement'))
-const RoomManagement = lazy(() => import('./pages/Admin/RoomManagement/RoomManagement'))
-const User_details = lazy(() => import('./pages/Admin/UserManagement/User_details'))
-const UserManagement = lazy(() => import('./pages/Admin/UserManagement/UserManagement'))
-const PaymentPage = lazy(() => import('./pages/Payment/PaymentPage'))
-const CardPage = lazy(() => import('./pages/Cart/CartPage'))
-const Facility = lazy(() => import('./pages/Facitily/Facility'))
-const HistoryPage = lazy(() => import('./pages/History/HistoryPage'))
-const HomePage = lazy(() => import('./pages/Home/HomePage'))
-const LoginPage = lazy(() => import('./pages/Login/LoginPage'))
-const ProfilePage = lazy(() => import('./pages/Profile/ProfilePage'))
-const RegisterPage = lazy(() => import('./pages/Register/RegisterPage'))
-const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
-const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
-const CreateRoomType = lazy(() => import('./pages/Admin/RoomManagement/CreateRoomType'))
-const CreateRoomPage = lazy(() => import('./pages/Admin/RoomManagement/CreateRoom'))
-const CreateServiceType = lazy(() => import('./pages/Admin/ServiceManagement/CreateServiceType'))
-const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
-const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
-const CreateMaintenance = lazy(() => import('./pages/Admin/Maintenance/CreateMaintenance'))
-const PaymentManagement = lazy(() => import('./pages/Admin/PaymentManagement/PaymentManagement'))
-const DetailMaintenance = lazy(() => import('./pages/Admin/Maintenance/Detailmaintain'))
-const Promotionadmin = lazy(() => import('./pages/Admin/Promotion/promotionadmin'))
-const AddPromotionadmin = lazy(() => import('./pages/Admin/Promotion/Addpromotion'))
+const RoomManagement = lazy(() => import('@/pages/Admin/RoomManagement/RoomManagement'))
+const User_details = lazy(() => import('@/pages/Admin/UserManagement/User_details'))
+const UserManagement = lazy(() => import('@/pages/Admin/UserManagement/UserManagement'))
+const PaymentPage = lazy(() => import('@/pages/Payment/PaymentPage'))
+const CardPage = lazy(() => import('@/pages/Cart/CartPage'))
+const Facility = lazy(() => import('@/pages/Facitily/Facility'))
+const HistoryPage = lazy(() => import('@/pages/History/HistoryPage'))
+const HomePage = lazy(() => import('@/pages/Home/HomePage'))
+const LoginPage = lazy(() => import('@/pages/Login/LoginPage'))
+const ProfilePage = lazy(() => import('@/pages/Profile/ProfilePage'))
+const RegisterPage = lazy(() => import('@/pages/Register/RegisterPage'))
+const RoomPage = lazy(() => import('@/pages/Room/RoomPage'))
+const ServicePage = lazy(() => import('@/pages/Service/ServicePage'))
+const CreateRoomType = lazy(() => import('@/pages/Admin/RoomManagement/CreateRoomType'))
+const CreateRoomPage = lazy(() => import('@/pages/Admin/RoomManagement/CreateRoom'))
+const CreateServiceType = lazy(() => import('@/pages/Admin/ServiceManagement/CreateServiceType'))
+const Add_Service = lazy(() => import('@/pages/Admin/ServiceManagement/Add_Service'))
+const MaintenancePage = lazy(() => import('@/pages/Admin/Maintenance/MaintenancePage'))
+const CreateMaintenance = lazy(() => import('@/pages/Admin/Maintenance/CreateMaintenance'))
+const PaymentManagement = lazy(() => import('@/pages/Admin/PaymentManagement/PaymentManagement'))
+const MaintenanceDetailPage = lazy(() => import('@/pages/Admin/Maintenance/MaintenanceDetail'))
+const Promotionadmin = lazy(() => import('@/pages/Admin/Promotion/promotionadmin'))
+const AddPromotionadmin = lazy(() => import('@/pages/Admin/Promotion/Addpromotion'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
@@ -176,9 +178,13 @@ function App(): React.ReactElement {
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
               <Route path={CREATE_MAINTENANCE_PATH} element={<CreateMaintenance />} />
               <Route path={ADMIN_PAYMENT_PATH} element={<PaymentManagement />} />
-              <Route path={DETAILMAINTENACE_PATH} element={<DetailMaintenance />} />
+              <Route path={DETAIL_MAINTENACE_PATH}>
+                <Route index element={<Navigate to={MAINTENANCE_PATH} />} />
+                <Route path=":id" element={<MaintenanceDetailPage />} />
+              </Route>
               <Route path={PROMOTIONADMIN_PATH} element={<Promotionadmin />} />
               <Route path={ADD_PROMOTIONADMIN_PATH} element={<AddPromotionadmin />} />
+              <Route path={RESERVATION_MANAGEMENT_PATH} element={<ReservationManagement />} />
             </Route>
           </Routes>
         </BrowserRouter>

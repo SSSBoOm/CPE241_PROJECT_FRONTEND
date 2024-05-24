@@ -6,6 +6,7 @@ export interface IMaintenanceLog {
   staffId: string
   staff: IUser
   description: string
+  date: Date
   status: MaintenanceStatus
   updatedAt: Date
   createdAt: Date
