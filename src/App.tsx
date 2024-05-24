@@ -5,6 +5,7 @@ import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
   ADDCARD_PATH,
+  ADD_PROMOTIONADMIN_PATH,
   ADD_ROOM_PATH,
   ADD_ROOM_TYPE_PATH,
   ADD_SERVICE_PATH,
@@ -23,6 +24,7 @@ import {
   MY_PAYMENT_PATH,
   PAYMENT_PATH,
   PROFILE_PATH,
+  PROMOTIONADMIN_PATH,
   REGISTER_PATH,
   ROOM_MANAGE_PATH,
   ROOM_PATH,
@@ -60,6 +62,8 @@ const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Servi
 const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
 const CreateMaintenance = lazy(() => import('./pages/Admin/Maintenance/CreateMaintenance'))
 const PaymentManagement = lazy(() => import('./pages/Admin/PaymentManagement/PaymentManagement'))
+const Promotionadmin = lazy(() => import('./pages/Admin/Promotion/promotionadmin'))
+const AddPromotionadmin = lazy(() => import('./pages/Admin/Promotion/Addpromotion'))
 
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
@@ -168,6 +172,8 @@ function App(): React.ReactElement {
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
               <Route path={CREATE_MAINTENANCE_PATH} element={<CreateMaintenance />} />
               <Route path={ADMIN_PAYMENT_PATH} element={<PaymentManagement />} />
+              <Route path={PROMOTIONADMIN_PATH} element={<Promotionadmin />} />
+              <Route path={ADD_PROMOTIONADMIN_PATH} element={<AddPromotionadmin />} />
             </Route>
           </Routes>
         </BrowserRouter>
