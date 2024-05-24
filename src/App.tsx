@@ -1,6 +1,6 @@
 import { ConfigProvider } from 'antd'
 import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react'
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import AdminLayout from './components/Layout/AdminLayout'
 import HomeLayout from './components/Layout/HomeLayout'
 import {
@@ -37,8 +37,8 @@ import { AxiosInstance } from './lib/axios'
 
 const AddPaymentPage = lazy(() => import('@/pages/MyPayment/AddPaymentPage'))
 const MyPaymentPage = lazy(() => import('@/pages/MyPayment/MyPaymentPage'))
-const Booking_details = lazy(() => import('./pages/Admin/Booking_list/Booking_details'))
-const Booking_list = lazy(() => import('./pages/Admin/Booking_list/Booking_list'))
+const BookingDetails = lazy(() => import('./pages/Admin/BookingManagement/BookingDetails'))
+const BookingManagement = lazy(() => import('./pages/Admin/BookingManagement/BookingManagement'))
 const ServiceManagement = lazy(() => import('@/pages/Admin/ServiceManagement/ServiceManagement'))
 const RoomManagement = lazy(() => import('./pages/Admin/RoomManagement/RoomManagement'))
 const User_details = lazy(() => import('./pages/Admin/UserManagement/User_details'))
@@ -60,6 +60,7 @@ const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Servi
 const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
 const CreateMaintenance = lazy(() => import('./pages/Admin/Maintenance/CreateMaintenance'))
 const PaymentManagement = lazy(() => import('./pages/Admin/PaymentManagement/PaymentManagement'))
+
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
   const [loading, setLoading] = useState(true)
@@ -155,8 +156,11 @@ function App(): React.ReactElement {
               <Route path={SERVICE_MANAGE_PATH} element={<ServiceManagement />} />
               <Route path={USER_MANAGE_PATH} element={<UserManagement />} />
               <Route path={USER_DETAILS_PATH} element={<User_details />} />
-              <Route path={BOOKING_LIST_PATH} element={<Booking_list />} />
-              <Route path={BOOKING_DETAILS_PATH} element={<Booking_details />} />
+              <Route path={BOOKING_LIST_PATH} element={<BookingManagement />} />
+              <Route path={BOOKING_DETAILS_PATH}>
+                <Route index element={<Navigate to={BOOKING_LIST_PATH} />} />
+                <Route path=":id" element={<BookingDetails />} />
+              </Route>
               <Route path={ADD_ROOM_TYPE_PATH} element={<CreateRoomType />} />
               <Route path={ADD_ROOM_PATH} element={<CreateRoomPage />} />
               <Route path={ADD_SERVICE_TYPE_PATH} element={<CreateServiceType />} />

@@ -54,6 +54,7 @@ const PaymentManagement = () => {
       <Modal
         title={<p className="text-center text-lg">Create Payment Type</p>}
         open={isModalVisible}
+        centered
         onCancel={() => {
           form.resetFields()
           setIsModalVisible(false)

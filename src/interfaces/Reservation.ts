@@ -2,6 +2,7 @@ import { ReservationType } from '@/interfaces/enums/ReservationType'
 import { IPayment } from '@/interfaces/Payment'
 import { IRoom } from '@/interfaces/Room'
 import { IService } from '@/interfaces/Service'
+import { IUser } from '@/interfaces/User'
 
 export enum ReservationStatus {
   RESERVATION_STATUS_WAITING_APPROVE_PAYMENT = 'WAITING_APPROVE_PAYMENT',
@@ -17,9 +18,10 @@ export enum ReservationStatus {
 export interface IReservation {
   id: number
   type: ReservationType
-  room: IRoom | null
-  service: IService | null
+  room?: IRoom
+  service?: IService
   userId: string
+  user?: IUser
   startDate: Date
   endDate: Date
   price: number
