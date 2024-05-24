@@ -12,6 +12,9 @@ const config: Config = {
         'primary-orange': '#F89200',
         'primary-yellow': '#FFD234'
       }
+    },
+    fontFamily: {
+      sans: ['Kanit', 'sans-serif']
     }
   },
   plugins: []
