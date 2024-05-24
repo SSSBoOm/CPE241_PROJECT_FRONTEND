@@ -33,6 +33,12 @@ const HistoryPage: React.FC = () => {
           >
             Room
           </div>
+          {/* if no historyRoom and historyservie */}
+          {historyRoom.length === 0 && historyService.length === 0 && (
+            <div className="container mx-auto rounded-md border-2 bg-white p-4">
+              <h1 className="text-center text-2xl font-bold text-primary-blue-600">No History Found</h1>
+            </div>
+          )}
           {historyRoom
             .sort((a, b) => {
               return new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
