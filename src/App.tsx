@@ -16,6 +16,7 @@ import {
   BOOKING_LIST_PATH,
   CART_PATH,
   CREATE_MAINTENANCE_PATH,
+  DETAILMAINTENACE_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
@@ -60,6 +61,7 @@ const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Servi
 const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
 const CreateMaintenance = lazy(() => import('./pages/Admin/Maintenance/CreateMaintenance'))
 const PaymentManagement = lazy(() => import('./pages/Admin/PaymentManagement/PaymentManagement'))
+const DetailMaintenance = lazy(() => import('./pages/Admin/Maintenance/Detailmaintain'))
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
   const [loading, setLoading] = useState(true)
@@ -90,7 +92,8 @@ function App(): React.ReactElement {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: '#1A6886'
+            colorPrimary: '#1A6886',
+            colorBorderSecondary: '#1A6886'
           },
           components: {
             Button: {
@@ -164,6 +167,7 @@ function App(): React.ReactElement {
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
               <Route path={CREATE_MAINTENANCE_PATH} element={<CreateMaintenance />} />
               <Route path={ADMIN_PAYMENT_PATH} element={<PaymentManagement />} />
+              <Route path={DETAILMAINTENACE_PATH} element={<DetailMaintenance />} />
             </Route>
           </Routes>
         </BrowserRouter>
