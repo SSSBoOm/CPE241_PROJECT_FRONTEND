@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
+    "@supabase/supabase-js": "^2.43.4",
     "antd": "^5.16.4",
     "antd-img-crop": "^4.22.0",
     "axios": "^1.6.8",
