@@ -18,6 +18,12 @@ const columns: TableColumnsType<IMaintenance> = [
     render: (_: string, row: IMaintenance) => <p>{row.room.roomNumber}</p>
   },
   {
+    title: 'Reason for maintenance',
+    dataIndex: 'reason',
+    key: 'reason',
+    render: (_: string, row: IMaintenance) => <p>{row.room.roomNumber}</p>
+  },
+  {
     title: 'Start Date maintain',
     dataIndex: 'date',
     key: 'startDate',
