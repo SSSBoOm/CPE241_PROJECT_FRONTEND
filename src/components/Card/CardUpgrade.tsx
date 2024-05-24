@@ -4,6 +4,8 @@ import React from 'react'
 import { IRoomType } from '../../interfaces/RoomType'
 type Props = {
   data: IRoomType
+  onClick?: () => void
+  disabled?: boolean
 }
 const CardUpgrade: React.FC<Props> = (props) => {
   return (
@@ -35,7 +37,12 @@ const CardUpgrade: React.FC<Props> = (props) => {
 
             <div className="flex-col flex-wrap text-center md:flex-1">
               <p className="text-lg md:text-2xl">price Bath</p>
-              <Button size="small" className={`content-center md:left-0`}>
+              <Button
+                disabled={props.disabled}
+                size="small"
+                className={`content-center md:left-0`}
+                onClick={props.onClick}
+              >
                 Booking
               </Button>
             </div>
