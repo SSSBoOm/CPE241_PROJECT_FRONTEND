@@ -2,7 +2,7 @@ import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { MY_PAYMENT_PATH } from '@/configs/route'
 import { AxiosInstance } from '@/lib/axios'
 import { Button, Form, Input, Select, Space } from 'antd'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
@@ -60,7 +60,7 @@ const AddPaymentPage: React.FC = () => {
   }, [])
 
   return (
-    <>
+    <React.Fragment>
       <div className="min-h-screen bg-[url('hotelview2.svg')] bg-cover bg-no-repeat px-4 py-8">
         <div className="container rounded-xl bg-white p-8 md:mx-auto">
           <h1 className="my-4 text-3xl font-bold text-primary-blue-700">Add Card</h1>
@@ -125,7 +125,7 @@ const AddPaymentPage: React.FC = () => {
           </Form>
         </div>
       </div>
-    </>
+    </React.Fragment>
   )
 }
 export default AddPaymentPage

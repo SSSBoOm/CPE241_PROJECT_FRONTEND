@@ -1,6 +1,7 @@
 import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { IRoomType } from '@/interfaces/RoomType'
 import { AxiosInstance } from '@/lib/axios'
+import { DeleteOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Form, GetProps, Input, Select, Space } from 'antd'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -10,6 +11,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
 import React, { useEffect, useState } from 'react'
+import { FaPlus } from 'react-icons/fa'
 const { RangePicker } = DatePicker
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
@@ -25,7 +27,9 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 }
 
 const CreatePromotionPage: React.FC = () => {
+  const [form] = Form.useForm()
   const [roomTypeData, setRoomTypeData] = useState<IRoomType[]>([])
+  const [roomTypeSelect, setRoomTypeSelect] = useState<number[]>([])
 
   useEffect(() => {
     const fetchRoomType = async () => {
@@ -40,12 +44,45 @@ const CreatePromotionPage: React.FC = () => {
     fetchRoomType()
   }, [])
 
+  const onFinish = async () => {
+    try {
+      const values = await form.validateFields()
+      const roomTypeData = values.room_type.map((item: { roomTypeId: string }) => Number(item.roomTypeId))
+      const response = await AxiosInstance.post('/api/promotion_price', {
+        name: values.name,
+        price: Number(values.price),
+        roomTypeId: roomTypeData,
+        startDate: dayjs(values.date[0]),
+        endDate: dayjs(values.date[1])
+      })
+
+      console.log(response)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <React.Fragment>
-      <p className="text-3xl font-bold text-primary-blue-600">Add Promotion</p>
-      <div className="container mx-auto px-4">
-        <Form layout="vertical" requiredMark={customizeRequiredMark}>
+      <div className="container mx-auto space-y-4 px-4">
+        <h1 className="text-3xl  font-bold text-primary-blue-600">Create Promotion</h1>
+        <Form
+          layout="vertical"
+          requiredMark={customizeRequiredMark}
+          form={form}
+          onFinish={onFinish}
+          initialValues={{
+            room_type: [{ roomTypeId: '' }]
+          }}
+        >
           <div className="mx-auto grid grid-cols-1 gap-x-4 lg:grid-cols-2 ">
+            <Form.Item
+              label={<p className="text-sm font-semibold">ชื่อ</p>}
+              name="name"
+              rules={[{ required: true, message: 'กรุณากรอกชื่อ' }]}
+            >
+              <Input size="large" />
+            </Form.Item>
             <Form.Item
               label={<p className="text-sm font-semibold">ช่วงเวลาโปรมาชั่น</p>}
               name="date"
@@ -60,21 +97,63 @@ const CreatePromotionPage: React.FC = () => {
             >
               <Input size="large" />
             </Form.Item>
-            {/* <Form.List>
-
-            </Form.List> */}
-            <Form.Item
-              label={<p className="text-sm font-semibold">ประเภทห้อง</p>}
-              name="typeroom"
-              rules={[{ required: true, message: 'กรุณาเลือกประเภทห้อง' }]}
-            >
-              <Select size="large" options={roomTypeData.map((item) => ({ label: item.name, value: item.id }))} />
-            </Form.Item>
+            <div className="lg:col-span-2">
+              <Form.List name={'room_type'}>
+                {(Field, option) => (
+                  <div>
+                    {Field.map((item) => {
+                      return (
+                        <div key={item.key} className="grid grid-cols-12">
+                          <Form.Item
+                            label={<p className="text-sm font-semibold">ประเภทห้อง</p>}
+                            name={[item.name, 'roomTypeId']}
+                            className={Field.length > 1 ? 'col-span-11' : 'col-span-12'}
+                            rules={[{ required: true, message: 'กรุณาเลือกประเภทห้อง' }]}
+                          >
+                            <Select
+                              size="large"
+                              options={roomTypeData
+                                .filter((item) => !roomTypeSelect.includes(item.id))
+                                .map((item) => ({ label: item.name, value: item.id }))}
+                            />
+                          </Form.Item>
+                          <div className={`flex w-full justify-center`}>
+                            <button
+                              className={`${!(Field.length > 1) && 'hidden'} text-2xl`}
+                              onClick={() => {
+                                option.remove(item.name)
+                              }}
+                            >
+                              <DeleteOutlined />
+                            </button>
+                          </div>
+                        </div>
+                      )
+                    })}
+                    <div>
+                      <button
+                        className="border-primary-blue text-primary-blue hover:bg-primary-blue flex flex-row items-center rounded-lg border bg-white px-4 py-2  text-sm font-bold hover:text-white"
+                        type="button"
+                        onClick={() => {
+                          const initValue = { roomTypeId: '' }
+                          option.add(initValue)
+                          const arr: { roomTypeId: string }[] = form.getFieldValue('room_type')
+                          setRoomTypeSelect(arr.map((item) => Number(item.roomTypeId)))
+                        }}
+                      >
+                        <p>add room type</p>
+                        <FaPlus className="mx-2" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </Form.List>
+            </div>
           </div>
           <div className="text-end md:col-start-2">
             <Space>
               <Form.Item>
-                <Button size="large" type="primary">
+                <Button size="large" type="primary" htmlType="submit">
                   สร้าง
                 </Button>
               </Form.Item>
