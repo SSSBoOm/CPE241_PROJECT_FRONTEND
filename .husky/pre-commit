@@ -1,3 +1,4 @@
+yarn lint --fix 
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
@@ -6,6 +7,4 @@ echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
-
-yarn lint --fix 
 exit 0
