@@ -1,5 +1,6 @@
 import { BOOKING_LIST_PATH } from '@/configs/route'
-import { IReservation, ReservationStatus } from '@/interfaces/Reservation'
+import { ReservationStatus } from '@/interfaces/enums/ReservationStatus'
+import { IReservation } from '@/interfaces/Reservation'
 import { AxiosInstance } from '@/lib/axios'
 import { Button, Form, Input } from 'antd'
 import React, { useEffect, useState } from 'react'
