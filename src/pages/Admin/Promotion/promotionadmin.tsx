@@ -1,4 +1,4 @@
-import { ADDPROMOTIONADMIN_PATH } from '@/configs/route'
+import { ADD_PROMOTIONADMIN_PATH } from '@/configs/route'
 import { PlusOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import { Button, Switch, Table } from 'antd'
@@ -44,7 +44,7 @@ const promotionadmin = () => {
       <div className="container mx-auto px-8 py-4">
         <div className=" flex h-fit w-full content-center justify-between space-y-4 px-4">
           <p className="content-center text-3xl font-bold text-primary-blue-600">Promotion</p>
-          <Link to={ADDPROMOTIONADMIN_PATH}>
+          <Link to={ADD_PROMOTIONADMIN_PATH}>
             <Button size="large" type="primary" className="h-fit content-center">
               Add promotion
               <PlusOutlined className=" place-self-end self-center" />
