@@ -8,6 +8,8 @@ export interface IRoomType {
   accommodate: number
   isActive: boolean
   room?: IRoom[]
+  bed: string
+  size: number
   updateAt: Date
   createdAt: Date
 }
