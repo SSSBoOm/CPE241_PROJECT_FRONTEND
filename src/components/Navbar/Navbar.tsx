@@ -17,7 +17,6 @@ import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-
 const items: MenuProps['items'] = [
   {
     label: (
@@ -65,7 +64,9 @@ const Navbar: React.FC = () => {
     <>
       <div className="h-16 content-center bg-primary-blue-600">
         <div className="hidden grid-cols-3 justify-items-center gap-x-2 px-8 lg:grid">
-          <div></div>
+          <div>
+            <img src="logo.svg" alt="logo" className="h-14" />
+          </div>
           <div className="grid grid-cols-4 content-center text-center text-lg text-primary-b2">
             <Link to={BASE_PATH} className=" mx-3 hover:text-primary-orange">
               Home
@@ -112,8 +113,11 @@ const Navbar: React.FC = () => {
         </div>
         <div className="lg:hidden">
           <div className="flex w-full justify-between px-4">
-            <div>LOGO</div>
-            <div className="">
+            <div>
+              {/* img src logo.svg */}
+              <img src="logo.svg" alt="logo" className="h-14" />
+            </div>
+            <div className="content-center">
               <button
                 onClick={() => {
                   setIsOpen(!isOpen)
