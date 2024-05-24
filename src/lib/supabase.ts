@@ -7,13 +7,21 @@ const supabaseStorage = import.meta.env.VITE_SUPABASESTORAGE || ''
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 export const uploadImage = async (file: File) => {
-  const { data, error } = await supabase.storage.from(supabaseStorage).upload(`public/${file.name}`, file, {
-    cacheControl: '3600',
-    upsert: false
-  })
+  const { data, error } = await supabase.storage.from(supabaseStorage).upload(
+    `public/${file.name
+      .split('.')
+      .splice(0, file.name.split('.').length - 1)
+      .join('')}${new Date().getTime()}${file.name.split('.')[file.name.split('.').length - 1]}`,
+    file,
+    {
+      cacheControl: '3600',
+      upsert: false
+    }
+  )
   if (error) {
     throw error
   }
+  console.log(data)
   return data.path
 }
 
