@@ -76,9 +76,27 @@ const RegisterPage = () => {
                   name="phone"
                   label="Phone number"
                   className="inline-block w-11/12 font-bold "
-                  rules={[{ required: true, message: 'Please input your phone number!' }]}
+                  rules={[
+                    { required: true, message: 'Please input your phone number!' },
+                    { pattern: /^[0-9]{10}$/, message: 'The phone number is not valid!' }
+                  ]}
                 >
-                  <Input className="border-primary-blue-600 " placeholder="xxx-xxx-xxxx" />
+                  <Input
+                    className="border-primary-blue-600 "
+                    placeholder="xxx-xxx-xxxx"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    maxLength={10}
+                    minLength={10}
+                    count={{
+                      show: true,
+                      max: 10
+                    }}
+                    onChange={(e) => {
+                      // only allow numbers to be input set value to form
+                      const value = e.target.value.replace(/\D/g, '')
+                      form.setFieldsValue({ phone: value })
+                    }}
+                  />
                 </Form.Item>
               </div>
               <div className="mx-4 w-full lg:row-span-2">
@@ -89,7 +107,7 @@ const RegisterPage = () => {
                   hasFeedback
                   rules={[{ required: true, message: 'Please input your password!' }]}
                 >
-                  <Input.Password className=" border-primary-blue-600 " placeholder="" />
+                  <Input.Password className=" border-primary-blue-600 " placeholder="Password" />
                 </Form.Item>
               </div>
               <div className="mx-4 w-full lg:row-span-2">
@@ -111,7 +129,7 @@ const RegisterPage = () => {
                     })
                   ]}
                 >
-                  <Input.Password className=" border-primary-blue-600 " placeholder="" />
+                  <Input.Password className=" border-primary-blue-600 " placeholder="Confirm Password" />
                 </Form.Item>
               </div>
               <div className="lg:col-span-2">

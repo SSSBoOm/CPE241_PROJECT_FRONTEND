@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
                 className="font-semibold"
                 rules={[{ required: true, message: 'Please input your username!' }]}
               >
-                <Input size="large" />
+                <Input size="large" placeholder="Username" />
               </Form.Item>
               <Form.Item
                 name="password"
@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
                 className="font-semibold"
                 rules={[{ required: true, message: 'Please input your Password' }]}
               >
-                <Input.Password size="large" />
+                <Input.Password size="large" placeholder="Password" />
               </Form.Item>
             </div>
             <Form.Item className="mx-auto  w-3/12 min-w-[10rem] rounded-md border-2 border-primary-blue-700 text-center text-primary-blue-700 hover:border-primary-orange hover:text-primary-orange">
