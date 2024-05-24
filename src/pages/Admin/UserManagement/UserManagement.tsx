@@ -1,7 +1,6 @@
 import { GenderType } from '@/interfaces/enums/Gender'
 import { PrefixType } from '@/interfaces/enums/Prefix'
 import { IUser } from '@/interfaces/User'
-import { AxiosInstance } from '@/lib/axios'
 // import { AxiosInstance } from '@/lib/axios'
 import type { TableColumnsType } from 'antd'
 import { Button, DatePicker, Form, GetProps, Input, Modal, Select, Table } from 'antd'
@@ -59,15 +58,88 @@ const UserManagement: React.FC = () => {
     }
   }
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await AxiosInstance.get('/api/admin/manage/user')
-        setUser(response.data.data)
-      } catch (error) {
-        console.log(error)
+    // const fetchUser = async () => {
+    //   try {
+    //     const response = await AxiosInstance.get('/api/admin/manage/user')
+    //     setUser(response.data.data)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // fetchUser()
+    setUser([
+      {
+        id: '1850e900-1ad4-4988-9981-29fad5b93935',
+        email: 'gasza60@gmail.com',
+        prefix: '',
+        firstName: 'PANACHAI',
+        lastName: 'BUALOI',
+        dob: new Date(),
+        phone: '',
+        gender: '',
+        address: '',
+        profileUrl: '',
+        updateAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: '49130a2a-cc49-4114-bdf5-8c47a25ecbb7',
+        email: 'boom1909chanapat@gmail.com',
+        prefix: 'MS',
+        firstName: '123',
+        lastName: '456',
+        dob: new Date(),
+        phone: '0000000000',
+        gender: 'FEMALE',
+        address: 'กรุงเทพมหานคร',
+        profileUrl:
+          'https://lh3.googleusercontent.com/a/ACg8ocK2rMTAL83jjKLxMxDkaoEsEXqHLe0i8xqJCRBIiUc1YaTWVMaO=s96-c',
+        updateAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: '49d8cc5b-1cd6-4d0a-88d9-180c4a10b17e',
+        email: 'thanaphol.iqtha@gmail.com',
+        prefix: '',
+        firstName: 'ธนพล',
+        lastName: 'ทั้งทวีสุข',
+        dob: new Date(),
+        phone: '',
+        gender: '',
+        address: '',
+        profileUrl: 'https://lh3.googleusercontent.com/a/ACg8ocK4AOdKmpEJlWhDFS_SAXn5nWaLLXfzEDWEK8Zk3YMFkRnp_c0=s96-c',
+        updateAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: '61621d3d-c506-450e-8355-0623020d8dfd',
+        email: 'kanasorn.sudy@mail.kmutt.ac.th',
+        prefix: '',
+        firstName: 'KANASORN',
+        lastName: 'SUDYODBUNPHOT',
+        dob: new Date(),
+        phone: '',
+        gender: '',
+        address: '',
+        profileUrl: 'https://lh3.googleusercontent.com/a/ACg8ocKlloiTP7u4yPB12Ule4nStPE7W6i8lw037QmBc4CL-CfnSSg=s96-c',
+        updateAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: 'c8a12b0e-f77b-4d78-b17f-aabb5f2f80c0',
+        email: 'chanapat.limt@mail.kmutt.ac.th',
+        prefix: '',
+        firstName: 'CHANAPAT',
+        lastName: 'LIMTHIAMKUN',
+        dob: new Date(),
+        phone: '',
+        gender: '',
+        address: '',
+        profileUrl: 'https://lh3.googleusercontent.com/a/ACg8ocIyu09hjncRvIf7n126KSNiu5I8DTqp62rIoXWPcrxj=s96-c',
+        updateAt: new Date(),
+        createdAt: new Date()
       }
-    }
-    fetchUser()
+    ])
   }, [])
 
   const columns: TableColumnsType<IUser> = [
