@@ -1,5 +1,6 @@
 import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { IPayment } from '@/interfaces/Payment'
+import { IReservation } from '@/interfaces/Reservation'
 import { IRoomType } from '@/interfaces/RoomType'
 import { ReservationType } from '@/interfaces/enums/ReservationType'
 import { AxiosInstance } from '@/lib/axios'
@@ -37,10 +38,11 @@ const RoomPage: React.FC = () => {
   const [selectedRoomType, setSelectedRoomType] = useState<IRoomType | null>(null)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [roomTypes, setRoomTypes] = useState<IRoomType[]>([])
+  const [roomTypesFilter, setRoomTypesFilter] = useState<IRoomType[]>([])
   const [dateStart, setDateStart] = useState<Date>()
   const [dateEnd, setDateEnd] = useState<Date>()
 
-  const onFinish = () => {
+  const onFinish = async () => {
     try {
       const values = form.getFieldsValue()
       const { start_date, end_date } = {
@@ -49,7 +51,26 @@ const RoomPage: React.FC = () => {
       }
       setDateStart(start_date.toDate())
       setDateEnd(end_date.toDate())
-      // TODO: Fetch room data Availability
+
+      const response = await AxiosInstance.get('/api/reservation/type/ROOM')
+      const reservationInDateRange = response.data.data.filter((r: IReservation) => {
+        const startDate = dayjs(r.startDate)
+        const endDate = dayjs(r.endDate)
+        return startDate.isBefore(end_date) && endDate.isAfter(start_date)
+      })
+
+      const data = reservationInDateRange.map((r: IReservation) => r.room?.id)
+      setRoomTypesFilter(
+        roomTypes
+          .map((roomType) => {
+            return {
+              ...roomType,
+              room: roomType.room?.filter((room) => !data.includes(room.id))
+            }
+          })
+          .filter((r) => r.room?.length !== 0)
+      )
+
       setDisabled(false)
     } catch (error) {
       console.log('Failed:', error)
@@ -60,7 +81,14 @@ const RoomPage: React.FC = () => {
     const fetchRoom = async () => {
       try {
         const result = await AxiosInstance.get('/api/room_type')
-        setRoomTypes(result.data.data)
+        const roomType: IRoomType[] = []
+        result.data.data.forEach((r: IRoomType) => {
+          r.room = r.room?.filter((room) => room.isActive)
+          roomType.push(r)
+        })
+
+        setRoomTypes(roomType.filter((r: IRoomType) => r.room?.length !== 0))
+        setRoomTypesFilter(roomType.filter((r: IRoomType) => r.room?.length !== 0))
       } catch (err) {
         console.log(err)
       }
@@ -86,9 +114,6 @@ const RoomPage: React.FC = () => {
         </div>
         <Form
           layout="vertical"
-          initialValues={{
-            number: 1
-          }}
           form={form}
           requiredMark={customizeRequiredMark}
           scrollToFirstError
@@ -136,28 +161,6 @@ const RoomPage: React.FC = () => {
             >
               <DatePicker.RangePicker format={dateFormat} className="w-full" size="large" disabledDate={disabledDate} />
             </Form.Item>
-            <Form.Item
-              className="min-w-[16rem]"
-              name="number"
-              rules={[
-                {
-                  required: true,
-                  message: 'โปรดระบุจำนวนห้องที่ต้องการ'
-                }
-              ]}
-              label={<p className="text-xl font-bold text-primary-blue-600">จำนวนห้อง</p>}
-            >
-              <Select
-                className="w-full"
-                size="large"
-                options={new Array(8).fill({}).map((_, index) => {
-                  return {
-                    label: index + 1,
-                    value: index + 1
-                  }
-                })}
-              />
-            </Form.Item>
             <Form.Item className="mt-12 min-w-[16rem] justify-center lg:mt-0 lg:inline lg:content-end">
               <button
                 className="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white"
@@ -171,7 +174,7 @@ const RoomPage: React.FC = () => {
         </Form>
         <div className="grid grid-cols-5">
           <div className="col-start-1 col-end-6 flex flex-col space-y-4 md:col-start-2 md:col-end-5">
-            {roomTypes.map((roomType) => {
+            {roomTypesFilter.map((roomType) => {
               return (
                 <CardUpgrade
                   key={roomType.id}
@@ -214,10 +217,11 @@ const RoomPage: React.FC = () => {
               onClick={async () => {
                 try {
                   const value = await formBooking.validateFields()
+
                   const response = await AxiosInstance.post('/api/reservation', {
                     paymentInfoId: value.paymentInfoId,
                     price: selectedRoomType?.price,
-                    roomId: 1,
+                    roomId: selectedRoomType!.room![0].id,
                     serviceId: null,
                     startDate: dateStart?.toISOString(),
                     endDate: dateEnd?.toISOString(),
@@ -252,7 +256,7 @@ const RoomPage: React.FC = () => {
             <Form form={formBooking} layout="vertical" requiredMark={customizeRequiredMark}>
               <Form.Item
                 name={'paymentInfoId'}
-                label={<p>เลือกการชำระเงินของคุณ</p>}
+                label={<p className="text-lg font-semibold">เลือกการชำระเงินของคุณ</p>}
                 rules={[
                   {
                     required: true,

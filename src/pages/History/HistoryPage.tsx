@@ -5,46 +5,21 @@ import React, { Fragment, useEffect, useState } from 'react'
 import RoomCardHist from '../../components/Card/RoomCardHist'
 
 const HistoryPage: React.FC = () => {
-  const [history, setHistory] = useState<IReservation[]>([])
+  const [historyRoom, setHistoryRoom] = useState<IReservation[]>([])
+  const [historyService, setHistoryService] = useState<IReservation[]>([])
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         const response = await AxiosInstance.get('/api/reservation/me')
-        setHistory(response.data.data)
+        setHistoryRoom(response.data.data.filter((item: IReservation) => item.type === ReservationType.ROOM))
+        setHistoryService(response.data.data.filter((item: IReservation) => item.type === ReservationType.SERVICE))
       } catch (error) {
         console.log(error)
       }
     }
     fetchHistory()
   }, [])
-
-  // const serviceCard = [
-  //   {
-  //     name: 'Room name',
-  //     content: 'no context',
-  //     size: 'king size',
-  //     accommodate: 2,
-  //     food: true,
-  //     view: { sea: true, forest: true },
-  //     price: 690,
-  //     checkIn: '23/04/2023',
-  //     checkOut: '24/04/2023',
-  //     img: 'Room_3.jpg'
-  //   },
-  //   {
-  //     name: 'Room name',
-  //     content: 'no context',
-  //     size: 'king size',
-  //     accommodate: 2,
-  //     food: true,
-  //     view: { sea: true, forest: true },
-  //     price: 690,
-  //     checkIn: '23/04/2023',
-  //     checkOut: '24/04/2023',
-  //     img: 'Room_4.jpg'
-  //   }
-  // ]
 
   return (
     <Fragment>
@@ -53,9 +28,12 @@ const HistoryPage: React.FC = () => {
           <h1 className="text-center text-3xl font-bold text-primary-blue-600">History Booking</h1>
         </div>
         <div className="container col-span-2 col-start-1 mx-auto grid-cols-2 rounded-md border-2 bg-white text-primary-blue-600 lg:col-start-2">
-          <div className=" col-span-2 col-start-1 m-5 text-4xl font-bold text-primary-blue-600 ">Room</div>
-          {history
-            .filter((item) => item.type === ReservationType.ROOM)
+          <div
+            className={`col-span-2 col-start-1 m-5 text-4xl font-bold text-primary-blue-600 lg:col-start-2 ${historyRoom.length === 0 && 'hidden'}`}
+          >
+            Room
+          </div>
+          {historyRoom
             .sort((a, b) => {
               return new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
             })
@@ -78,11 +56,12 @@ const HistoryPage: React.FC = () => {
                 </div>
               )
             })}
-          <div className=" col-span-2 col-start-1 m-5 text-4xl font-bold text-primary-blue-600 lg:col-start-2 ">
+          <div
+            className={`col-span-2 col-start-1 m-5 text-4xl font-bold text-primary-blue-600 lg:col-start-2 ${historyService.length === 0 && 'hidden'}`}
+          >
             Service
           </div>
-          {history
-            .filter((item) => item.type === ReservationType.SERVICE)
+          {historyService
             .sort((a, b) => {
               return new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
             })
@@ -98,7 +77,6 @@ const HistoryPage: React.FC = () => {
                     price={element.price}
                     checkIn={element.startDate}
                     checkOut={element.endDate}
-                    // image={element.room?.roomType?.image || ''}
                   />
                 </div>
               )
