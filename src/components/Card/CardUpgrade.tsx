@@ -10,31 +10,31 @@ type Props = {
 const CardUpgrade: React.FC<Props> = (props) => {
   return (
     <>
-      <div className="flex w-fit rounded-md border-2 border-primary-blue-700">
-        <div className=" w-5/12 rounded-md bg-cover">
+      <div className="grid w-fit min-w-[300px] rounded-md border-2 border-primary-blue-700 md:flex">
+        <div className="w-full rounded-md bg-cover md:w-5/12">
           <img className="h-full object-cover" src="StandardSuiteRoom.svg" alt="" />
         </div>
-        <div className="w-7/12 px-2">
+        <div className="w-full px-2 md:w-7/12">
           <div className="mb-4 text-wrap">
             <p className="text-3xl font-semibold">{props.data.name}</p>
             <p className="truncate text-sm">{props.data.detail}</p>
           </div>
-          <div className="flex">
-            <div className="flex-1 flex-col flex-wrap">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="flex-1 flex-col flex-wrap ">
               <p className="text-sm md:text-lg">
                 <FullscreenOutlined />
-                Size: {props.data.size | 10} m²
+                Size: {props.data.size || 10} m²
               </p>
               <p className="text-sm md:text-lg">
                 <UserOutlined />
-                Capacity: {props.data.accommodate | 1}
+                Capacity: {props.data.accommodate || 1}
               </p>
               {props.data.bed && <p className="text-sm md:text-lg">Bed : {props.data.bed}</p>}
             </div>
 
             <div className="flex-col flex-wrap text-center md:flex-1">
               <p className="text-lg font-semibold md:text-2xl">
-                {(props.data.price | 0).toLocaleString(navigator.language, { minimumFractionDigits: 2 })} ฿
+                {(props.data.price || 0).toLocaleString(navigator.language, { minimumFractionDigits: 2 })} ฿
               </p>
               <p className="text-md md:text-md">Per Day</p>
               <Button
