@@ -14,7 +14,7 @@ const RegisterPage = () => {
   return (
     <>
       <div className="h-full content-center bg-[url('/images/login/view.png')] bg-cover bg-repeat lg:h-screen">
-        <div className="w-vw h-dvh align-middle opacity-80 lg:content-center">
+        <div className="w-vw h-dvh align-middle lg:content-center">
           <Form
             className="lg:m-2"
             layout="vertical"
