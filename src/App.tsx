@@ -7,10 +7,10 @@ import {
   ADDCARD_PATH,
   ADD_ROOM_PATH,
   ADD_ROOM_TYPE_PATH,
-  ADD_SERVICETYPE_PATH,
   ADD_SERVICE_PATH,
-  ADMINPAYMENT_PATH,
+  ADD_SERVICE_TYPE_PATH,
   ADMIN_PATH,
+  ADMIN_PAYMENT_PATH,
   BASE_PATH,
   BOOKING_DETAILS_PATH,
   BOOKING_LIST_PATH,
@@ -55,11 +55,11 @@ const RoomPage = lazy(() => import('./pages/Room/RoomPage'))
 const ServicePage = lazy(() => import('./pages/Service/ServicePage'))
 const CreateRoomType = lazy(() => import('./pages/Admin/RoomManagement/CreateRoomType'))
 const CreateRoomPage = lazy(() => import('./pages/Admin/RoomManagement/CreateRoom'))
-const Add_ServiceType = lazy(() => import('./pages/Admin/ServiceManagement/Add_ServiceType'))
+const CreateServiceType = lazy(() => import('./pages/Admin/ServiceManagement/CreateServiceType'))
 const Add_Service = lazy(() => import('./pages/Admin/ServiceManagement/Add_Service'))
 const MaintenancePage = lazy(() => import('./pages/Admin/Maintenance/MaintenancePage'))
 const CreateMaintenance = lazy(() => import('./pages/Admin/Maintenance/CreateMaintenance'))
-const AddminpaymentPage = lazy(() => import('./pages/Admin/Payment/Addminpayment'))
+const PaymentManagement = lazy(() => import('./pages/Admin/PaymentManagement/PaymentManagement'))
 function App(): React.ReactElement {
   const [authContext, setAuthContext] = useState<IAuthContext>(initialAuthContextValue)
   const [loading, setLoading] = useState(true)
@@ -159,11 +159,11 @@ function App(): React.ReactElement {
               <Route path={BOOKING_DETAILS_PATH} element={<Booking_details />} />
               <Route path={ADD_ROOM_TYPE_PATH} element={<CreateRoomType />} />
               <Route path={ADD_ROOM_PATH} element={<CreateRoomPage />} />
-              <Route path={ADD_SERVICETYPE_PATH} element={<Add_ServiceType />} />
+              <Route path={ADD_SERVICE_TYPE_PATH} element={<CreateServiceType />} />
               <Route path={ADD_SERVICE_PATH} element={<Add_Service />} />
               <Route path={MAINTENANCE_PATH} element={<MaintenancePage />} />
               <Route path={CREATE_MAINTENANCE_PATH} element={<CreateMaintenance />} />
-              <Route path={ADMINPAYMENT_PATH} element={<AddminpaymentPage />} />
+              <Route path={ADMIN_PAYMENT_PATH} element={<PaymentManagement />} />
             </Route>
           </Routes>
         </BrowserRouter>

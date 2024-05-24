@@ -1,3 +1,4 @@
+import { ADD_SERVICE_PATH, ADD_SERVICE_TYPE_PATH } from '@/configs/route'
 import { IService } from '@/interfaces/Service'
 import { IServiceType } from '@/interfaces/ServiceType'
 import { AxiosInstance } from '@/lib/axios'
@@ -155,14 +156,17 @@ const ServiceManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Service Type</p>
-            <Button type="primary" className="flex" size="large">
-              <p>Add Service Type</p>
-              <PlusOutlined className="place-self-end self-center" />
-            </Button>
+            <Link to={ADD_SERVICE_TYPE_PATH}>
+              <Button type="primary" className="flex" size="large">
+                <p>Add Service Type</p>
+                <PlusOutlined className="place-self-end self-center" />
+              </Button>
+            </Link>
           </div>
           <div className="mx-auto text-center">
             <Table
               columns={serviceTypeCol}
+              pagination={{ pageSize: 5 }}
               dataSource={serviceTypeData.map((item) => {
                 return {
                   ...item,
@@ -176,14 +180,17 @@ const ServiceManagement: React.FC = () => {
         <div className="space-y-4">
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Service</p>
-            <Button type="primary" className="flex" size="large">
-              <p>Add Service</p>
-              <PlusOutlined className="place-self-end self-center" />
-            </Button>
+            <Link to={ADD_SERVICE_PATH}>
+              <Button type="primary" className="flex" size="large">
+                <p>Add Service</p>
+                <PlusOutlined className="place-self-end self-center" />
+              </Button>
+            </Link>
           </div>
           <div className="mx-auto text-center">
             <Table
               columns={serviceCol}
+              pagination={{ pageSize: 5 }}
               dataSource={serviceData.map((item) => {
                 return {
                   ...item,

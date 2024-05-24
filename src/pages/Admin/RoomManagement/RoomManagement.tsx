@@ -159,7 +159,7 @@ const RoomManagement: React.FC = () => {
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room Type</p>
             <Link to={ADD_ROOM_TYPE_PATH}>
-              <Button type="primary" className="flex" size="large">
+              <Button type="primary" className="flex gap-x-2" size="large">
                 <p>Add Room Type</p>
                 <PlusOutlined className="place-self-end self-center" />
               </Button>
@@ -192,6 +192,7 @@ const RoomManagement: React.FC = () => {
           <div className="mx-auto text-center">
             <Table
               columns={roomCol}
+              pagination={{ pageSize: 5 }}
               dataSource={roomData.map((item) => {
                 return {
                   ...item,
