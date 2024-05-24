@@ -98,7 +98,8 @@ function App(): React.ReactElement {
         theme={{
           token: {
             colorPrimary: '#1A6886',
-            colorBorderSecondary: '#1A6886'
+            colorBorderSecondary: '#1A6886',
+            fontFamily: 'Kanit, sans-serif'
           },
           components: {
             Button: {
