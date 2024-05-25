@@ -188,34 +188,37 @@ const MaintenanceDetailPage: React.FC = () => {
               />
             ))}
         </div>
-        <div className="flex w-full justify-between">
-          <button
-            onClick={() => setIsModalVisible(true)}
-            className="rounded-md bg-primary-blue-600 p-2 text-white hover:bg-primary-blue-700"
-          >
-            Add Maintenance Log
-          </button>
+        {data?.maintenanceLog.find((item) => item.status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_DONE) ===
+          undefined && (
+          <div className="flex w-full justify-between">
+            <button
+              onClick={() => setIsModalVisible(true)}
+              className="rounded-md bg-primary-blue-600 p-2 text-white hover:bg-primary-blue-700"
+            >
+              Add Maintenance Log
+            </button>
 
-          <button
-            onClick={async () => {
-              try {
-                await AxiosInstance.post(`/api/maintenance_log`, {
-                  date: new Date().toISOString(),
-                  description: 'การซ่อมแซมเสร็จสิ้นแล้ว',
-                  imageUrl: '',
-                  maintenanceId: Number(id),
-                  status: MaintenanceStatus.MAINTENANCE_LOG_STATUS_DONE
-                })
-                window.location.reload()
-              } catch (error) {
-                console.log(error)
-              }
-            }}
-            className="rounded-md bg-primary-blue-600 p-2 text-white hover:bg-primary-blue-700"
-          >
-            Maintenance Done
-          </button>
-        </div>
+            <button
+              onClick={async () => {
+                try {
+                  await AxiosInstance.post(`/api/maintenance_log`, {
+                    date: new Date().toISOString(),
+                    description: 'การซ่อมแซมเสร็จสิ้นแล้ว',
+                    imageUrl: '',
+                    maintenanceId: Number(id),
+                    status: MaintenanceStatus.MAINTENANCE_LOG_STATUS_DONE
+                  })
+                  window.location.reload()
+                } catch (error) {
+                  console.log(error)
+                }
+              }}
+              className="rounded-md bg-primary-blue-600 p-2 text-white hover:bg-primary-blue-700"
+            >
+              Maintenance Done
+            </button>
+          </div>
+        )}
         <Modal
           title="Add Maintenance Log"
           open={isModalVisible}
