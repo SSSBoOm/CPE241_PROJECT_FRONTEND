@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
             ) : (
               <>
                 <Link to={LOGIN_PATH} className="mx-3 text-center text-lg text-primary-b2 hover:text-primary-orange">
-                  login
+                  Login
                 </Link>
                 <Button ghost className="mx-3">
                   <Link to={REGISTER_PATH}>Register</Link>
