@@ -236,7 +236,7 @@ const UserManagement: React.FC = () => {
       {/* make modal center screen */}
       <Modal
         width={'80vw'}
-        bodyStyle={{ height: '70vh', overflowY: 'auto' }}
+        styles={{ body: { height: '70vh', overflowY: 'auto' } }}
         title={<h1 className="m-4 text-3xl font-bold text-primary-blue-700 opacity-75">Profile</h1>}
         open={openProfileDialog}
         centered
@@ -390,7 +390,7 @@ const UserManagement: React.FC = () => {
       </Modal>
       <Modal
         width={'80vw'}
-        bodyStyle={{ height: '70vh', overflowY: 'auto' }}
+        styles={{ body: { height: '70vh', overflowY: 'auto' } }}
         title={<h1 className="m-4 text-3xl font-bold text-primary-blue-700 opacity-75">Room Reservation</h1>}
         open={openRoomDialog}
         centered
@@ -414,7 +414,7 @@ const UserManagement: React.FC = () => {
       ></Modal>
       <Modal
         width={'80vw'}
-        bodyStyle={{ height: '70vh', overflowY: 'auto' }}
+        styles={{ body: { height: '70vh', overflowY: 'auto' } }}
         title={<h1 className="m-4 text-3xl font-bold text-primary-blue-700 opacity-75">Service Reservation</h1>}
         open={openServiceDialog}
         centered
