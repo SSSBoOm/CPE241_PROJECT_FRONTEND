@@ -59,9 +59,7 @@ const RoomPage: React.FC = () => {
         const endDate = dayjs(r.endDate)
         return startDate.isBefore(end_date) && endDate.isAfter(start_date)
       })
-      console.log(reservationInDateRange)
       const data = reservationInDateRange.map((r: IReservation) => r.room?.id)
-      console.log(data)
       setRoomTypesFilter(
         roomTypes
           .map((roomType) => {
@@ -85,7 +83,6 @@ const RoomPage: React.FC = () => {
         const roomType: IRoomType[] = result.data.data.reduce((acc: IRoomType[], r: IRoomType) => {
           return [...acc, { ...r, room: r.room?.filter((room) => room.isActive) }]
         }, [] as IRoomType[])
-        console.log(roomType)
         setRoomTypes(roomType.filter((r: IRoomType) => r.room?.length !== 0))
         setRoomTypesFilter(roomType.filter((r: IRoomType) => r.room?.length !== 0))
       } catch (err) {
@@ -275,7 +272,7 @@ const RoomPage: React.FC = () => {
                       value: p.id
                     }
                   })}
-                ></Select>
+                />
               </Form.Item>
             </Form>
           </div>

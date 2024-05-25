@@ -10,6 +10,9 @@ import Swal from 'sweetalert2'
 const BookingDetails: React.FC = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const currentDate = new Date()
+  const startDate = new Date(currentDate.setHours(0, 0, 0, 0))
+  const endDate = new Date(currentDate.setHours(23, 59, 59, 999))
   const [booking, setBooking] = useState<IReservation>()
 
   useEffect(() => {
@@ -80,7 +83,7 @@ const BookingDetails: React.FC = () => {
               </Form.Item>
 
               <div className="lg:col-span-2">
-                {booking?.status === ReservationStatus.RESERVATION_STATUS_WAITING_APPROVE_PAYMENT && (
+                {booking && booking?.status === ReservationStatus.RESERVATION_STATUS_WAITING_APPROVE_PAYMENT && (
                   <div className="flex w-full justify-end space-x-2">
                     <Button
                       type="primary"
@@ -88,7 +91,7 @@ const BookingDetails: React.FC = () => {
                         try {
                           const response = await AxiosInstance.patch(`/api/reservation/status`, {
                             reservationId: booking?.id,
-                            status: ReservationStatus.RESERVATION_STATUS_APPROVED_PAYMENT
+                            status: ReservationStatus.RESERVATION_STATUS_WAITING_CHECKIN
                           })
                           if (response.status === 200) {
                             Swal.fire({
@@ -117,6 +120,80 @@ const BookingDetails: React.FC = () => {
                     </Button>
                   </div>
                 )}
+                {booking &&
+                  booking?.status === ReservationStatus.RESERVATION_STATUS_WAITING_CHECKIN &&
+                  new Date(booking?.startDate).getTime() >= startDate.getTime() &&
+                  new Date(booking?.startDate).getTime() <= endDate.getTime() && (
+                    <div className="flex w-full justify-end space-x-2">
+                      <Button
+                        type="primary"
+                        onClick={async () => {
+                          try {
+                            const response = await AxiosInstance.patch(`/api/reservation/status`, {
+                              reservationId: booking?.id,
+                              status: ReservationStatus.RESERVATION_STATUS_WAITING_CHECKED_OUT
+                            })
+                            if (response.status === 200) {
+                              Swal.fire({
+                                icon: 'success',
+                                title: 'Approve Check In สำเร็จ'
+                              }).then(() => {
+                                window.location.reload()
+                              })
+                            }
+                          } catch (error) {
+                            console.log(error)
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'เกิดข้อผิดพลาด',
+                              text: 'โปรดลองใหม่อีกครั้ง'
+                            }).then(() => {
+                              navigate(BOOKING_LIST_PATH)
+                            })
+                          }
+                        }}
+                      >
+                        Check In
+                      </Button>
+                    </div>
+                  )}
+                {booking &&
+                  booking?.status === ReservationStatus.RESERVATION_STATUS_WAITING_CHECKED_OUT &&
+                  new Date(booking?.endDate).getTime() >= startDate.getTime() &&
+                  new Date(booking?.endDate).getTime() <= endDate.getTime() && (
+                    <div className="flex w-full justify-end space-x-2">
+                      <Button
+                        type="primary"
+                        onClick={async () => {
+                          try {
+                            const response = await AxiosInstance.patch(`/api/reservation/status`, {
+                              reservationId: booking?.id,
+                              status: ReservationStatus.RESERVATION_STATUS_SUCCESS
+                            })
+                            if (response.status === 200) {
+                              Swal.fire({
+                                icon: 'success',
+                                title: 'Approve Check Out สำเร็จ'
+                              }).then(() => {
+                                window.location.reload()
+                              })
+                            }
+                          } catch (error) {
+                            console.log(error)
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'เกิดข้อผิดพลาด',
+                              text: 'โปรดลองใหม่อีกครั้ง'
+                            }).then(() => {
+                              navigate(BOOKING_LIST_PATH)
+                            })
+                          }
+                        }}
+                      >
+                        Check Out
+                      </Button>
+                    </div>
+                  )}
               </div>
             </Form>
           </div>

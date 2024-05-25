@@ -53,6 +53,7 @@ const Facility: React.FC = () => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        centered
         closeIcon={null}
         footer={[
           <Button key="submit" type="primary" onClick={handleOk}>
