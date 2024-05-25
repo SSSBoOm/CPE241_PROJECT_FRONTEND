@@ -1,4 +1,5 @@
 import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
+import { PROMOTIONADMIN_PATH } from '@/configs/route'
 import { IRoomType } from '@/interfaces/RoomType'
 import { AxiosInstance } from '@/lib/axios'
 import { DeleteOutlined } from '@ant-design/icons'
@@ -12,6 +13,7 @@ import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
 import React, { useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 const { RangePicker } = DatePicker
 
@@ -29,6 +31,7 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 
 const CreatePromotionPage: React.FC = () => {
   const [form] = Form.useForm()
+  const navigate = useNavigate()
   const [roomTypeData, setRoomTypeData] = useState<IRoomType[]>([])
   const [roomTypeSelect, setRoomTypeSelect] = useState<number[]>([])
 
@@ -56,10 +59,29 @@ const CreatePromotionPage: React.FC = () => {
         startDate: dayjs(values.date[0]),
         endDate: dayjs(values.date[1])
       })
-
-      console.log(response)
+      if (response.status !== 201) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Request failed!',
+          text: 'Please try again later.'
+        })
+        return
+      }
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Promotion Success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        navigate(PROMOTIONADMIN_PATH)
+      })
     } catch (err) {
       console.error(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Request failed!',
+        text: 'Please try again later.'
+      })
     }
   }
 
@@ -178,7 +200,7 @@ const CreatePromotionPage: React.FC = () => {
                           setRoomTypeSelect(arr.map((item) => Number(item.roomTypeId)))
                         }}
                       >
-                        <p>add room type</p>
+                        <p>Add Room Type</p>
                         <FaPlus className="mx-2" />
                       </button>
                     </div>
@@ -195,7 +217,9 @@ const CreatePromotionPage: React.FC = () => {
                 </Button>
               </Form.Item>
               <Form.Item>
-                <Button size="large">ยกเลิก</Button>
+                <Button size="large" onClick={() => navigate(PROMOTIONADMIN_PATH)}>
+                  ยกเลิก
+                </Button>
               </Form.Item>
             </Space>
           </div>
