@@ -107,7 +107,7 @@ const CreatePromotionPage: React.FC = () => {
               <Input size="large" />
             </Form.Item>
             <Form.Item
-              label={<p className="text-sm font-semibold">ช่วงเวลาโปรมาชั่น</p>}
+              label={<p className="text-sm font-semibold">ช่วงเวลาโปรโมชั่น</p>}
               name="date"
               rules={[{ required: true, message: 'กรุณาเลือกช่วงโปรโมชั่น' }]}
             >
