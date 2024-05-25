@@ -1,3 +1,5 @@
+import { IReservation } from '@/interfaces/Reservation'
+
 export interface IUser {
   id: string
   email: string
@@ -9,6 +11,7 @@ export interface IUser {
   gender: string
   address: string
   profileUrl: string
+  reservation?: IReservation[]
   updateAt: Date
   createdAt: Date
 }
