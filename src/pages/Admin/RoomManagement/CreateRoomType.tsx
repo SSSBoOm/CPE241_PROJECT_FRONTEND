@@ -3,7 +3,7 @@ import { ROOM_MANAGE_PATH } from '@/configs/route'
 import { AxiosInstance } from '@/lib/axios'
 import { uploadImage } from '@/lib/supabase'
 import { DeleteOutlined } from '@ant-design/icons'
-import { Button, Form, Input, InputNumber, Space, Switch, UploadProps } from 'antd'
+import { Button, Form, Input, InputNumber, Select, Space, Switch, UploadProps } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import Dragger from 'antd/es/upload/Dragger'
 import React, { Fragment, useState } from 'react'
@@ -149,6 +149,43 @@ const CreateRoomType: React.FC = () => {
               ]}
             >
               <InputNumber size="large" min={1} className="w-full" placeholder="จำนวนคนต่อห้องพัก" />
+            </Form.Item>
+            <Form.Item
+              name={`size`}
+              label="Size"
+              rules={[
+                {
+                  required: true,
+                  message: 'กรุณากรอกขนาดห้อง'
+                },
+                {
+                  pattern: /^[0-9]*$/,
+                  message: 'กรุณากรอกขนาดห้องห้ถูกต้อง'
+                }
+              ]}
+            >
+              <InputNumber size="large" min={1} className="w-full" placeholder="ขนาดห้อง" />
+            </Form.Item>
+            <Form.Item
+              name={`bed`}
+              label="bed"
+              rules={[
+                {
+                  required: true,
+                  message: 'กรุณากรอกประเภทเตียง'
+                }
+              ]}
+            >
+              <Select
+                size="large"
+                placeholder="ประเภทเตียง"
+                options={[
+                  { label: 'King size', value: 'King size' },
+                  { label: 'Queen size', value: 'Queen size' },
+                  { label: 'Single size', value: 'Single size' },
+                  { label: 'Double size', value: 'Double size' }
+                ]}
+              />
             </Form.Item>
             <div className="md:col-span-3">
               <Form.Item
