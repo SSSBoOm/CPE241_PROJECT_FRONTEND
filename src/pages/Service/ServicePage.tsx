@@ -64,9 +64,7 @@ const ServicePage: React.FC = () => {
       })
       const data = reservationInDateRange.map((r: IReservation) => r.service?.id)
       setServiceFilter(services.filter((service) => !data.includes(service.id)))
-      setDisabled(true)
     } catch (error) {
-      setDisabled(true)
       console.log('Failed:', error)
     }
   }
@@ -103,10 +101,14 @@ const ServicePage: React.FC = () => {
   const BookService = async () => {
     try {
       const value = await formBooking.validateFields()
+      const date1 = new Date(dateStart!)
+      const date2 = new Date(dateEnd!)
+      const Difference_In_Time = date2.getTime() - date1.getTime()
+      const Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24))
 
       const response = await AxiosInstance.post('/api/reservation', {
         paymentInfoId: value.paymentInfoId,
-        price: selectedService?.price,
+        price: selectedService!.price * Difference_In_Days,
         roomId: null,
         serviceId: selectedService?.id,
         startDate: dateStart?.toISOString(),
@@ -205,7 +207,6 @@ const ServicePage: React.FC = () => {
             <Form.Item className="min-w-[16rem] justify-center lg:inline lg:content-end">
               <button
                 className="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white disabled:opacity-50"
-                disabled={!disabled}
                 type="submit"
               >
                 <p>ค้นหาบริการ</p>
@@ -219,7 +220,12 @@ const ServicePage: React.FC = () => {
             {serviceFilter
               .sort((a, b) => a.price - b.price)
               .map((service) => (
-                <CardService key={service.id} data={service} onClick={() => openBookingDialog(service)} />
+                <CardService
+                  key={service.id}
+                  data={service}
+                  disabled={disabled}
+                  onClick={() => openBookingDialog(service)}
+                />
               ))}
           </div>
         </div>

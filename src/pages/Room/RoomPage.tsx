@@ -306,10 +306,15 @@ const RoomPage: React.FC = () => {
                   const value = await formBooking.validateFields()
                   const promotionroomType = promotion.find((p) => p.roomTypeId === selectedRoomType?.id)
                   if (promotionroomType) {
+                    const date1 = new Date(dateStart!)
+                    const date2 = new Date(dateEnd!)
+                    const Difference_In_Time = date2.getTime() - date1.getTime()
+                    const Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24))
+
                     const response = await AxiosInstance.post('/api/reservation', {
                       paymentInfoId: value.paymentInfoId,
                       roomPromotionId: promotionroomType.promotionId,
-                      price: promotionroomType.price,
+                      price: promotionroomType.price * Difference_In_Days,
                       roomId: selectedRoomType!.room![0].id,
                       serviceId: null,
                       startDate: dateStart?.toISOString(),
@@ -327,9 +332,14 @@ const RoomPage: React.FC = () => {
                       })
                     }
                   } else {
+                    const date1 = new Date(dateStart!)
+                    const date2 = new Date(dateEnd!)
+                    const Difference_In_Time = date2.getTime() - date1.getTime()
+                    const Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24))
+
                     const response = await AxiosInstance.post('/api/reservation', {
                       paymentInfoId: value.paymentInfoId,
-                      price: selectedRoomType?.price,
+                      price: selectedRoomType!.price * Difference_In_Days,
                       roomId: selectedRoomType!.room![0].id,
                       serviceId: null,
                       startDate: dateStart?.toISOString(),
