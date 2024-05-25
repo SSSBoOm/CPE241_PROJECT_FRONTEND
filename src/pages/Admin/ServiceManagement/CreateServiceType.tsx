@@ -248,7 +248,7 @@ const CreateServiceType: React.FC = () => {
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>
-              <Button htmlType="reset">Reset</Button>
+              <Button onClick={() => navigate(SERVICE_MANAGE_PATH)}>Cancel</Button>
             </Space>
           </Form.Item>
         </Form>
