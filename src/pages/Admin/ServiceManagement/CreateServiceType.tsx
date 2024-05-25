@@ -31,11 +31,19 @@ const CreateServiceType: React.FC = () => {
         detail: values.description,
         isActive: true,
         service: values.service.map(
-          (item: { name: string; description: string; information: string; price: string; isActive: boolean }) => {
+          (item: {
+            name: string
+            description: string
+            information: string
+            price: string
+            isActive: boolean
+            image: string
+          }) => {
             return {
               name: item.name,
               description: item.description,
               information: item.information,
+              imageUrl: item.image,
               price: Number(item.price),
               isActive: Boolean(item.isActive)
             }
