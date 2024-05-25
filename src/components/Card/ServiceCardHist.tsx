@@ -11,7 +11,7 @@ const ServiceCardHist = (props: Props) => {
         <div className="w-full rounded-md bg-cover md:w-3/12">
           <img
             className="h-full content-center object-cover"
-            src={`https://evquseshrfnvyndhterj.supabase.co/storage/v1/object/public/cpe241-image/${props?.data?.service?.serviceType?.imageUrl || ''}`}
+            src={`https://evquseshrfnvyndhterj.supabase.co/storage/v1/object/public/cpe241-image/${props?.data?.service?.imageUrl || ''}`}
             onError={(e) => {
               e.currentTarget.src = `${window.location.origin}/user_not_found.svg`
             }}

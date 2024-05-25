@@ -6,6 +6,7 @@ export interface IService {
   description: string
   information: string
   price: number
+  imageUrl: string
   isActive: boolean
   serviceType: IServiceType
   updateAt: Date
