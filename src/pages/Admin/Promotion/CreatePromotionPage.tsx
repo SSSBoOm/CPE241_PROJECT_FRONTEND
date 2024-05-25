@@ -178,7 +178,7 @@ const CreatePromotionPage: React.FC = () => {
                           setRoomTypeSelect(arr.map((item) => Number(item.roomTypeId)))
                         }}
                       >
-                        <p>add room type</p>
+                        <p>Add Room Type</p>
                         <FaPlus className="mx-2" />
                       </button>
                     </div>
