@@ -1,3 +1,4 @@
+import CardService from '@/components/Card/CardService'
 import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { LOGIN_PATH } from '@/configs/route'
 import { IPayment } from '@/interfaces/Payment'
@@ -63,6 +64,7 @@ const ServicePage: React.FC = () => {
       })
       const data = reservationInDateRange.map((r: IReservation) => r.service?.id)
       setServiceFilter(services.filter((service) => !data.includes(service.id)))
+      setDisabled(true)
     } catch (error) {
       setDisabled(true)
       console.log('Failed:', error)
@@ -96,6 +98,34 @@ const ServicePage: React.FC = () => {
       }
     }
     fetchPayment()
+  }
+
+  const BookService = async () => {
+    try {
+      const value = await formBooking.validateFields()
+
+      const response = await AxiosInstance.post('/api/reservation', {
+        paymentInfoId: value.paymentInfoId,
+        price: selectedService?.price,
+        roomId: null,
+        serviceId: selectedService?.id,
+        startDate: dateStart?.toISOString(),
+        endDate: dateEnd?.toISOString(),
+        type: ReservationType.SERVICE
+      })
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Booking successfully'
+        }).then(() => {
+          setIsModalVisible(false)
+          window.location.reload()
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -174,7 +204,7 @@ const ServicePage: React.FC = () => {
             </Form.Item>
             <Form.Item className="min-w-[16rem] justify-center lg:inline lg:content-end">
               <button
-                className="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white"
+                className="flex w-full items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white disabled:opacity-50"
                 disabled={!disabled}
                 type="submit"
               >
@@ -185,28 +215,12 @@ const ServicePage: React.FC = () => {
           </div>
         </Form>
         <div className="mt-8 flex justify-center">
-          <div className="grid grid-cols-1 gap-8 font-normal sm:grid-cols-1">
-            {serviceFilter.map((service) => (
-              <div key={service.id} className="flex flex-col gap-4 rounded-lg bg-white p-4 shadow-lg">
-                <div className="flex flex-col justify-between">
-                  <h2 className="text-xl font-bold text-primary-blue-600">{service.name}</h2>
-                  <h2 className="text-xl font-bold text-primary-blue-600">{service.serviceType.name}</h2>
-                  <p className="text-xl font-bold text-primary-blue-600">{service.price} บาท</p>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <p className="text-lg font-bold text-primary-blue-600">รายละเอียด</p>
-                  <p className="text-lg">{service.description}</p>
-                </div>
-                <button
-                  disabled={disabled}
-                  onClick={() => {
-                    openBookingDialog(service)
-                  }}
-                >
-                  <p className="rounded-lg bg-primary-blue-600 p-2 text-lg font-bold text-white">จองบริการ</p>
-                </button>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 gap-8 font-normal md:grid-cols-2">
+            {serviceFilter
+              .sort((a, b) => a.price - b.price)
+              .map((service) => (
+                <CardService key={service.id} data={service} onClick={() => openBookingDialog(service)} />
+              ))}
           </div>
         </div>
       </div>
@@ -233,42 +247,7 @@ const ServicePage: React.FC = () => {
             </button>
             <button
               className="flex items-center justify-center gap-x-2 rounded-lg bg-primary-blue-700 px-4 py-2 font-bold text-white"
-              onClick={async () => {
-                try {
-                  const value = await formBooking.validateFields()
-                  console.log({
-                    paymentInfoId: value.paymentInfoId,
-                    price: selectedService?.price,
-                    roomId: null,
-                    serviceId: selectedService?.id,
-                    startDate: dateStart?.toISOString(),
-                    endDate: dateEnd?.toISOString(),
-                    type: ReservationType.SERVICE
-                  })
-
-                  const response = await AxiosInstance.post('/api/reservation', {
-                    paymentInfoId: value.paymentInfoId,
-                    price: selectedService?.price,
-                    roomId: null,
-                    serviceId: selectedService?.id,
-                    startDate: dateStart?.toISOString(),
-                    endDate: dateEnd?.toISOString(),
-                    type: ReservationType.SERVICE
-                  })
-                  if (response.status === 200) {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Success',
-                      text: 'Booking successfully'
-                    }).then(() => {
-                      setIsModalVisible(false)
-                      window.location.reload()
-                    })
-                  }
-                } catch (error) {
-                  console.log(error)
-                }
-              }}
+              onClick={() => BookService()}
             >
               <p>Book</p>
             </button>
