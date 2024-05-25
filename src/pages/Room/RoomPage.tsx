@@ -253,7 +253,6 @@ const RoomPage: React.FC = () => {
               .sort((a, b) => a.price - b.price)
               .map((roomType) => {
                 const promotionroomType = promotion.find((p) => p.roomTypeId === roomType.id)
-                console.log(promotionroomType)
 
                 if (promotionroomType) {
                   return (
@@ -305,24 +304,48 @@ const RoomPage: React.FC = () => {
               onClick={async () => {
                 try {
                   const value = await formBooking.validateFields()
-                  const response = await AxiosInstance.post('/api/reservation', {
-                    paymentInfoId: value.paymentInfoId,
-                    price: selectedRoomType?.price,
-                    roomId: selectedRoomType!.room![0].id,
-                    serviceId: null,
-                    startDate: dateStart?.toISOString(),
-                    endDate: dateEnd?.toISOString(),
-                    type: ReservationType.ROOM
-                  })
-                  if (response.status === 200) {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Success',
-                      text: 'Booking successfully'
-                    }).then(() => {
-                      setIsModalVisible(false)
-                      window.location.reload()
+                  const promotionroomType = promotion.find((p) => p.roomTypeId === selectedRoomType?.id)
+                  if (promotionroomType) {
+                    const response = await AxiosInstance.post('/api/reservation', {
+                      paymentInfoId: value.paymentInfoId,
+                      roomPromotionId: promotionroomType.promotionId,
+                      price: promotionroomType.price,
+                      roomId: selectedRoomType!.room![0].id,
+                      serviceId: null,
+                      startDate: dateStart?.toISOString(),
+                      endDate: dateEnd?.toISOString(),
+                      type: ReservationType.ROOM
                     })
+                    if (response.status === 200) {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Booking successfully'
+                      }).then(() => {
+                        setIsModalVisible(false)
+                        window.location.reload()
+                      })
+                    }
+                  } else {
+                    const response = await AxiosInstance.post('/api/reservation', {
+                      paymentInfoId: value.paymentInfoId,
+                      price: selectedRoomType?.price,
+                      roomId: selectedRoomType!.room![0].id,
+                      serviceId: null,
+                      startDate: dateStart?.toISOString(),
+                      endDate: dateEnd?.toISOString(),
+                      type: ReservationType.ROOM
+                    })
+                    if (response.status === 200) {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Booking successfully'
+                      }).then(() => {
+                        setIsModalVisible(false)
+                        window.location.reload()
+                      })
+                    }
                   }
                 } catch (error) {
                   console.log(error)
