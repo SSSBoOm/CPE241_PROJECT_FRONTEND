@@ -1,4 +1,5 @@
 import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
+import { LOGIN_PATH } from '@/configs/route'
 import { IPayment } from '@/interfaces/Payment'
 import { IReservation } from '@/interfaces/Reservation'
 import { IRoomType } from '@/interfaces/RoomType'
@@ -6,6 +7,7 @@ import { ReservationType } from '@/interfaces/enums/ReservationType'
 import { AxiosInstance } from '@/lib/axios'
 import { SearchOutlined } from '@ant-design/icons'
 import { DatePicker, Form, GetProps, Modal, Select } from 'antd'
+import { AxiosError } from 'axios'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -14,6 +16,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
 import React, { Fragment, lazy, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 const CardUpgrade = lazy(() => import('../../components/Card/CardUpgrade'))
 
@@ -31,6 +34,7 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 }
 
 const RoomPage: React.FC = () => {
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [formBooking] = Form.useForm()
   const [payment, setPayment] = useState<IPayment[]>([])
@@ -76,6 +80,34 @@ const RoomPage: React.FC = () => {
     }
   }
 
+  const openBookingDialog = async (roomType: IRoomType) => {
+    const fetchPayment = async () => {
+      try {
+        const result = await AxiosInstance.get('/api/user/payment')
+        setPayment(result.data.data)
+        setSelectedRoomType(roomType)
+        setIsModalVisible(true)
+      } catch (err) {
+        console.log(err)
+        if ((err as AxiosError)?.response?.status === 401) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'โปรดเข้าสู่ระบบก่อนทำการจองห้องพัก'
+          }).then(() => {
+            navigate(LOGIN_PATH)
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'เกิดข้อผิดพลาดในการโหลดข้อมูลการชำระเงินของคุณ'
+          })
+        }
+      }
+    }
+    fetchPayment()
+  }
   useEffect(() => {
     const fetchRoom = async () => {
       try {
@@ -89,15 +121,7 @@ const RoomPage: React.FC = () => {
         console.log(err)
       }
     }
-    const fetchPayment = async () => {
-      try {
-        const result = await AxiosInstance.get('/api/user/payment')
-        setPayment(result.data.data)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    Promise.all([fetchRoom(), fetchPayment()])
+    fetchRoom()
   }, [])
 
   return (
@@ -178,10 +202,7 @@ const RoomPage: React.FC = () => {
                   <CardUpgrade
                     key={roomType.id}
                     data={roomType}
-                    onClick={() => {
-                      setSelectedRoomType(roomType)
-                      setIsModalVisible(true)
-                    }}
+                    onClick={() => openBookingDialog(roomType)}
                     disabled={disabled}
                   />
                 )
