@@ -6,6 +6,7 @@ export interface IRoomType {
   detail: string
   price: number
   accommodate: number
+  imageUrl: string
   isActive: boolean
   room?: IRoom[]
   bed: string

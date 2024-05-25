@@ -2,17 +2,25 @@ import { FullscreenOutlined, UserOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
 import { IRoomType } from '../../interfaces/RoomType'
+
 type Props = {
   data: IRoomType
   onClick?: () => void
   disabled?: boolean
 }
+
 const CardUpgrade: React.FC<Props> = (props) => {
   return (
     <>
       <div className="grid w-fit min-w-[300px] rounded-md border-2 border-primary-blue-700 md:flex">
         <div className="w-full rounded-md bg-cover md:w-5/12">
-          <img className="h-full object-cover" src="StandardSuiteRoom.svg" alt="" />
+          <img
+            className="h-full object-cover"
+            src={
+              'https://evquseshrfnvyndhterj.supabase.co/storage/v1/object/public/cpe241-image/' + props.data.imageUrl
+            }
+            alt="img"
+          />
         </div>
         <div className="w-full px-2 md:w-7/12">
           <div className="mb-4 text-wrap">

@@ -21,7 +21,6 @@ export const uploadImage = async (file: File) => {
   if (error) {
     throw error
   }
-  console.log(data)
   return data.path
 }
 
