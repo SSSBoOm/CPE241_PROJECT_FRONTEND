@@ -1,5 +1,5 @@
-import React, { Fragment, lazy, ReactNode, Suspense } from 'react'
-const Navbar = lazy(() => import('../Navbar/Navbar'))
+import React, { Fragment, ReactNode, Suspense } from 'react'
+import Navbar from '../Navbar/Navbar'
 
 type Props = {
   children: ReactNode
