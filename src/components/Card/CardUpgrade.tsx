@@ -11,8 +11,6 @@ type Props = {
 }
 
 const CardUpgrade: React.FC<Props> = (props) => {
-  console.log(props.promotionPrice)
-
   return (
     <>
       <div className="grid w-fit min-w-[300px] rounded-md border-2 border-primary-blue-700 md:flex">
