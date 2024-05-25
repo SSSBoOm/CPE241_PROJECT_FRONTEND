@@ -79,11 +79,11 @@ const BookingDetails: React.FC = () => {
               </Form.Item>
 
               <Form.Item label={<p className="text-lg font-semibold">Price</p>}>
-                <Input value={booking?.status} disabled size="large" />
+                <Input value={booking?.price} disabled size="large" />
               </Form.Item>
 
-              <Form.Item label={<p className="text-lg font-semibold">Payment Status</p>}>
-                <Input value={booking?.price} disabled size="large" />
+              <Form.Item label={<p className="text-lg font-semibold">Status</p>}>
+                <Input value={booking?.status} disabled size="large" />
               </Form.Item>
 
               <div className="lg:col-span-2">
