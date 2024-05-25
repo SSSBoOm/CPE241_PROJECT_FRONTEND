@@ -5,11 +5,14 @@ import { IRoomType } from '../../interfaces/RoomType'
 
 type Props = {
   data: IRoomType
+  promotionPrice?: number
   onClick?: () => void
   disabled?: boolean
 }
 
 const CardUpgrade: React.FC<Props> = (props) => {
+  console.log(props.promotionPrice)
+
   return (
     <>
       <div className="grid w-fit min-w-[300px] rounded-md border-2 border-primary-blue-700 md:flex">
@@ -41,8 +44,21 @@ const CardUpgrade: React.FC<Props> = (props) => {
             </div>
 
             <div className="flex-col flex-wrap text-center md:flex-1">
+              {props.promotionPrice && (
+                <p className="text-2xl font-semibold text-red-600">
+                  {props.promotionPrice.toLocaleString(navigator.language, {
+                    minimumFractionDigits: 2
+                  }) +
+                    ' ' +
+                    '฿'}
+                </p>
+              )}
               <p className="text-lg font-semibold md:text-2xl">
-                {(props.data.price || 0).toLocaleString(navigator.language, { minimumFractionDigits: 2 })} ฿
+                {!props.promotionPrice &&
+                  props.data.price.toLocaleString(navigator.language, {
+                    minimumFractionDigits: 2
+                  })}{' '}
+                ฿
               </p>
               <p className="text-md md:text-md">Per Day</p>
               <Button
