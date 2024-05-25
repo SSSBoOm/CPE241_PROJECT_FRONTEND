@@ -2,7 +2,7 @@ import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { IRoomType } from '@/interfaces/RoomType'
 import { AxiosInstance } from '@/lib/axios'
 import { DeleteOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Form, GetProps, Input, Select, Space } from 'antd'
+import { Button, DatePicker, Form, GetProps, Input, InputNumber, Select, Space } from 'antd'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -12,6 +12,7 @@ import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
 import React, { useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
+import Swal from 'sweetalert2'
 const { RangePicker } = DatePicker
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
@@ -75,7 +76,7 @@ const CreatePromotionPage: React.FC = () => {
             room_type: [{ roomTypeId: '' }]
           }}
         >
-          <div className="mx-auto grid grid-cols-1 gap-x-4 lg:grid-cols-2 ">
+          <div className="mx-auto grid grid-cols-1 gap-x-4 lg:grid-cols-3 ">
             <Form.Item
               label={<p className="text-sm font-semibold">ชื่อ</p>}
               name="name"
@@ -93,11 +94,18 @@ const CreatePromotionPage: React.FC = () => {
             <Form.Item
               label={<p className="text-sm font-semibold">ราคา</p>}
               name="price"
-              rules={[{ required: true, message: 'กรุณากรอกราคาโปรโมชั่น' }]}
+              rules={[
+                { required: true, message: 'กรุณากรอกราคาโปรโมชั่น' },
+                { message: 'กรุณากรอกตัวเลข', pattern: /^[0-9]*$/ }
+              ]}
             >
-              <Input size="large" />
+              <InputNumber
+                size="large"
+                formatter={(value) => `฿ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                className="w-full"
+              />
             </Form.Item>
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-3">
               <Form.List name={'room_type'}>
                 {(Field, option) => (
                   <div>
@@ -112,9 +120,19 @@ const CreatePromotionPage: React.FC = () => {
                           >
                             <Select
                               size="large"
-                              options={roomTypeData
-                                .filter((item) => !roomTypeSelect.includes(item.id))
-                                .map((item) => ({ label: item.name, value: item.id }))}
+                              options={roomTypeData.map((item) => {
+                                const all_form_room = form.getFieldValue('room_type')
+                                console.log(all_form_room)
+                                return {
+                                  label: item.name,
+                                  value: item.id,
+                                  disabled: all_form_room
+                                    .map((e: { roomTypeId: number | string }) => {
+                                      return e.roomTypeId
+                                    })
+                                    .includes(item.id)
+                                }
+                              })}
                             />
                           </Form.Item>
                           <div className={`flex w-full justify-center`}>
@@ -132,9 +150,28 @@ const CreatePromotionPage: React.FC = () => {
                     })}
                     <div>
                       <button
-                        className="border-primary-blue text-primary-blue hover:bg-primary-blue flex flex-row items-center rounded-lg border bg-white px-4 py-2  text-sm font-bold hover:text-white"
+                        className="border-primary-blue text-primary-blue hover:bg-primary-blue flex flex-row items-center rounded-lg border bg-white px-4 py-2  text-sm font-bold hover:bg-gray-100 hover:opacity-90"
                         type="button"
                         onClick={() => {
+                          const all_form_room = form.getFieldValue('room_type')
+                          if (
+                            all_form_room.filter((item: { roomTypeId: string }) => item.roomTypeId === '').length > 0
+                          ) {
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Please fill all room type'
+                            })
+                            return
+                          }
+                          if (roomTypeSelect.length === all_form_room.length) {
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'All room type is selected'
+                            })
+                            return
+                          }
                           const initValue = { roomTypeId: '' }
                           option.add(initValue)
                           const arr: { roomTypeId: string }[] = form.getFieldValue('room_type')
