@@ -12,13 +12,16 @@ type Props = {
 const CardUpgrade: React.FC<Props> = (props) => {
   return (
     <>
-      <div className="grid w-fit min-w-[300px] rounded-md border-2 border-primary-blue-700 md:flex">
+      <div className="grid w-full min-w-[300px] rounded-md border-2 border-primary-blue-700 md:flex">
         <div className="w-full rounded-md bg-cover md:w-5/12">
           <img
             className="h-full object-cover"
             src={
               'https://evquseshrfnvyndhterj.supabase.co/storage/v1/object/public/cpe241-image/' + props.data.imageUrl
             }
+            onError={(e) => {
+              e.currentTarget.src = `${window.location.origin}/user_not_found.svg`
+            }}
             alt="img"
           />
         </div>
