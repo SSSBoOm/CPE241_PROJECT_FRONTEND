@@ -1,17 +1,32 @@
 import { ReservationDashboard } from '@/interfaces/Dashboard'
 import { AxiosInstance } from '@/lib/axios'
-import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
+import {
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip
+} from 'chart.js'
 import React, { useEffect, useState } from 'react'
-import { Pie } from 'react-chartjs-2'
-
-ChartJS.register(ArcElement, Tooltip, Legend)
+import { Bar, Pie } from 'react-chartjs-2'
+ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend)
 
 const Dashboard: React.FC = () => {
   const [reservationRoomTypeDashboard, setReservationRoomTypeDashboard] = useState<ReservationDashboard[]>([])
+  const [reservationRoomTypeCountByReserv, setReservationRoomTypeCountByReserv] = useState<ReservationDashboard[]>([])
   const [reservationServiceTypeDashboard, setReservationServiceTypeDashboard] = useState<ReservationDashboard[]>([])
+  const [reservationServiceTypeCountByReserv, setReservationServiceTypeCountByReserv] = useState<
+    ReservationDashboard[]
+  >([])
   const [reservationPaymentTypeDashboard, setReservationPaymentTypeDashboard] = useState<
     Omit<ReservationDashboard, 'id'>[]
   >([])
+  const [maintenanceByRoomType, setMaintenanceByRoomType] = useState<ReservationDashboard[]>([])
 
   useEffect(() => {
     const fetchReservationRoomTypeDashboard = async () => {
@@ -23,6 +38,22 @@ const Dashboard: React.FC = () => {
         })
         if (result.status === 200) {
           setReservationRoomTypeDashboard(result.data.data)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    const fetchReservationRoomTypeCountByReserv = async () => {
+      try {
+        const currentDate = new Date()
+        const result = await AxiosInstance.post('/api/dashboard/reservation/room_type_by_booking', {
+          startDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+          endDate: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+        })
+        if (result.status === 200) {
+          console.log(result.data.data)
+
+          setReservationRoomTypeCountByReserv(result.data.data)
         }
       } catch (err) {
         console.error(err)
@@ -42,6 +73,20 @@ const Dashboard: React.FC = () => {
         console.error(err)
       }
     }
+    const fetchReservationServiceTypeCountByReserv = async () => {
+      try {
+        const currentDate = new Date()
+        const result = await AxiosInstance.post('/api/dashboard/reservation/service_type_by_booking', {
+          startDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+          endDate: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+        })
+        if (result.status === 200) {
+          setReservationServiceTypeCountByReserv(result.data.data)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
     const fetchReservationPaymentTypeDashboard = async () => {
       try {
         const currentDate = new Date()
@@ -56,108 +101,227 @@ const Dashboard: React.FC = () => {
         console.error(err)
       }
     }
+    const fetchMaintenanceByRoomType = async () => {
+      try {
+        const currentDate = new Date()
+        const result = await AxiosInstance.post('/api/dashboard/reservation/maintenance', {
+          startDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+          endDate: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+        })
+        if (result.status === 200) {
+          setMaintenanceByRoomType(result.data.data)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
 
     Promise.all([
       fetchReservationRoomTypeDashboard(),
+      fetchReservationRoomTypeCountByReserv(),
       fetchReservationServiceTypeDashboard(),
-      fetchReservationPaymentTypeDashboard()
+      fetchReservationServiceTypeCountByReserv(),
+      fetchReservationPaymentTypeDashboard(),
+      fetchMaintenanceByRoomType()
     ])
   }, [])
   return (
     <React.Fragment>
-      <div className="container mx-auto space-y-4 px-4">
-        <h1 className="text-3xl  font-bold text-primary-blue-600">Dashboard</h1>
-        <div className="grid grid-cols-3">
-          <div className="grid grid-cols-1 gap-y-4">
-            <h1 className="text-center text-xl font-bold text-primary-blue-600">Price By Room Type</h1>
-            <div className="flex w-full justify-center">
-              <Pie
-                className="aspect-square max-w-[16rem]"
-                data={{
-                  labels: reservationRoomTypeDashboard.map((item) => item.name),
-                  datasets: [
-                    {
-                      label: 'Total Price',
-                      data: reservationRoomTypeDashboard.map((item) => item.total),
-                      backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                      ],
-                      borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                      ],
-                      borderWidth: 1
-                    }
-                  ]
-                }}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      display: true,
-                      position: 'bottom'
-                    }
-                  }
-                }}
-              />
+      <div className="container mx-auto space-y-8 px-4">
+        <h1 className="text-3xl font-bold text-primary-blue-600">Dashboard</h1>
+        <div className="grid grid-cols-1 gap-x-4 space-y-4 xl:grid-cols-2 xl:space-y-0">
+          {/* L */}
+          <div className="flex flex-col rounded-md bg-slate-300 bg-opacity-15 py-4">
+            <h1 className="text-center text-xl font-bold text-primary-blue-600">Price In Month</h1>
+            <div className="grid grid-cols-2">
+              <div className="grid grid-cols-1 gap-y-4">
+                <h1 className="text-center text-xl font-bold text-primary-blue-600">By Room Type</h1>
+                <div className="flex w-full justify-center">
+                  <Pie
+                    className="aspect-square max-w-[16rem]"
+                    data={{
+                      labels: reservationRoomTypeDashboard.map((item) => item.name),
+                      datasets: [
+                        {
+                          label: 'Total Price',
+                          data: reservationRoomTypeDashboard.map((item) => item.total),
+                          backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                          ],
+                          borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                        }
+                      ]
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: true,
+                          position: 'bottom'
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-y-4">
+                <h1 className="text-center text-xl font-bold text-primary-blue-600">Service Type</h1>
+                <div className="flex w-full justify-center">
+                  <Pie
+                    className="aspect-square max-w-[16rem]"
+                    data={{
+                      labels: reservationServiceTypeDashboard.map((item) => item.name),
+                      datasets: [
+                        {
+                          label: 'Total Price',
+                          data: reservationServiceTypeDashboard.map((item) => item.total),
+                          backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                          ],
+                          borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                        }
+                      ]
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: true,
+                          position: 'bottom'
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-y-4">
-            <h1 className="text-center text-xl font-bold text-primary-blue-600">Price By Service Type</h1>
-            <div className="flex w-full justify-center">
-              <Pie
-                className="aspect-square max-w-[16rem]"
-                data={{
-                  labels: reservationServiceTypeDashboard.map((item) => item.name),
-                  datasets: [
-                    {
-                      label: 'Total Price',
-                      data: reservationServiceTypeDashboard.map((item) => item.total),
-                      backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                      ],
-                      borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                      ],
-                      borderWidth: 1
-                    }
-                  ]
-                }}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      display: true,
-                      position: 'bottom'
-                    }
-                  }
-                }}
-              />
+          {/* R */}
+          <div className="flex flex-col rounded-md bg-slate-300 bg-opacity-15 py-4">
+            <h1 className="text-center text-xl font-bold text-primary-blue-600">Booking In Month</h1>
+            <div className="grid grid-cols-2">
+              <div className="grid grid-cols-1 gap-y-4">
+                <h1 className="text-center text-xl font-bold text-primary-blue-600">By Room Type</h1>
+                <div className="flex w-full justify-center">
+                  <Pie
+                    className="aspect-square max-w-[16rem]"
+                    data={{
+                      labels: reservationRoomTypeCountByReserv.map((item) => item.name),
+                      datasets: [
+                        {
+                          label: 'Total Price',
+                          data: reservationRoomTypeCountByReserv.map((item) => item.total),
+                          backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                          ],
+                          borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                        }
+                      ]
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: true,
+                          position: 'bottom'
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-y-4">
+                <h1 className="text-center text-xl font-bold text-primary-blue-600">By Service Type</h1>
+                <div className="flex w-full justify-center">
+                  <Pie
+                    className="aspect-square max-w-[16rem]"
+                    data={{
+                      labels: reservationServiceTypeCountByReserv.map((item) => item.name),
+                      datasets: [
+                        {
+                          label: 'Total Price',
+                          data: reservationServiceTypeCountByReserv.map((item) => item.total),
+                          backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                          ],
+                          borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                        }
+                      ]
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: true,
+                          position: 'bottom'
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="grid grid-cols-2">
           <div className="grid grid-cols-1 gap-y-4">
-            <h1 className="text-center text-xl font-bold text-primary-blue-600">Reservation By Payment Type</h1>
+            <h1 className="text-center text-xl font-bold text-primary-blue-600">Payment Type</h1>
             <div className="flex w-full justify-center">
               <Pie
                 className="aspect-square max-w-[16rem]"
@@ -167,6 +331,50 @@ const Dashboard: React.FC = () => {
                     {
                       label: 'Total Price',
                       data: reservationPaymentTypeDashboard.map((item) => item.total),
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                      ],
+                      borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1
+                    }
+                  ]
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: 'bottom'
+                    }
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-y-4">
+            <h1 className="text-center text-xl font-bold text-primary-blue-600">By Payment Type</h1>
+            <div className="flex w-full justify-center">
+              <Bar
+                className="aspect-square max-w-[16rem]"
+                data={{
+                  labels: maintenanceByRoomType.map((item) => item.name),
+                  datasets: [
+                    {
+                      label: '',
+                      data: maintenanceByRoomType.map((item) => item.total),
                       backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
