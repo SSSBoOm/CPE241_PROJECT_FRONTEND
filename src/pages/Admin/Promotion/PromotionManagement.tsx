@@ -124,7 +124,7 @@ const PromotionManagement: React.FC = () => {
               <Input size="large" value={modalData?.name} readOnly />
             </Form.Item>
             <Form.Item
-              label={<p className="text-sm font-semibold">ช่วงเวลาโปรมาชั่น</p>}
+              label={<p className="text-sm font-semibold">ช่วงเวลาโปรโมชั่น</p>}
               rules={[{ required: true, message: 'กรุณาเลือกช่วงโปรโมชั่น' }]}
             >
               <RangePicker
