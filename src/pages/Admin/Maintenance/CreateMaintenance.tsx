@@ -4,7 +4,10 @@ import { IRoom } from '@/interfaces/Room'
 import { IRoomType } from '@/interfaces/RoomType'
 import { MaintenanceStatus } from '@/interfaces/enums/Maintenance'
 import { AxiosInstance } from '@/lib/axios'
-import { Button, DatePicker, Form, GetProps, Input, Select, Space } from 'antd'
+import { uploadImage } from '@/lib/supabase'
+import { Button, DatePicker, Form, GetProps, Input, Select, Space, UploadProps } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import Dragger from 'antd/es/upload/Dragger'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -13,6 +16,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
 import weekday from 'dayjs/plugin/weekday'
 import { useEffect, useState } from 'react'
+import { MdOutlineFileUpload } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
@@ -34,6 +38,27 @@ const CreateMaintenance = () => {
   const [selectRoomType, setSelectRoomType] = useState<number>(0)
   const [room, setRoom] = useState<IRoom[]>([])
   const [roomType, setRoomType] = useState<IRoomType[]>([])
+  const [uploadImageFile, setUploadImageFile] = useState<File>(new File([], ''))
+
+  const uploadProps: UploadProps = {
+    multiple: true,
+    maxCount: 1,
+    action: '',
+    showUploadList: false,
+    beforeUpload(file) {
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg') {
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'กรุณาอัพโหลดไฟล์รูปภาพเท่านั้น',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+        return false
+      }
+      setUploadImageFile(file)
+      return false
+    }
+  }
 
   useEffect(() => {
     const fetchRoomType = async () => {
@@ -57,12 +82,37 @@ const CreateMaintenance = () => {
 
   const onFinish = async () => {
     try {
+      if (uploadImageFile.name === '') {
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'กรุณาอัพโหลดรูปภาพ',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+        return
+      }
+      // Upload Image
+      // using supa
+      let img_path = ''
+      try {
+        img_path = await uploadImage(uploadImageFile)
+      } catch (error) {
+        console.error(error)
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถอัพโหลดรูปภาพได้',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+        throw new Error('Upload Image Error')
+      }
       const values = form.getFieldsValue()
       const response = await AxiosInstance.post('/api/maintenance', {
         roomId: values.roomId,
         title: values.title,
         maintenanceLog: [
           {
+            imageUrl: img_path,
             description: values.description,
             date: values.date,
             STATUS: MaintenanceStatus.MAINTENANCE_LOG_STATUS_CASE_OPEN
@@ -160,6 +210,27 @@ const CreateMaintenance = () => {
             >
               <Input.TextArea size="large" rows={3} />
             </Form.Item>
+            <div className="my-4 aspect-video max-w-[500px] md:col-span-2">
+              <ImgCrop rotationSlider aspect={1920 / 1080}>
+                <Dragger {...uploadProps}>
+                  {uploadImageFile.name === '' ? (
+                    <div>
+                      <p className="ant-upload-drag-icon flex w-full justify-center">
+                        <MdOutlineFileUpload className="text-primary-blue h-16 w-16" />
+                      </p>
+                      <p className="text-primary-blue my-2 text-xl font-semibold underline">อัปโหลดรูปภาพ</p>
+                      <p className="text-black">ไฟล์รูปต้องเป็นขนาด 1920 W * 1080 H , สูงสุด 1 รูป</p>
+                    </div>
+                  ) : (
+                    <img
+                      src={URL.createObjectURL(uploadImageFile)}
+                      alt="preview"
+                      className="h-full w-full object-cover"
+                    />
+                  )}
+                </Dragger>
+              </ImgCrop>
+            </div>
             <div className="text-end lg:col-start-2">
               <Space>
                 <Form.Item>

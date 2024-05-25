@@ -6,21 +6,19 @@ import {
   InfoCircleOutlined,
   WarningOutlined
 } from '@ant-design/icons'
-import { Card } from 'antd'
+import { Card, Image } from 'antd'
 interface detailCard {
   C_Status_name: string
   C_Status: string
   C_Label: string
   C_Details: string
   C_Date: string
+  imageUrl: string
 }
 
 const MaintenaceStatusCard = (detailCards: detailCard) => {
   function checkStatus(Status: string) {
-    if (
-      Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_APPROVED ||
-      Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_DONE
-    ) {
+    if (Status === MaintenanceStatus.MAINTENANCE_LOG_STATUS_DONE) {
       return (
         <p className="rounded-md bg-green-600/60 p-2 text-xl font-semibold text-primary-blue-600">
           <CheckCircleOutlined />
@@ -77,9 +75,7 @@ const MaintenaceStatusCard = (detailCards: detailCard) => {
           <p className=" break-words text-sm">{detailCards.C_Details}</p>
         </div>
         <div className="mt-4 flex flex-row gap-3">
-          <img className="h-20 w-20 rounded-md object-cover" src="/Room_1.jpg" alt="" />
-          <img className="h-20 w-20 rounded-md object-cover" src="/Room_1.jpg" alt="" />
-          <img className="h-20 w-20 rounded-md object-cover" src="/Room_1.jpg" alt="" />
+          <Image className="h-20 w-20 rounded-md object-cover" src={detailCards.imageUrl} alt="" />
         </div>
       </Card>
     </>
