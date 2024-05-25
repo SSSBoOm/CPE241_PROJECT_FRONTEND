@@ -58,7 +58,6 @@ const CreateRoomType: React.FC = () => {
         throw new Error('Upload Image Error')
       }
 
-      // TODO: Validate Fields
       const response = await AxiosInstance.post('/api/room_type', {
         ...values,
         price: parseInt(values.price),
