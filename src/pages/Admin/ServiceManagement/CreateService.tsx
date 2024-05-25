@@ -49,27 +49,6 @@ const CreateService: React.FC = () => {
     fetchServiceType()
   }, [])
 
-  function cancel() {
-    Swal.fire({
-      title: 'คุณเเน่ใจที่จะออก?',
-      text: 'หากออกข้อมูลจะไม่บันทึก',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'ยกเลิก',
-      confirmButtonText: 'ใช่, เเน่ใจ'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: 'ออกสำเร็จ',
-          text: 'ข้อมูลไม่ได้ถูกบันทึก',
-          icon: 'success'
-        })
-      }
-    })
-  }
-
   const onFinish = async () => {
     try {
       const values = form.getFieldsValue()
@@ -206,7 +185,7 @@ const CreateService: React.FC = () => {
                 </Button>
               </Form.Item>
               <Form.Item>
-                <Button size="large" onClick={cancel}>
+                <Button size="large" onClick={() => navigate(SERVICE_MANAGE_PATH)}>
                   ยกเลิก
                 </Button>
               </Form.Item>

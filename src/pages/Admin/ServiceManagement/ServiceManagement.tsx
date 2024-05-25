@@ -54,16 +54,6 @@ const ServiceManagement: React.FC = () => {
           />
         )
       }
-    },
-    {
-      title: '',
-      dataIndex: '',
-      key: 'x',
-      render: () => (
-        <Link to="">
-          <PiMagnifyingGlass />
-        </Link>
-      )
     }
   ]
 
