@@ -25,6 +25,7 @@ import {
   PROMOTIONADMIN_PATH,
   REGISTER_PATH,
   RESERVATION_MANAGEMENT_PATH,
+  RESERVATION_TASK_PATH,
   ROOM_MANAGE_PATH,
   ROOM_PATH,
   SERVICE_MANAGE_PATH,
@@ -39,6 +40,8 @@ import { ConfigProvider } from 'antd'
 import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
+const Dashboard = lazy(() => import('@/pages/Admin/Dashboard/Dashboard'))
+const ReservationTask = lazy(() => import('@/pages/Admin/ReservationTask/ReservationTask'))
 const ReservationManagement = lazy(() => import('@/pages/Admin/BookingManagement/ReservationManagement'))
 const AddPaymentPage = lazy(() => import('@/pages/MyPayment/AddPaymentPage'))
 const MyPaymentPage = lazy(() => import('@/pages/MyPayment/MyPaymentPage'))
@@ -161,8 +164,9 @@ function App(): React.ReactElement {
                 </Suspense>
               }
             >
-              <Route index element={<HomePage />} />
+              <Route index element={<Dashboard />} />
               <Route path={ROOM_MANAGE_PATH} element={<RoomManagement />} />
+              <Route path={RESERVATION_TASK_PATH} element={<ReservationTask />} />
               <Route path={SERVICE_MANAGE_PATH} element={<ServiceManagement />} />
               <Route path={USER_MANAGE_PATH} element={<UserManagement />} />
               <Route path={USER_DETAILS_PATH} element={<User_details />} />

@@ -1,9 +1,11 @@
 import {
+  ADMIN_PATH,
   ADMIN_PAYMENT_PATH,
   BOOKING_LIST_PATH,
   MAINTENANCE_PATH,
   PROMOTIONADMIN_PATH,
   RESERVATION_MANAGEMENT_PATH,
+  RESERVATION_TASK_PATH,
   ROOM_MANAGE_PATH,
   SERVICE_MANAGE_PATH,
   USER_MANAGE_PATH
@@ -23,10 +25,16 @@ const StaffNavbar: React.FC = () => {
           <p className="text-3xl font-bold">Meridian Bliss</p>
           <p className="text-base font-bold">Wave & Sand</p>
           <Link
-            to="/"
+            to={ADMIN_PATH}
             className="block h-10 content-center text-center hover:bg-primary-blue-700 hover:text-primary-orange"
           >
             Dashboard
+          </Link>
+          <Link
+            to={RESERVATION_TASK_PATH}
+            className="block h-10 content-center text-center hover:bg-primary-blue-700 hover:text-primary-orange"
+          >
+            Reservation Task
           </Link>
           <Link
             to={RESERVATION_MANAGEMENT_PATH}

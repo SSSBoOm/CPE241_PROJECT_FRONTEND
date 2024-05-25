@@ -62,6 +62,8 @@ const CreateRoomPage: React.FC = () => {
           title: 'ออกสำเร็จ',
           text: 'ข้อมูลไม่ได้ถูกบันทึก',
           icon: 'success'
+        }).then(() => {
+          navigate(ROOM_MANAGE_PATH)
         })
       }
     })
