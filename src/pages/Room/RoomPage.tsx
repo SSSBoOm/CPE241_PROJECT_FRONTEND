@@ -20,6 +20,23 @@ import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 const CardUpgrade = lazy(() => import('../../components/Card/CardUpgrade'))
 
+interface Promotion {
+  id: number
+  promotionPrice: {
+    id: number
+    name: string
+    price: number
+    startDate: Date
+    endDate: Date
+    createdAt: Date
+    updatedAt: Date
+  }
+  roomType: IRoomType
+  isActive: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>
 dayjs.extend(customParseFormat)
 dayjs.extend(advancedFormat)
@@ -45,6 +62,13 @@ const RoomPage: React.FC = () => {
   const [roomTypesFilter, setRoomTypesFilter] = useState<IRoomType[]>([])
   const [dateStart, setDateStart] = useState<Date>()
   const [dateEnd, setDateEnd] = useState<Date>()
+  const [promotion, setPromotion] = useState<
+    {
+      roomTypeId: number
+      promotionId: number
+      price: number
+    }[]
+  >([])
 
   const onFinish = async () => {
     try {
@@ -64,16 +88,46 @@ const RoomPage: React.FC = () => {
         return startDate.isBefore(end_date) && endDate.isAfter(start_date)
       })
       const data = reservationInDateRange.map((r: IReservation) => r.room?.id)
-      setRoomTypesFilter(
-        roomTypes
-          .map((roomType) => {
-            return {
-              ...roomType,
-              room: roomType.room?.filter((room) => !data.includes(room.id))
+      const roomtypes = roomTypes
+        .map((roomType) => {
+          return {
+            ...roomType,
+            room: roomType.room?.filter((room) => !data.includes(room.id))
+          }
+        })
+        .filter((r) => r.room?.length !== 0)
+      setRoomTypesFilter(roomtypes)
+
+      await Promise.all([
+        roomtypes.map(async (roomType) => {
+          try {
+            const result = await AxiosInstance.get(`/api/room_type_promotion_price/room_type/${roomType.id}`)
+            if (result.data.data === null) return
+            const temp = result.data.data
+              .filter((item: Promotion) => {
+                return (
+                  dayjs(item.promotionPrice.startDate).isBefore(end_date) &&
+                  dayjs(item.promotionPrice.endDate).isAfter(start_date)
+                )
+              })
+              .sort((a: Promotion, b: Promotion) => a.promotionPrice.price - b.promotionPrice.price)
+            console.log(temp)
+
+            if (temp.length > 0) {
+              setPromotion([
+                ...promotion,
+                {
+                  roomTypeId: roomType.id,
+                  promotionId: temp[0].promotionPrice.id,
+                  price: temp[0].promotionPrice.price
+                }
+              ])
             }
-          })
-          .filter((r) => r.room?.length !== 0)
-      )
+          } catch (error) {
+            console.log('Failed:', error)
+          }
+        })
+      ])
     } catch (error) {
       setDisabled(true)
       console.log('Failed:', error)
@@ -198,6 +252,19 @@ const RoomPage: React.FC = () => {
             {roomTypesFilter
               .sort((a, b) => a.price - b.price)
               .map((roomType) => {
+                const promotionroomType = promotion.find((p) => p.roomTypeId === roomType.id)
+
+                if (promotionroomType) {
+                  return (
+                    <CardUpgrade
+                      key={roomType.id}
+                      promotionPrice={promotionroomType.price}
+                      data={roomType}
+                      onClick={() => openBookingDialog(roomType)}
+                      disabled={disabled}
+                    />
+                  )
+                }
                 return (
                   <CardUpgrade
                     key={roomType.id}
@@ -237,25 +304,48 @@ const RoomPage: React.FC = () => {
               onClick={async () => {
                 try {
                   const value = await formBooking.validateFields()
-
-                  const response = await AxiosInstance.post('/api/reservation', {
-                    paymentInfoId: value.paymentInfoId,
-                    price: selectedRoomType?.price,
-                    roomId: selectedRoomType!.room![0].id,
-                    serviceId: null,
-                    startDate: dateStart?.toISOString(),
-                    endDate: dateEnd?.toISOString(),
-                    type: ReservationType.ROOM
-                  })
-                  if (response.status === 200) {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Success',
-                      text: 'Booking successfully'
-                    }).then(() => {
-                      setIsModalVisible(false)
-                      window.location.reload()
+                  const promotionroomType = promotion.find((p) => p.roomTypeId === selectedRoomType?.id)
+                  if (promotionroomType) {
+                    const response = await AxiosInstance.post('/api/reservation', {
+                      paymentInfoId: value.paymentInfoId,
+                      roomPromotionId: promotionroomType.promotionId,
+                      price: promotionroomType.price,
+                      roomId: selectedRoomType!.room![0].id,
+                      serviceId: null,
+                      startDate: dateStart?.toISOString(),
+                      endDate: dateEnd?.toISOString(),
+                      type: ReservationType.ROOM
                     })
+                    if (response.status === 200) {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Booking successfully'
+                      }).then(() => {
+                        setIsModalVisible(false)
+                        window.location.reload()
+                      })
+                    }
+                  } else {
+                    const response = await AxiosInstance.post('/api/reservation', {
+                      paymentInfoId: value.paymentInfoId,
+                      price: selectedRoomType?.price,
+                      roomId: selectedRoomType!.room![0].id,
+                      serviceId: null,
+                      startDate: dateStart?.toISOString(),
+                      endDate: dateEnd?.toISOString(),
+                      type: ReservationType.ROOM
+                    })
+                    if (response.status === 200) {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Booking successfully'
+                      }).then(() => {
+                        setIsModalVisible(false)
+                        window.location.reload()
+                      })
+                    }
                   }
                 } catch (error) {
                   console.log(error)
