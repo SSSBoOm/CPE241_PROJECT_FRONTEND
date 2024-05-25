@@ -1,8 +1,43 @@
-import { Card, Carousel } from 'antd'
-import React, { Fragment, lazy } from 'react'
+import CardService from '@/components/Card/CardService'
+import CardUpgrade from '@/components/Card/CardUpgrade'
+import { ROOM_PATH, SERVICE_PATH } from '@/configs/route'
+import { IRoomType } from '@/interfaces/RoomType'
+import { IService } from '@/interfaces/Service'
+import { AxiosInstance } from '@/lib/axios'
+import { Carousel } from 'antd'
+import React, { Fragment, lazy, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 const Footer = lazy(() => import('../../components/Footer/Footer'))
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate()
+  const [roomTypes, setRoomTypes] = useState<IRoomType[]>([])
+  const [services, setServices] = useState<IService[]>([])
+
+  useEffect(() => {
+    const fetchRoom = async () => {
+      try {
+        const result = await AxiosInstance.get('/api/room_type')
+        const roomType: IRoomType[] = result.data.data.reduce((acc: IRoomType[], r: IRoomType) => {
+          return [...acc, { ...r, room: r.room?.filter((room) => room.isActive) }]
+        }, [] as IRoomType[])
+        setRoomTypes(roomType.filter((r: IRoomType) => r.room?.length !== 0))
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    const fetchService = async () => {
+      try {
+        const result = await AxiosInstance.get('/api/service')
+        setServices(
+          (result.data.data as IService[]).filter((service) => service.serviceType.isActive && service.isActive)
+        )
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    Promise.all([fetchRoom(), fetchService()])
+  }, [])
   return (
     <Fragment>
       {/* BG top page */}
@@ -47,33 +82,24 @@ const HomePage: React.FC = () => {
         </div>
       </Carousel>
 
-      <Carousel autoplay className=" my-9 h-96 w-full object-none">
-        <div>
-          <div className="flex justify-around">
-            <div className="">
-              <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-              />
-            </div>
-            <div>
-              <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-              />
-            </div>
-            <div>
-              <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-              />
-            </div>
-          </div>
+      <div className="container grid grid-cols-1 gap-5 px-4 md:mx-auto md:grid-cols-2">
+        {/* using left is room and right is service  */}
+        <div className="scrollbar-hide container mx-auto my-8 grid max-h-[40rem] scroll-m-5 grid-cols-1 gap-y-4 overflow-y-auto px-4 md:grid-cols-1 md:gap-x-4">
+          <h2 className="text-3xl">Room</h2>
+          {roomTypes &&
+            roomTypes.map((roomType: IRoomType) => (
+              <CardUpgrade key={roomType.id} data={roomType} onClick={() => navigate(ROOM_PATH)} />
+            ))}
         </div>
-      </Carousel>
+
+        <div className="scrollbar-hide container mx-auto my-8 grid max-h-[40rem] grid-cols-1 gap-y-4 overflow-y-auto px-4 md:grid-cols-1 md:gap-x-4">
+          <h2 className="text-3xl">Services</h2>
+          {services &&
+            services.map((service: IService) => (
+              <CardService key={service.id} data={service} onClick={() => navigate(SERVICE_PATH)} />
+            ))}
+        </div>
+      </div>
 
       <Footer />
     </Fragment>
