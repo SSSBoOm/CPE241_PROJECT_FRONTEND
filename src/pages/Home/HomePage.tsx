@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
     <Fragment>
       {/* BG top page */}
       <div className="relative max-h-[32rem]">
-        <h1 className="absolute top-1/2 w-full text-center text-6xl font-bold text-white">Hotel Del Luna</h1>
+        <h1 className="absolute top-1/2 w-full text-center text-6xl font-bold text-white">Meridian Bliss</h1>
         <img className="max-h-[32rem] w-full object-cover" src="landing_hotel.jpg" alt="hero" />
       </div>
 
@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
       <div className="container mx-auto my-8 grid grid-cols-1 gap-y-4 px-4 md:grid-cols-2 md:gap-x-4">
         <img src="hotel-pool.jpg" className="aspect-video w-full object-cover" alt="" />
         <div className="">
-          <h2 className="text-3xl">Hotel Del Luna</h2>
+          <h2 className="text-3xl">Meridian Bliss</h2>
           <p className="text-xl">
             พักผ่อนกาย ผ่อนคลายใจ ริมชายหาดส่วนตัว ขึ้นชื่อเรื่องหาดทรายขาว น้ำทะเลใส เหมาะกับการพักผ่อน
             สัมผัสบรรยากาศสุดโรแมนติก ชมพระอาทิตย์ขึ้นและตกดินเหนือท้องทะเล เพลิดเพลินกับกิจกรรมทางน้ำมากมาย เช่น
