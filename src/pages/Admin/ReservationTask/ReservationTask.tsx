@@ -111,12 +111,13 @@ const ReservationTask: React.FC = () => {
         <h1 className="text-3xl  font-bold text-primary-blue-600">Reservation Task</h1>
         <Table
           columns={Columns}
-          dataSource={reservationTask.filter((item) => {
-            const currentDate = new Date()
-            const startDate = new Date(currentDate.setHours(0, 0, 0, 0))
-            const endDate = new Date(currentDate.setHours(23, 59, 59, 999))
-            return new Date(item.date) >= startDate && new Date(item.date) <= endDate && item.status === false
-          })}
+          dataSource={reservationTask}
+          // dataSource={reservationTask.filter((item) => {
+          //   const currentDate = new Date()
+          //   const startDate = new Date(currentDate.setHours(0, 0, 0, 0))
+          //   const endDate = new Date(currentDate.setHours(23, 59, 59, 999))
+          //   return new Date(item.date) >= startDate && new Date(item.date) <= endDate && item.status === false
+          // })}
         />
       </div>
     </React.Fragment>
