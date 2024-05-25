@@ -84,6 +84,7 @@ const ServiceManagement: React.FC = () => {
       render: (_, record: IService, index: number) => {
         return (
           <Switch
+            defaultValue={true}
             value={record.isActive}
             onChange={async (value: boolean) => {
               try {

@@ -2,10 +2,12 @@ import customizeRequiredMark from '@/components/utils/customizeRequiredMark'
 import { SERVICE_MANAGE_PATH } from '@/configs/route'
 import { IServiceType } from '@/interfaces/ServiceType'
 import { AxiosInstance } from '@/lib/axios'
-import { PlusOutlined } from '@ant-design/icons'
-import { Button, Form, Input, Select, Space, Upload } from 'antd'
+import { uploadImage } from '@/lib/supabase'
+import { Button, Form, Input, Select, Space, UploadProps } from 'antd'
 import ImgCrop from 'antd-img-crop'
+import Dragger from 'antd/es/upload/Dragger'
 import React, { useEffect, useState } from 'react'
+import { MdOutlineFileUpload } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
@@ -13,6 +15,27 @@ const CreateService: React.FC = () => {
   const [form] = Form.useForm()
   const navigate = useNavigate()
   const [serviceTypeData, setServiceTypeData] = useState<IServiceType[]>([])
+  const [uploadImageFile, setUploadImageFile] = useState<File>(new File([], ''))
+
+  const uploadProps: UploadProps = {
+    multiple: true,
+    maxCount: 1,
+    action: '',
+    showUploadList: false,
+    beforeUpload(file) {
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg') {
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'กรุณาอัพโหลดไฟล์รูปภาพเท่านั้น',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+        return false
+      }
+      setUploadImageFile(file)
+      return false
+    }
+  }
 
   useEffect(() => {
     const fetchServiceType = async () => {
@@ -50,13 +73,37 @@ const CreateService: React.FC = () => {
   const onFinish = async () => {
     try {
       const values = form.getFieldsValue()
-      console.log(values)
+      if (uploadImageFile.name === '') {
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'กรุณาอัพโหลดรูปภาพ',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+        return
+      }
+      // Upload Image
+      // using supa
+      let img_path = ''
+      try {
+        img_path = await uploadImage(uploadImageFile)
+      } catch (error) {
+        console.error(error)
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถอัพโหลดรูปภาพได้',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+        throw new Error('Upload Image Error')
+      }
 
       const response = await AxiosInstance.post('/api/service', {
         description: values.description,
         information: values.information,
-        isActive: values.isActive,
+        isActive: true,
         name: values.name,
+        imageUrl: img_path,
         price: Number(values.price),
         serviceTypeId: Number(values.serviceTypeId)
       })
@@ -127,19 +174,30 @@ const CreateService: React.FC = () => {
             >
               <Input size="large" placeholder="ราคา" />
             </Form.Item>
-            <div className="flex w-full flex-wrap">
-              <Form.Item label={<p className="font-semibold">Upload</p>} valuePropName="fileList">
-                <ImgCrop>
-                  <Upload action="/upload.do" listType="picture-card">
-                    <button style={{ border: 0, background: 'none' }} type="button">
-                      <PlusOutlined />
-                      <div style={{ marginTop: 8 }}>Upload</div>
-                    </button>
-                  </Upload>
-                </ImgCrop>
-              </Form.Item>
-            </div>
           </div>
+
+          <div className="my-4 aspect-video max-w-[500px] md:col-span-3">
+            <ImgCrop rotationSlider aspect={1920 / 1080}>
+              <Dragger {...uploadProps}>
+                {uploadImageFile.name === '' ? (
+                  <div>
+                    <p className="ant-upload-drag-icon flex w-full justify-center">
+                      <MdOutlineFileUpload className="text-primary-blue h-16 w-16" />
+                    </p>
+                    <p className="text-primary-blue my-2 text-xl font-semibold underline">อัปโหลดรูปภาพ</p>
+                    <p className="text-black">ไฟล์รูปต้องเป็นขนาด 1920 W * 1080 H , สูงสุด 1 รูป</p>
+                  </div>
+                ) : (
+                  <img
+                    src={URL.createObjectURL(uploadImageFile)}
+                    alt="preview"
+                    className="h-full w-full object-cover"
+                  />
+                )}
+              </Dragger>
+            </ImgCrop>
+          </div>
+
           <div className="flex w-full flex-row content-center justify-end ">
             <Space>
               <Form.Item>
