@@ -1,6 +1,5 @@
 import {
   BASE_PATH,
-  CART_PATH,
   FACILITY_PATH,
   HISTORY_PATH,
   LOGIN_PATH,
@@ -12,7 +11,7 @@ import {
 } from '@/configs/route'
 import { AuthContext } from '@/contexts/AuthContext'
 import { handleLogout } from '@/lib/googleSignUp'
-import { MenuOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
+import { MenuOutlined, UserOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import React, { useContext, useState } from 'react'
@@ -84,12 +83,6 @@ const Navbar: React.FC = () => {
           <div className="content-center justify-self-end">
             {isAuthenticated ? (
               <>
-                <Link to="" className="mx-3">
-                  <ShoppingCartOutlined
-                    className="text-primary-b2  hover:text-primary-orange"
-                    style={{ fontSize: '32px' }}
-                  />
-                </Link>
                 <Dropdown menu={{ items }} placement="bottom" trigger={['click']}>
                   <a onClick={(e) => e.preventDefault()}>
                     <UserOutlined
@@ -158,12 +151,6 @@ const Navbar: React.FC = () => {
           {isAuthenticated ? (
             <>
               <hr />
-              <Link
-                to={CART_PATH}
-                className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
-              >
-                Cart
-              </Link>
               <Link
                 to={PROFILE_PATH}
                 className="block bg-primary-blue-500 py-2 text-center text-lg text-primary-b2 hover:text-primary-orange"
