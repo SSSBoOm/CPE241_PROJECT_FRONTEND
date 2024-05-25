@@ -51,8 +51,6 @@ const Dashboard: React.FC = () => {
           endDate: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
         })
         if (result.status === 200) {
-          console.log(result.data.data)
-
           setReservationRoomTypeCountByReserv(result.data.data)
         }
       } catch (err) {

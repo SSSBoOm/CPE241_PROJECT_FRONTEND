@@ -87,6 +87,7 @@ const ReservationTask: React.FC = () => {
     const fetchReservationTask = async () => {
       try {
         const result = await AxiosInstance.get('/api/reservation_task')
+        console.log(result.data.data)
 
         if (result.status === 200) {
           setReservationTask(result.data.data)
@@ -98,8 +99,6 @@ const ReservationTask: React.FC = () => {
           text: 'Something went wrong',
           icon: 'error',
           confirmButtonText: 'OK'
-        }).then(() => {
-          navigate(ADMIN_PATH)
         })
       }
     }
@@ -116,7 +115,7 @@ const ReservationTask: React.FC = () => {
             const currentDate = new Date()
             const startDate = new Date(currentDate.setHours(0, 0, 0, 0))
             const endDate = new Date(currentDate.setHours(23, 59, 59, 999))
-            return item.date >= startDate && item.date <= endDate && item.status === false
+            return new Date(item.date) >= startDate && new Date(item.date) <= endDate && item.status === false
           })}
         />
       </div>
