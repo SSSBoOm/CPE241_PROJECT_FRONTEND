@@ -1,3 +1,4 @@
+import CustomModal from '@/components/Modal/CustomModal'
 import { ADD_ROOM_PATH, ADD_ROOM_TYPE_PATH } from '@/configs/route'
 import { IRoom } from '@/interfaces/Room'
 import { IRoomType } from '@/interfaces/RoomType'
@@ -13,7 +14,8 @@ import Swal from 'sweetalert2'
 const RoomManagement: React.FC = () => {
   const [roomTypeData, setRoomTypeData] = useState<IRoomType[]>([])
   const [roomData, setRoomData] = useState<IRoom[]>([])
-
+  const [roomTypeModal, setRoomTypeModal] = useState<IRoomType | null>(null)
+  const [roomTypeModalVisible, setRoomTypeModalVisible] = useState<boolean>(false)
   const roomTypeCol: TableColumnsType<IRoomType> = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'Price', dataIndex: 'price', key: 'price' },
@@ -61,10 +63,10 @@ const RoomManagement: React.FC = () => {
       title: '',
       dataIndex: '',
       key: 'x',
-      render: () => (
-        <Link to="">
+      render: (_: string, e: IRoomType) => (
+        <Button onClick={() => openRoomTypeModal(e)} className="border-0">
           <PiMagnifyingGlass />
-        </Link>
+        </Button>
       )
     }
   ]
@@ -129,7 +131,12 @@ const RoomManagement: React.FC = () => {
       )
     }
   ]
-
+  const openRoomTypeModal = (roomtype: IRoomType) => {
+    console.log('open room type modal')
+    console.log(roomtype)
+    setRoomTypeModal(roomtype)
+    setRoomTypeModalVisible(true)
+  }
   useEffect(() => {
     const fetchRoomType = async () => {
       try {
@@ -183,7 +190,7 @@ const RoomManagement: React.FC = () => {
           <div className="flex w-full justify-between px-4">
             <p className="text-3xl  font-bold text-primary-blue-600">Room</p>
             <Link to={ADD_ROOM_PATH}>
-              <Button type="primary" className="flex" size="large">
+              <Button type="primary" className="flex gap-x-2" size="large">
                 <p>Add Room</p>
                 <PlusOutlined className="place-self-end self-center" />
               </Button>
@@ -203,6 +210,13 @@ const RoomManagement: React.FC = () => {
           </div>
         </div>
       </div>
+      <CustomModal
+        visible={roomTypeModalVisible}
+        onClose={() => setRoomTypeModalVisible(false)}
+        title={`Room Type: ${roomTypeModal?.name}`}
+      >
+        <div>{roomTypeModal?.name}</div>
+      </CustomModal>
     </Fragment>
   )
 }
